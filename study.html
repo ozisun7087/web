@@ -1,5 +1,5 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>Listening 修正版會自動補上每題的題問。</p></div></div><script>
-(async()=>{try{let r=await fetch('./index.html?listening_questions=v2',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);let html=await r.text();const patch=`<script>(function(){
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>Listening／Speaking 播放功能已加強重播與手機相容性。</p></div></div><script>
+(async()=>{try{let r=await fetch('./index.html?playback_fix=v4',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);let html=await r.text();const patch=`<script>(function(){
 const qs=[
 'When will the elevator maintenance occur?',
 'When will the interviews probably happen?',
@@ -15,9 +15,84 @@ const qs=[
 if(typeof longListen!=='undefined'&&Array.isArray(longListen)){
  longListen.forEach((x,i)=>{if(qs[i]&&!String(x[0]).includes(' Question. '))x[0]=String(x[0])+' Question. '+qs[i]});
 }
-function relabelListening(){document.querySelectorAll('button.play').forEach(b=>{let t=b.dataset.text||'';if(t.includes(' Question. ')){b.textContent='▶ 播放內容＋題問';let row=b.closest('.audio');let hint=row&&row.querySelector('.small');if(hint)hint.textContent='音檔最後會播放明確題問，聽完再選答';if(row&&!row.querySelector('.replay-q')){let q=t.split(' Question. ').slice(1).join(' Question. '),rb=document.createElement('button');rb.type='button';rb.className='ghost replay-q';rb.textContent='↻ 只重播題問';rb.addEventListener('click',()=>{if(typeof speakText==='function')speakText(q,b.dataset.lang||'en-US',rb)});row.insertBefore(rb,hint||null)}}else if(b.closest('.q')){let hint=b.closest('.audio')&&b.closest('.audio').querySelector('.small');if(hint&&hint.textContent.includes('建議只播放一次'))hint.textContent='請選擇最適合的回應'}})}
+
+let __speechToken=0,__speechTimer=null,__speechWatch=null,__speechUtterance=null,__speechBtn=null,__speechStarted=false;
+function __resetSpeechButton(btn){if(!btn)return;btn.disabled=false;if(btn.dataset.playLabel)btn.textContent=btn.dataset.playLabel;btn.removeAttribute('aria-busy');}
+function __findVoice(lang){
+ const vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];
+ if(typeof voiceFor==='function'){try{const v=voiceFor(lang);if(v)return v}catch(e){}}
+ const exact=vs.find(v=>(v.lang||'').toLowerCase()===String(lang||'en-US').toLowerCase());
+ if(exact)return exact;
+ const base=String(lang||'en-US').slice(0,2).toLowerCase();
+ return vs.find(v=>(v.lang||'').toLowerCase().startsWith(base))||vs.find(v=>(v.lang||'').toLowerCase().startsWith('en'))||null;
+}
+function __speakOnce(text,lang,btn,token,isRetry){
+ if(token!==__speechToken)return;
+ const synth=window.speechSynthesis;
+ try{if(synth.paused)synth.resume()}catch(e){}
+ const u=new SpeechSynthesisUtterance(String(text||''));
+ __speechUtterance=u;u.lang=lang||'en-US';u.rate=.9;u.pitch=1;u.volume=1;
+ const v=__findVoice(u.lang);if(v)u.voice=v;
+ u.onstart=()=>{if(token!==__speechToken)return;__speechStarted=true;if(btn){btn.textContent='🔊 播放中｜再按可重播';btn.setAttribute('aria-busy','true')}};
+ u.onend=()=>{if(token!==__speechToken)return;clearTimeout(__speechWatch);__resetSpeechButton(btn);__speechUtterance=null;__speechStarted=false};
+ u.onerror=()=>{if(token!==__speechToken)return;clearTimeout(__speechWatch);if(!isRetry){try{synth.cancel()}catch(e){};__speechTimer=setTimeout(()=>__speakOnce(text,lang,btn,token,true),180)}else{__resetSpeechButton(btn);if(btn){btn.textContent='⚠ 無法播放｜再按重試';setTimeout(()=>__resetSpeechButton(btn),1800)}}};
+ try{synth.speak(u)}catch(e){u.onerror()}
+ __speechWatch=setTimeout(()=>{
+   if(token!==__speechToken||__speechStarted)return;
+   let active=false;try{active=!!(synth.speaking||synth.pending)}catch(e){}
+   if(!active&&!isRetry){try{synth.cancel();synth.resume()}catch(e){};__speechTimer=setTimeout(()=>__speakOnce(text,lang,btn,token,true),160)}
+ },800);
+}
+window.__toeflSpeak=function(text,lang,btn){
+ if(!('speechSynthesis' in window)){alert('目前瀏覽器不支援語音播放，請改用 Safari／Chrome 開啟。');return}
+ const synth=window.speechSynthesis;const token=++__speechToken;__speechStarted=false;
+ clearTimeout(__speechTimer);clearTimeout(__speechWatch);
+ if(__speechBtn&&__speechBtn!==btn)__resetSpeechButton(__speechBtn);__speechBtn=btn;
+ if(btn&&!btn.dataset.playLabel)btn.dataset.playLabel=btn.textContent;
+ if(btn){btn.disabled=false;btn.textContent='準備播放…';btn.setAttribute('aria-busy','true')}
+ try{synth.cancel()}catch(e){}
+ try{if(synth.paused)synth.resume()}catch(e){}
+ __speechTimer=setTimeout(()=>__speakOnce(text,lang,btn,token,false),140);
+};
+window.speakText=function(text,lang,btn){window.__toeflSpeak(text,lang,btn)};
+
+function wireReliablePlayback(){
+ document.querySelectorAll('button.play').forEach(b=>{
+   if(!b.dataset.playLabel)b.dataset.playLabel=b.textContent;
+   b.disabled=false;b.onclick=(ev)=>{ev.preventDefault();window.__toeflSpeak(b.dataset.text||'',b.dataset.lang||'en-US',b)};
+ });
+ document.querySelectorAll('button.splay').forEach(b=>{
+   if(!b.dataset.playLabel)b.dataset.playLabel=b.textContent;
+   b.disabled=false;b.onclick=(ev)=>{ev.preventDefault();window.__toeflSpeak(b.dataset.text||'','en-US',b)};
+ });
+ document.querySelectorAll('button.replay-q').forEach(b=>{
+   if(!b.dataset.playLabel)b.dataset.playLabel=b.textContent;
+   b.disabled=false;
+ });
+}
+function relabelListening(){
+ document.querySelectorAll('button.play').forEach(b=>{
+   let t=b.dataset.text||'';
+   if(t.includes(' Question. ')){
+     b.textContent='▶ 播放內容＋題問';b.dataset.playLabel=b.textContent;
+     let row=b.closest('.audio');let hint=row&&row.querySelector('.small');
+     if(hint)hint.textContent='音檔最後會播放明確題問，聽完再選答';
+     if(row&&!row.querySelector('.replay-q')){
+       let q=t.split(' Question. ').slice(1).join(' Question. '),rb=document.createElement('button');
+       rb.type='button';rb.className='ghost replay-q';rb.textContent='↻ 只重播題問';rb.dataset.playLabel=rb.textContent;
+       rb.onclick=(ev)=>{ev.preventDefault();window.__toeflSpeak(q,b.dataset.lang||'en-US',rb)};
+       row.insertBefore(rb,hint||null)
+     }
+   }else if(b.closest('.q')){
+     let hint=b.closest('.audio')&&b.closest('.audio').querySelector('.small');
+     if(hint&&hint.textContent.includes('建議只播放一次'))hint.textContent='請選擇最適合的回應';
+   }
+ });
+ wireReliablePlayback();
+}
 if(typeof render==='function'){const _render=render;render=function(){_render();setTimeout(relabelListening,0)}}
 if(typeof mockPart==='function'){const _mock=mockPart;mockPart=function(p){_mock(p);setTimeout(relabelListening,0)}}
-if(typeof render==='function')render();setTimeout(relabelListening,0);
+if('speechSynthesis'in window){try{speechSynthesis.getVoices()}catch(e){};speechSynthesis.onvoiceschanged=()=>{try{speechSynthesis.getVoices()}catch(e){}}}
+if(typeof render==='function')render();setTimeout(relabelListening,0);setTimeout(wireReliablePlayback,250);
 })();<\/script>`;html=html.replace('</body>',patch+'</body>');document.open();document.write(html);document.close()}catch(e){document.getElementById('status').innerHTML='<b class="error">網站載入失敗</b><p>請重新整理頁面；若仍失敗，請改用 Safari／Chrome 開啟。</p><p class="error">'+String(e.message||e)+'</p>'}})();
 </script></body></html>
