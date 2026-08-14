@@ -1,0 +1,84 @@
+name: Fix Listening questions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-listening.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch Listening question flow
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          new_long = r'''const longListen=[
+          ['Attention residents. Elevator maintenance has been moved from Friday to Thursday morning. The north tower elevator will be unavailable from nine to noon. Residents needing step-free access should use the south entrance.','When will the elevator maintenance occur?',['Friday morning','Thursday morning','Thursday afternoon'],1],
+          ['Student: I planned to interview residents on Monday. Advisor: Monday may be difficult because the community center is closed. Why not Tuesday afternoon? Student: That works, and I can analyze the interviews Wednesday.','When will the interviews probably happen?',['Monday','Tuesday afternoon','Wednesday'],1],
+          ['The public lecture on housing affordability will begin thirty minutes later than announced. Instead of six, it will start at six thirty in Room 201.','What has changed about the public lecture?',['The room','The topic','The starting time'],2],
+          ['Place attachment refers to the emotional bonds people develop with particular locations through memories, social relationships, and repeated everyday activities.','What is the talk mainly about?',['Construction costs','Emotional connections to place','Transportation'],1],
+          ['Researchers distinguish quantitative indicators, such as rent levels, from qualitative evidence, such as interviews describing everyday experience. Combining both can produce a fuller understanding of neighborhood change.','Why do researchers combine both types of evidence?',['To eliminate interviews','To understand change more fully','To reduce sample size'],1],
+          ['Student: Should I only interview homeowners? Professor: No. Include tenants too, because redevelopment may affect them differently.','Why does the professor recommend including tenants?',['They may experience different effects','They own more buildings','They are easier to contact'],0],
+          ['Written comments on the redevelopment plan will be accepted until September eighteenth. The public meeting itself is on September twelfth.','What is the final day for submitting written comments?',['September 12','September 18','September 28'],1],
+          ['Preservation can protect cultural identity, but strict preservation rules may reduce the amount of land available for new housing.','What trade-off is mentioned in the talk?',['Culture and housing supply','Transit and tourism','Safety and education'],0],
+          ['Student: My survey response rate is low. Advisor: Try sending one reminder, but do not send repeated messages because participants may feel pressured.','What does the advisor recommend?',['Send one reminder','Cancel the survey','Call every participant daily'],0],
+          ['Public interest is not always a single objective. A project may improve safety while reducing affordability, so planners often need to balance competing benefits and costs.','What is the main point of the talk?',['Public interest can involve trade-offs','Safety always outweighs affordability','Costs should be ignored'],0]
+          ];
+          '''
+          a = s.index('const longListen=')
+          b = s.index('const sentenceQs=', a)
+          s = s[:a] + new_long + s[b:]
+
+          new_lmcq = r'''function lmcq(id,text,c,a,q=''){let ac=accFor(id),hasQ=!!q,spoken=hasQ?text+' Question. '+q:text,label=hasQ?'▶ 播放內容＋題問':'▶ 播放問句／陳述',hint=hasQ?'聽完最後的題問後再選答案':'請選擇最適合的回應';return `<div class="q"><div class="audio"><button class="play" data-text="${esc(spoken)}" data-lang="${ac[0]}">${label}</button>${hasQ?`<button class="ghost play" data-text="${esc(q)}" data-lang="${ac[0]}">↻ 只重播題問</button>`:''}<span class="small">${hint}</span></div>${c.map((x,i)=>`<label class="option"><input type="radio" name="${id}" value="${i}"> ${x}</label>`).join('')}<div class="actions"><button class="ghost ckmcq" data-name="${id}" data-a="${a}">檢查答案</button></div><div class="feedback"></div></div>`}
+          '''
+          a = s.index('function lmcq(')
+          b = s.index('function rubric(', a)
+          s = s[:a] + new_lmcq + s[b:]
+
+          old = "${longListen.map((x,i)=>lmcq('ll'+i,x[0],x[1],x[2])).join('')}"
+          new = "${longListen.map((x,i)=>lmcq('ll'+i,x[0],x[2],x[3],x[1])).join('')}"
+          if old not in s:
+              raise SystemExit('Could not find normal Listening render mapping')
+          s = s.replace(old, new, 1)
+
+          old = "${listenResp.concat(longListen).map((x,i)=>lmcq('ml'+i,x[0],x[1],x[2])).join('')}"
+          new = "${listenResp.map((x,i)=>lmcq('mlr'+i,x[0],x[1],x[2])).join('')}${longListen.map((x,i)=>lmcq('mll'+i,x[0],x[2],x[3],x[1])).join('')}"
+          if old not in s:
+              raise SystemExit('Could not find Mock Listening render mapping')
+          s = s.replace(old, new, 1)
+
+          s = s.replace('Listening｜18題</h3><div class="accent-note">', 'Listening｜18題</h3><div class="accent-note"><b>每題都有明確題問</b><br><span class="small">Conversation／Announcement／Academic Talk 會依序播放「內容 → 題問」；Listen and Choose a Response 則播放問句／陳述後選擇最適合回應。</span></div><div class="accent-note">', 1)
+          p.write_text(s, encoding='utf-8')
+
+          assert s.count('Question. ') >= 1
+          assert '▶ 播放內容＋題問' in s
+          assert '↻ 只重播題問' in s
+          assert 'When will the elevator maintenance occur?' in s
+          assert "lmcq('mll'+i,x[0],x[2],x[3],x[1])" in s
+          print('Listening question flow patched successfully')
+          PY
+      - name: Validate JavaScript syntax
+        run: |
+          python - <<'PY'
+          import re, pathlib
+          s=pathlib.Path('index.html').read_text(encoding='utf-8')
+          js=re.search(r'<script>([\s\S]*?)</script>',s).group(1)
+          pathlib.Path('/tmp/site.js').write_text(js,encoding='utf-8')
+          PY
+          node --check /tmp/site.js
+      - name: Commit patched site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Ensure every Listening item includes a question"
+          git push
