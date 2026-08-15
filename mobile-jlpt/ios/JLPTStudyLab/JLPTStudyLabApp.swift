@@ -63,20 +63,16 @@ struct JLPTWebView: UIViewRepresentable {
 
 struct AdMobBanner: View {
     var body: some View {
-        let width = max(320, UIScreen.main.bounds.width)
-        let adSize = largeAnchoredAdaptiveBanner(width: width)
-        BannerViewContainer(adSize: adSize)
-            .frame(width: adSize.size.width, height: adSize.size.height)
+        BannerViewContainer()
+            .frame(width: 320, height: 50)
             .frame(maxWidth: .infinity)
             .background(Color.white)
     }
 }
 
 private struct BannerViewContainer: UIViewRepresentable {
-    let adSize: AdSize
-
     func makeUIView(context: Context) -> BannerView {
-        let banner = BannerView(adSize: adSize)
+        let banner = BannerView(adSize: AdSizeBanner)
         // Google official iOS banner test ID. Replace before publishing.
         banner.adUnitID = "ca-app-pub-3940256099942544/2435281174"
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
