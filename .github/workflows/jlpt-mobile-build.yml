@@ -134,9 +134,9 @@ jobs:
           gh release upload jlpt-mobile-v1 \
             dist/android/JLPT-Study-Lab-Android.apk \
             dist/android/JLPT-Study-Lab-Google-Play.aab \
-            dist/ios/JLPT-Study-Lab-iOS-unsigned.ipa \
-            dist/ios/generated/app-store-icon-1024.png \
-            dist/ios/generated/google-play-icon-512.png \
-            dist/ios/generated/google-play-feature-1024x500.png \
+            dist/ios/ios/JLPT-Study-Lab-iOS-unsigned.ipa \
+            dist/ios/store-listing/generated/app-store-icon-1024.png \
+            dist/ios/store-listing/generated/google-play-icon-512.png \
+            dist/ios/store-listing/generated/google-play-feature-1024x500.png \
             mobile-jlpt/ios/JLPT-Study-Lab-iOS-WebClip.mobileconfig \
             --clobber
