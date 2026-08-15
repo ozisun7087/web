@@ -21,25 +21,69 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Install Android SDK
-        run: yes | sdkmanager --licenses >/dev/null || true; sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - name: Install Android 16 SDK
+        run: yes | sdkmanager --licenses >/dev/null || true; sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.10.2'
-      - name: Build Android APK
+          gradle-version: '9.5.0'
+      - name: Create private Google Play upload key
+        shell: bash
+        run: |
+          set -euo pipefail
+          STORE_PASS="$(openssl rand -hex 24)"
+          KEY_PASS="$(openssl rand -hex 24)"
+          echo "::add-mask::$STORE_PASS"
+          echo "::add-mask::$KEY_PASS"
+          keytool -genkeypair -v \
+            -storetype JKS \
+            -keystore "$GITHUB_WORKSPACE/upload-keystore.jks" \
+            -alias upload \
+            -keyalg RSA -keysize 4096 -validity 10000 \
+            -storepass "$STORE_PASS" -keypass "$KEY_PASS" \
+            -dname "CN=JLPT Study Lab, OU=Mobile, O=JLPT Study Lab, L=Taoyuan, ST=Taiwan, C=TW"
+          {
+            echo "Keystore file: upload-keystore.jks"
+            echo "Keystore password: $STORE_PASS"
+            echo "Key alias: upload"
+            echo "Key password: $KEY_PASS"
+          } > "$GITHUB_WORKSPACE/android-upload-key-credentials.txt"
+          echo "JLPT_KEYSTORE_PATH=$GITHUB_WORKSPACE/upload-keystore.jks" >> "$GITHUB_ENV"
+          echo "JLPT_KEYSTORE_PASSWORD=$STORE_PASS" >> "$GITHUB_ENV"
+          echo "JLPT_KEY_ALIAS=upload" >> "$GITHUB_ENV"
+          echo "JLPT_KEY_PASSWORD=$KEY_PASS" >> "$GITHUB_ENV"
+      - name: Build Android APK and signed Play AAB
         working-directory: mobile-jlpt/android
-        run: gradle :app:assembleDebug --stacktrace
-      - name: Prepare Android artifact
-        run: cp mobile-jlpt/android/app/build/outputs/apk/debug/app-debug.apk JLPT-Study-Lab-Android.apk
+        run: gradle :app:assembleDebug :app:bundleRelease --stacktrace
+      - name: Prepare Android artifacts
+        run: |
+          cp mobile-jlpt/android/app/build/outputs/apk/debug/app-debug.apk JLPT-Study-Lab-Android.apk
+          cp mobile-jlpt/android/app/build/outputs/bundle/release/app-release.aab JLPT-Study-Lab-Google-Play.aab
       - uses: actions/upload-artifact@v4
         with:
           name: android
-          path: JLPT-Study-Lab-Android.apk
+          path: |
+            JLPT-Study-Lab-Android.apk
+            JLPT-Study-Lab-Google-Play.aab
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-upload-key-private
+          retention-days: 30
+          path: |
+            upload-keystore.jks
+            android-upload-key-credentials.txt
 
   ios:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - name: Verify App Store Xcode requirement
+        run: |
+          xcodebuild -version
+          MAJOR=$(xcodebuild -version | awk 'NR==1 {split($2,a,"."); print a[1]}')
+          test "$MAJOR" -ge 26
       - name: Install XcodeGen
         run: brew install xcodegen
       - name: Generate Xcode project
@@ -79,10 +123,11 @@ jobs:
           gh release delete jlpt-mobile-v1 --cleanup-tag -y || true
           gh release create jlpt-mobile-v1 \
             --target "$GITHUB_SHA" \
-            --title 'JLPT Study Lab Mobile v1' \
-            --notes 'Android: install the APK by allowing installation from this source. iOS: the IPA is unsigned and must be re-signed with an Apple ID/Developer certificate before installation; alternatively install the WebClip configuration profile.'
+            --title 'JLPT Study Lab Mobile 1.3.0' \
+            --notes 'Android AAB targets API 36 and is signed with the private upload key retained separately. iOS is an unsigned validation build; App Store distribution requires Apple Developer signing.'
           gh release upload jlpt-mobile-v1 \
             dist/android/JLPT-Study-Lab-Android.apk \
+            dist/android/JLPT-Study-Lab-Google-Play.aab \
             dist/ios/JLPT-Study-Lab-iOS-unsigned.ipa \
             mobile-jlpt/ios/JLPT-Study-Lab-iOS-WebClip.mobileconfig \
             --clobber
