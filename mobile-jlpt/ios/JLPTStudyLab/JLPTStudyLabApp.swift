@@ -33,7 +33,7 @@ struct JLPTWebView: UIViewRepresentable {
         webView.navigationDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
         webView.scrollView.keyboardDismissMode = .interactive
-        webView.customUserAgent = "JLPTStudyLabiOS/1.1"
+        webView.customUserAgent = "JLPTStudyLabiOS/1.2"
         webView.load(URLRequest(url: url, cachePolicy: .reloadRevalidatingCacheData))
         return webView
     }
@@ -73,8 +73,7 @@ struct AdMobBanner: View {
 private struct BannerViewContainer: UIViewRepresentable {
     func makeUIView(context: Context) -> BannerView {
         let banner = BannerView(adSize: AdSizeBanner)
-        // Google official iOS banner test ID. Replace before publishing.
-        banner.adUnitID = "ca-app-pub-3940256099942544/2435281174"
+        banner.adUnitID = "ca-app-pub-3086163657339958/7163193153"
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             banner.rootViewController = scene.windows.first(where: { $0.isKeyWindow })?.rootViewController
         }
