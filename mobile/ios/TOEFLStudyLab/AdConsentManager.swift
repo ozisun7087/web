@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 import GoogleMobileAds
 import UserMessagingPlatform
 
@@ -19,7 +20,7 @@ final class AdConsentManager: ObservableObject {
         consentRequestStarted = true
 
         let parameters = RequestParameters()
-        await withCheckedContinuation { continuation in
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
             ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { _ in
                 continuation.resume()
             }
