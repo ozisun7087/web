@@ -1,0 +1,53 @@
+name: Build TOEFL Study Lab Android APK
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mobile/android/**'
+      - '.github/workflows/build-android-apk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Build installable APK
+        run: gradle -p mobile/android :app:assembleDebug --no-daemon
+
+      - name: Copy APK to releases folder
+        run: |
+          mkdir -p mobile/releases
+          cp mobile/android/app/build/outputs/apk/debug/app-debug.apk mobile/releases/TOEFL-Study-Lab-Android.apk
+          sha256sum mobile/releases/TOEFL-Study-Lab-Android.apk > mobile/releases/TOEFL-Study-Lab-Android.apk.sha256
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TOEFL-Study-Lab-Android
+          path: mobile/releases/TOEFL-Study-Lab-Android.apk
+
+      - name: Publish APK in repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add mobile/releases/TOEFL-Study-Lab-Android.apk mobile/releases/TOEFL-Study-Lab-Android.apk.sha256
+          git diff --cached --quiet && exit 0
+          git commit -m "Build Android APK"
+          git push
