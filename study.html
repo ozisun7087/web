@@ -1,9 +1,9 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>Reading／Writing 已依 2026/1/21 後新制重新校正；Listening 多人對話角色使用不同聲線；Writing 長文題支援自動模擬評分。</p></div></div><script>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>Reading／Writing 已依 2026/1/21 後新制校正；Read an Academic Passage 已納入 Sentence Simplification／Essential Information；Listening 多人對話角色使用不同聲線；Writing 長文題支援自動模擬評分。</p></div></div><script>
 (async()=>{try{
-  const r=await fetch('./index.html?study_fix=v16',{cache:'no-store'});
+  const r=await fetch('./index.html?study_fix=v17',{cache:'no-store'});
   if(!r.ok)throw new Error('HTTP '+r.status);
   let html=await r.text();
-  const patchTag='<script src="./study-patch.js?v=16"><\/script><script src="./writing-auto-grade-v12.js?v=16"><\/script><script src="./build-sentence-highlight-v15.js?v=16"><\/script><script src="./reading-writing-2026-v16.js?v=16"><\/script>';
+  const patchTag='<script src="./study-patch.js?v=17"><\/script><script src="./writing-auto-grade-v12.js?v=17"><\/script><script src="./build-sentence-highlight-v15.js?v=17"><\/script><script src="./reading-writing-2026-v17.js?v=17"><\/script>';
   html=html.replace('</body>',patchTag+'</body>');
   document.open();document.write(html);document.close();
 }catch(e){
