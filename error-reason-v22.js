@@ -28,78 +28,54 @@ function loadAssignments(){
     return x&&typeof x==='object'&&!Array.isArray(x)?x:{};
   }catch(e){return {};}
 }
-function saveAssignments(){
-  try{localStorage.setItem(STORE_KEY,JSON.stringify(assignments));}catch(e){}
-}
-function esc(s){return String(s).replace(/[&<>\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[m]||m));}
+function saveAssignments(){try{localStorage.setItem(STORE_KEY,JSON.stringify(assignments));}catch(e){}}
+function esc(s){return String(s).replace(/[&<>\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]||m));}
 function activeSection(){
   const b=document.querySelector('#tabs .tab.active');
   return b&&b.dataset&&b.dataset.t?String(b.dataset.t):'Practice';
 }
-function prefixFor(el){
-  return el&&el.closest&&el.closest('#mock')?'Mock':activeSection();
-}
+function prefixFor(el){return el&&el.closest&&el.closest('#mock')?'Mock':activeSection();}
 function stableKey(prefix,id){return prefix+':'+String(id||'unknown');}
-function optionsHTML(){
-  return '<option value="">未選擇錯題原因</option>'+REASONS.map(r=>'<option value="'+esc(r)+'">'+esc(r)+'</option>').join('');
+function optionsHTML(){return '<option value="">未選擇錯題原因</option>'+REASONS.map(r=>'<option value="'+esc(r)+'">'+esc(r)+'</option>').join('');}
+function hasReasonKey(root,key){
+  if(!root)return false;
+  return [...root.querySelectorAll('.error-reason-wrap-v22')].some(x=>x.dataset.reasonKey===key);
 }
 function setAssignment(key,value){
   if(!key)return;
-  if(value&&REASONS.includes(value))assignments[key]=value;
-  else delete assignments[key];
-  saveAssignments();
-  renderStats();
+  if(value&&REASONS.includes(value))assignments[key]=value;else delete assignments[key];
+  saveAssignments();renderStats();
 }
 function createSelector(key,label){
   const wrap=document.createElement('div');
-  wrap.className='error-reason-wrap-v22';
-  wrap.dataset.reasonKey=key;
-  const lab=document.createElement('label');
-  lab.className='error-reason-label-v22';
-  lab.textContent=label||'錯題原因';
-  const sel=document.createElement('select');
-  sel.className='error-reason-select-v22';
-  sel.setAttribute('aria-label',(label||'錯題原因')+'選擇');
-  sel.innerHTML=optionsHTML();
-  sel.value=REASONS.includes(assignments[key])?assignments[key]:'';
+  wrap.className='error-reason-wrap-v22';wrap.dataset.reasonKey=key;
+  const lab=document.createElement('label');lab.className='error-reason-label-v22';lab.textContent=label||'錯題原因';
+  const sel=document.createElement('select');sel.className='error-reason-select-v22';sel.setAttribute('aria-label',(label||'錯題原因')+'選擇');
+  sel.innerHTML=optionsHTML();sel.value=REASONS.includes(assignments[key])?assignments[key]:'';
   sel.addEventListener('change',()=>setAssignment(key,sel.value));
-  lab.appendChild(sel);wrap.appendChild(lab);
-  return wrap;
+  lab.appendChild(sel);wrap.appendChild(lab);return wrap;
 }
 function questionIdentity(q){
-  const rec=q.querySelector('button.record[data-id]');
-  if(rec&&rec.dataset.id)return rec.dataset.id;
-  const fill=q.querySelector('.ckfill[data-id]');
-  if(fill&&fill.dataset.id)return fill.dataset.id;
-  const mcq=q.querySelector('.ckmcq[data-name]');
-  if(mcq&&mcq.dataset.name)return mcq.dataset.name;
-  const ta=[...q.querySelectorAll('textarea[id]')].find(x=>!['notes','review'].includes(x.id));
-  if(ta)return ta.id;
-  const text=[...q.querySelectorAll('input[type="text"][id]')].find(x=>!/^rf\d+$/.test(x.id));
-  if(text)return text.id;
+  const rec=q.querySelector('button.record[data-id]');if(rec&&rec.dataset.id)return rec.dataset.id;
+  const fill=q.querySelector('.ckfill[data-id]');if(fill&&fill.dataset.id)return fill.dataset.id;
+  const mcq=q.querySelector('.ckmcq[data-name]');if(mcq&&mcq.dataset.name)return mcq.dataset.name;
+  const ta=[...q.querySelectorAll('textarea[id]')].find(x=>!['notes','review'].includes(x.id));if(ta)return ta.id;
+  const text=[...q.querySelectorAll('input[type="text"][id]')].find(x=>!/^rf\d+$/.test(x.id));if(text)return text.id;
   return '';
 }
-function isActualQuestion(q){
-  return !!(q.querySelector('.ckfill[data-id],.ckmcq[data-name],button.record[data-id],textarea[id]'));
-}
+function isActualQuestion(q){return !!q.querySelector('.ckfill[data-id],.ckmcq[data-name],button.record[data-id],textarea[id]');}
 function installCtest(q){
   const inputs=[...q.querySelectorAll('input[type="text"][id^="rf"]')].filter(x=>/^rf\d+$/.test(x.id));
   if(!inputs.length)return false;
   let panel=q.querySelector('.ctest-reasons-v22');
   if(!panel){
-    panel=document.createElement('div');
-    panel.className='ctest-reasons-v22';
-    const title=document.createElement('div');
-    title.className='error-reason-title-v22';
-    title.textContent='各空格錯題原因';
-    panel.appendChild(title);
-    const action=q.querySelector('.actions');
-    if(action)action.insertAdjacentElement('afterend',panel);else q.appendChild(panel);
+    panel=document.createElement('div');panel.className='ctest-reasons-v22';
+    const title=document.createElement('div');title.className='error-reason-title-v22';title.textContent='各空格錯題原因';panel.appendChild(title);
+    const action=q.querySelector('.actions');if(action)action.insertAdjacentElement('afterend',panel);else q.appendChild(panel);
   }
   const prefix=prefixFor(q);
   inputs.forEach((input,i)=>{
-    const key=stableKey(prefix,input.id);
-    if(panel.querySelector('[data-reason-key="'+CSS.escape(key)+'"]'))return;
+    const key=stableKey(prefix,input.id);if(hasReasonKey(panel,key))return;
     panel.appendChild(createSelector(key,'第 '+(i+1)+' 空'));
   });
   return true;
@@ -110,15 +86,8 @@ function installQuestion(q){
   if(!isActualQuestion(q))return;
   const id=questionIdentity(q);if(!id)return;
   const key=stableKey(prefixFor(q),id);
-  if(q.querySelector('.error-reason-wrap-v22[data-reason-key="'+CSS.escape(key)+'"]')){q.dataset.errorReasonV22='1';return;}
-  const wrap=createSelector(key,'錯題原因');
-  const feedback=q.querySelector('.feedback');
-  const answer=q.querySelector('.answer');
-  const rub=q.querySelector('.rub');
-  if(feedback)feedback.insertAdjacentElement('afterend',wrap);
-  else if(answer)answer.insertAdjacentElement('afterend',wrap);
-  else if(rub)rub.insertAdjacentElement('afterend',wrap);
-  else q.appendChild(wrap);
+  if(hasReasonKey(q,key)){q.dataset.errorReasonV22='1';return;}
+  q.appendChild(createSelector(key,'錯題原因'));
   q.dataset.errorReasonV22='1';
 }
 function installQuestions(root){
@@ -126,16 +95,10 @@ function installQuestions(root){
   host.querySelectorAll('.q').forEach(installQuestion);
 }
 function statsHost(){
-  const notes=document.getElementById('notes');
-  if(!notes)return null;
+  const notes=document.getElementById('notes');if(!notes)return null;
   const card=notes.closest('.card');if(!card)return null;
   let box=card.querySelector('#error-reason-stats-v22');
-  if(!box){
-    box=document.createElement('div');
-    box.id='error-reason-stats-v22';
-    box.className='error-reason-stats-v22';
-    notes.insertAdjacentElement('beforebegin',box);
-  }
+  if(!box){box=document.createElement('div');box.id='error-reason-stats-v22';box.className='error-reason-stats-v22';notes.insertAdjacentElement('beforebegin',box);}
   return box;
 }
 function counts(){
@@ -146,18 +109,11 @@ function counts(){
 function renderStats(){
   const box=statsHost();if(!box)return;
   const c=counts(),total=REASONS.reduce((n,r)=>n+c[r],0);
-  box.innerHTML='<div class="error-reason-stats-head-v22"><div><b>錯題原因統計</b><div class="small">已標記 '+total+' 題／空格；同一題改選原因時會自動移轉計數。</div></div></div>'+
-    '<div class="error-reason-stats-grid-v22">'+REASONS.map(r=>'<div class="error-reason-stat-v22"><span>'+esc(r)+'</span><b>'+c[r]+'</b></div>').join('')+'</div>';
+  box.innerHTML='<div class="error-reason-stats-head-v22"><div><b>錯題原因統計</b><div class="small">已標記 '+total+' 題／空格；同一題改選原因時會自動移轉計數。</div></div></div>'+ '<div class="error-reason-stats-grid-v22">'+REASONS.map(r=>'<div class="error-reason-stat-v22"><span>'+esc(r)+'</span><b>'+c[r]+'</b></div>').join('')+'</div>';
 }
 function installAll(root){installQuestions(root||document);renderStats();}
-function rescanSoon(root){
-  setTimeout(()=>installAll(root||document),0);
-  setTimeout(()=>installAll(root||document),50);
-  setTimeout(()=>installAll(root||document),180);
-}
+function rescanSoon(root){setTimeout(()=>installAll(root||document),0);setTimeout(()=>installAll(root||document),50);setTimeout(()=>installAll(root||document),180);}
 
-/* Tabs and Mock section buttons render synchronously and some existing patches do a short deferred replacement.
-   Scan a few times after those explicit user actions instead of observing the entire DOM. */
 document.addEventListener('click',function(ev){
   const b=ev.target&&ev.target.closest?ev.target.closest('button'):null;if(!b)return;
   const tab=!!(b.classList&&b.classList.contains('tab'));
@@ -165,14 +121,11 @@ document.addEventListener('click',function(ev){
   if(tab||mockButton)rescanSoon(document);
 },false);
 
-/* Keep displayed selectors synchronized if a dropdown is rebuilt after navigation. */
 document.addEventListener('change',function(ev){
-  const sel=ev.target&&ev.target.matches?ev.target.matches('.error-reason-select-v22'):false;
-  if(sel)renderStats();
+  if(ev.target&&ev.target.matches&&ev.target.matches('.error-reason-select-v22'))renderStats();
 },false);
 
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>rescanSoon(document));
-else rescanSoon(document);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>rescanSoon(document));else rescanSoon(document);
 
 if(!document.getElementById('error-reason-v22-style')){
   const st=document.createElement('style');st.id='error-reason-v22-style';
