@@ -1,9 +1,24 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>Reading／Writing 已依 2026/1/21 後新制校正；Listening 多人對話角色使用不同聲線；Speaking 錄音改為延遲初始化，避免 Mock Speaking 開啟時反覆掃描造成頁面卡死。</p></div></div><script>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>v20 安全模式：Mock Speaking 直接使用原始 renderer；停用 Reading／Writing patch 的全域 MutationObserver，避免主執行緒事件風暴。</p></div></div><script>
 (async()=>{try{
-  const r=await fetch('./index.html?study_fix=v19',{cache:'no-store'});
+  const r=await fetch('./index.html?study_fix=v20',{cache:'no-store'});
   if(!r.ok)throw new Error('HTTP '+r.status);
   let html=await r.text();
-  const patchTag='<script src="./study-patch.js?v=19"><\/script><script src="./writing-auto-grade-v12.js?v=19"><\/script><script src="./build-sentence-highlight-v15.js?v=19"><\/script><script src="./reading-writing-2026-v17.js?v=19"><\/script><script src="./speaking-record-v19.js?v=19"><\/script>';
+  const patchTag=`
+<script>
+window.__toeflBaseMockPartV20=window.mockPart;
+window.__toeflBaseRenderV20=window.render;
+window.__toeflNativeMutationObserverV20=window.MutationObserver;
+window.MutationObserver=function(){this.observe=function(){};this.disconnect=function(){};this.takeRecords=function(){return[];};};
+<\/script>
+<script src="./study-patch.js?v=20"><\/script>
+<script src="./writing-auto-grade-v12.js?v=20"><\/script>
+<script src="./build-sentence-highlight-v15.js?v=20"><\/script>
+<script src="./reading-writing-2026-v17.js?v=20"><\/script>
+<script src="./speaking-record-v19.js?v=20"><\/script>
+<script>
+if(window.__toeflNativeMutationObserverV20){window.MutationObserver=window.__toeflNativeMutationObserverV20;}
+<\/script>
+<script src="./stability-v20.js?v=20"><\/script>`;
   html=html.replace('</body>',patchTag+'</body>');
   document.open();document.write(html);document.close();
 }catch(e){
