@@ -1,12 +1,19 @@
 import SwiftUI
 import WebKit
+import GoogleMobileAds
 
 @main
 struct JLPTStudyLabApp: App {
+    init() {
+        MobileAds.shared.start()
+    }
+
     var body: some Scene {
         WindowGroup {
-            JLPTWebView()
-                .ignoresSafeArea(edges: .bottom)
+            VStack(spacing: 0) {
+                JLPTWebView()
+                AdMobBanner()
+            }
         }
     }
 }
@@ -26,7 +33,7 @@ struct JLPTWebView: UIViewRepresentable {
         webView.navigationDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
         webView.scrollView.keyboardDismissMode = .interactive
-        webView.customUserAgent = "JLPTStudyLabiOS/1.0"
+        webView.customUserAgent = "JLPTStudyLabiOS/1.1"
         webView.load(URLRequest(url: url, cachePolicy: .reloadRevalidatingCacheData))
         return webView
     }
@@ -52,4 +59,32 @@ struct JLPTWebView: UIViewRepresentable {
             }
         }
     }
+}
+
+struct AdMobBanner: View {
+    var body: some View {
+        let width = max(320, UIScreen.main.bounds.width)
+        let adSize = largeAnchoredAdaptiveBanner(width: width)
+        BannerViewContainer(adSize: adSize)
+            .frame(width: adSize.size.width, height: adSize.size.height)
+            .frame(maxWidth: .infinity)
+            .background(Color.white)
+    }
+}
+
+private struct BannerViewContainer: UIViewRepresentable {
+    let adSize: AdSize
+
+    func makeUIView(context: Context) -> BannerView {
+        let banner = BannerView(adSize: adSize)
+        // Google official iOS banner test ID. Replace before publishing.
+        banner.adUnitID = "ca-app-pub-3940256099942544/2435281174"
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            banner.rootViewController = scene.windows.first(where: { $0.isKeyWindow })?.rootViewController
+        }
+        banner.load(Request())
+        return banner
+    }
+
+    func updateUIView(_ uiView: BannerView, context: Context) {}
 }
