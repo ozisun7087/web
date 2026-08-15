@@ -22,7 +22,7 @@ targets:
       - package: GoogleMobileAds
         product: GoogleMobileAds
       - package: GoogleUserMessagingPlatform
-        product: UserMessagingPlatform
+        product: GoogleUserMessagingPlatform
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: tw.ozisun.jlptstudylab
