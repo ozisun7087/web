@@ -84,8 +84,12 @@ jobs:
           xcodebuild -version
           MAJOR=$(xcodebuild -version | awk 'NR==1 {split($2,a,"."); print a[1]}')
           test "$MAJOR" -ge 26
-      - name: Install XcodeGen
-        run: brew install xcodegen
+      - name: Install build tools
+        run: |
+          brew install xcodegen
+          python3 -m pip install --break-system-packages pillow || python3 -m pip install --user pillow
+      - name: Generate App Store and Google Play artwork
+        run: python3 mobile-jlpt/store-listing/generate_store_assets.py
       - name: Generate Xcode project
         working-directory: mobile-jlpt/ios
         run: xcodegen generate
@@ -106,7 +110,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: ios
-          path: mobile-jlpt/ios/JLPT-Study-Lab-iOS-unsigned.ipa
+          path: |
+            mobile-jlpt/ios/JLPT-Study-Lab-iOS-unsigned.ipa
+            mobile-jlpt/store-listing/generated/*.png
 
   release:
     needs: [android, ios]
@@ -124,10 +130,13 @@ jobs:
           gh release create jlpt-mobile-v1 \
             --target "$GITHUB_SHA" \
             --title 'JLPT Study Lab Mobile 1.3.0' \
-            --notes 'Android AAB targets API 36 and is signed with the private upload key retained separately. iOS is an unsigned validation build; App Store distribution requires Apple Developer signing.'
+            --notes 'Android AAB targets API 36 and is signed with the private upload key retained separately. iOS is built with Xcode 26 and includes native listening, reminder, sharing and privacy controls; App Store distribution still requires Apple Developer signing.'
           gh release upload jlpt-mobile-v1 \
             dist/android/JLPT-Study-Lab-Android.apk \
             dist/android/JLPT-Study-Lab-Google-Play.aab \
             dist/ios/JLPT-Study-Lab-iOS-unsigned.ipa \
+            dist/ios/generated/app-store-icon-1024.png \
+            dist/ios/generated/google-play-icon-512.png \
+            dist/ios/generated/google-play-feature-1024x500.png \
             mobile-jlpt/ios/JLPT-Study-Lab-iOS-WebClip.mobileconfig \
             --clobber
