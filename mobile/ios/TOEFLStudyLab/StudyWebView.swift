@@ -3,9 +3,10 @@ import WebKit
 
 struct StudyWebView: UIViewRepresentable {
     private let url = URL(string: "https://toefl-ibt-2026-study-lab.vercel.app")!
+    private let homeHost = "toefl-ibt-2026-study-lab.vercel.app"
 
     func makeCoordinator() -> Coordinator {
-        Coordinator()
+        Coordinator(homeHost: homeHost)
     }
 
     func makeUIView(context: Context) -> WKWebView {
@@ -13,7 +14,7 @@ struct StudyWebView: UIViewRepresentable {
         config.websiteDataStore = .default()
         config.allowsInlineMediaPlayback = true
         config.mediaTypesRequiringUserActionForPlayback = []
-        config.applicationNameForUserAgent = "TOEFLStudyLabApp/1.0"
+        config.applicationNameForUserAgent = "TOEFLStudyLabApp/1.0.57"
 
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
@@ -27,6 +28,12 @@ struct StudyWebView: UIViewRepresentable {
     func updateUIView(_ webView: WKWebView, context: Context) {}
 
     final class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
+        private let homeHost: String
+
+        init(homeHost: String) {
+            self.homeHost = homeHost
+        }
+
         func webView(
             _ webView: WKWebView,
             decidePolicyFor navigationAction: WKNavigationAction,
@@ -36,12 +43,40 @@ struct StudyWebView: UIViewRepresentable {
                 decisionHandler(.cancel)
                 return
             }
-            if ["http", "https", "about", "blob"].contains(url.scheme?.lowercased() ?? "") {
+
+            let scheme = (url.scheme ?? "").lowercased()
+            let host = (url.host ?? "").lowercased()
+
+            if (scheme == "https" && host == homeHost) || scheme == "about" || scheme == "blob" {
                 decisionHandler(.allow)
-            } else {
+                return
+            }
+
+            if scheme == "http" || scheme == "https" {
                 UIApplication.shared.open(url)
                 decisionHandler(.cancel)
+                return
             }
+
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+            decisionHandler(.cancel)
+        }
+
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            let script = """
+            (function(){
+              var id='toefl-native-app-ad-hide';
+              if(!document.getElementById(id)){
+                var s=document.createElement('style');
+                s.id=id;
+                s.textContent='.toefl-ad-wrap{display:none!important}';
+                document.head.appendChild(s);
+              }
+            })();
+            """
+            webView.evaluateJavaScript(script)
         }
 
         @available(iOS 15.0, *)
@@ -52,7 +87,12 @@ struct StudyWebView: UIViewRepresentable {
             type: WKMediaCaptureType,
             decisionHandler: @escaping (WKPermissionDecision) -> Void
         ) {
-            decisionHandler(.grant)
+            let allowedOrigin = origin.protocol.lowercased() == "https" && origin.host.lowercased() == homeHost
+            if allowedOrigin && type == .microphone {
+                decisionHandler(.grant)
+            } else {
+                decisionHandler(.deny)
+            }
         }
     }
 }
