@@ -1,6 +1,6 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>v23：每次題目完成初始化後立即在每個練習題框內加入「錯題原因」下拉選單，並在最下方「弱項與複盤」即時統計；保留 v20 安全模式。</p></div></div><script>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>v24：錯題原因只保留在本次頁面；重新載入此頁後，各題下拉選單回到「未選擇錯題原因」，錯題原因統計全部歸零。</p></div></div><script>
 (async()=>{try{
-  const r=await fetch('./index.html?study_fix=v23',{cache:'no-store'});
+  const r=await fetch('./index.html?study_fix=v24',{cache:'no-store'});
   if(!r.ok)throw new Error('HTTP '+r.status);
   let html=await r.text();
   const patchTag=`
@@ -10,17 +10,17 @@ window.__toeflBaseRenderV20=window.render;
 window.__toeflNativeMutationObserverV20=window.MutationObserver;
 window.MutationObserver=function(){this.observe=function(){};this.disconnect=function(){};this.takeRecords=function(){return[];};};
 <\/script>
-<script src="./study-patch.js?v=23"><\/script>
-<script src="./writing-auto-grade-v12.js?v=23"><\/script>
-<script src="./build-sentence-highlight-v15.js?v=23"><\/script>
-<script src="./reading-writing-2026-v17.js?v=23"><\/script>
-<script src="./speaking-record-v19.js?v=23"><\/script>
+<script src="./study-patch.js?v=24"><\/script>
+<script src="./writing-auto-grade-v12.js?v=24"><\/script>
+<script src="./build-sentence-highlight-v15.js?v=24"><\/script>
+<script src="./reading-writing-2026-v17.js?v=24"><\/script>
+<script src="./speaking-record-v19.js?v=24"><\/script>
 <script>
 if(window.__toeflNativeMutationObserverV20){window.MutationObserver=window.__toeflNativeMutationObserverV20;}
 <\/script>
-<script src="./stability-v20.js?v=23"><\/script>
-<script src="./speaking-show-answer-v21.js?v=23"><\/script>
-<script src="./error-reason-v23.js?v=23"><\/script>`;
+<script src="./stability-v20.js?v=24"><\/script>
+<script src="./speaking-show-answer-v21.js?v=24"><\/script>
+<script src="./error-reason-v24.js?v=24"><\/script>`;
   html=html.replace('</body>',patchTag+'</body>');
   document.open();document.write(html);document.close();
 }catch(e){
