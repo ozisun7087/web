@@ -1,0 +1,67 @@
+name: Build TOEFL Study Lab iOS IPA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mobile/ios/**'
+      - '.github/workflows/build-ios-ipa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: mobile/ios
+        run: xcodegen generate
+
+      - name: Resolve Google Mobile Ads packages
+        working-directory: mobile/ios
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project TOEFLStudyLab.xcodeproj \
+            -scheme TOEFLStudyLab
+
+      - name: Build unsigned iOS device app
+        working-directory: mobile/ios
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project TOEFLStudyLab.xcodeproj \
+            -scheme TOEFLStudyLab \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build
+          rm -rf Payload
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/TOEFLStudyLab.app Payload/
+          zip -qry TOEFL-Study-Lab-iOS-AdMob-unsigned.ipa Payload
+
+      - name: Package generated Xcode project
+        working-directory: mobile/ios
+        run: |
+          zip -qry TOEFL-Study-Lab-iOS-Xcode-project.zip \
+            TOEFLStudyLab.xcodeproj TOEFLStudyLab project.yml
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TOEFL-Study-Lab-iOS
+          path: |
+            mobile/ios/TOEFL-Study-Lab-iOS-AdMob-unsigned.ipa
+            mobile/ios/TOEFL-Study-Lab-iOS-Xcode-project.zip
