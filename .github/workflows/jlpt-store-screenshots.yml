@@ -35,19 +35,21 @@ jobs:
         run: |
           nohup "$ANDROID_HOME/emulator/emulator" -avd jlpt_store -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect >/tmp/emulator.log 2>&1 &
           adb wait-for-device
-          for i in $(seq 1 90); do
-            [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = '1' ] && break
+          READY=0
+          for i in $(seq 1 120); do
+            if [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = '1' ]; then READY=1; break; fi
             sleep 2
           done
+          if [ "$READY" != "1" ]; then cat /tmp/emulator.log; exit 1; fi
           adb shell wm size 1080x1920
           adb shell wm density 420
           adb install -r mobile-jlpt/android/app/build/outputs/apk/debug/app-debug.apk
-          adb shell am start -n tw.ozisun.jlptstudylab/.MainActivity
+          adb shell am start -W -n tw.ozisun.jlptstudylab/.MainActivity
           sleep 20
           mkdir -p screenshots/android
           adb exec-out screencap -p > screenshots/android/android-01-home.png
           adb shell input swipe 540 1550 540 650 700
-          sleep 2
+          sleep 3
           adb exec-out screencap -p > screenshots/android/android-02-practice.png
       - uses: actions/upload-artifact@v4
         with:
@@ -80,28 +82,45 @@ jobs:
       - name: Capture iPhone and iPad real app UI
         working-directory: mobile-jlpt/ios
         run: |
-          set -e
+          set -euo pipefail
           APP="$PWD/build-sim/Build/Products/Debug-iphonesimulator/JLPTStudyLab.app"
           mkdir -p ../../screenshots/ios
-          find_device() {
-            local pattern="$1"
-            xcrun simctl list devices available | grep -E "$pattern" | head -1 | sed -E 's/.*\(([0-9A-Fa-f-]{36})\).*/\1/'
-          }
-          PHONE=$(find_device 'iPhone (17 Pro Max|16 Pro Max|15 Pro Max)')
-          [ -n "$PHONE" ] || PHONE=$(find_device 'iPhone')
-          PAD=$(find_device 'iPad Pro.*13|iPad.*13')
-          [ -n "$PAD" ] || PAD=$(find_device 'iPad')
-          for item in "phone:$PHONE" "ipad:$PAD"; do
-            kind="${item%%:*}"; udid="${item#*:}"
-            [ -n "$udid" ] || continue
-            xcrun simctl boot "$udid" || true
+          xcrun simctl list devices available -j > /tmp/devices.json
+          python3 - <<'PY' > /tmp/selected-devices.txt
+          import json,re
+          data=json.load(open('/tmp/devices.json'))
+          devs=[]
+          for runtime,items in data.get('devices',{}).items():
+              for d in items:
+                  if d.get('isAvailable'):
+                      devs.append((runtime,d.get('name',''),d.get('udid','')))
+          def pick(patterns, fallback):
+              for pat in patterns:
+                  for runtime,name,udid in devs:
+                      if re.search(pat,name,re.I):
+                          return name,udid
+              for runtime,name,udid in devs:
+                  if re.search(fallback,name,re.I):
+                      return name,udid
+              return '', ''
+          phone=pick([r'iPhone 17 Pro Max',r'iPhone 16 Pro Max',r'iPhone 15 Pro Max'],r'iPhone')
+          ipad=pick([r'iPad Pro.*13',r'iPad.*13'],r'iPad')
+          print('phone|'+phone[0]+'|'+phone[1])
+          print('ipad|'+ipad[0]+'|'+ipad[1])
+          PY
+          cat /tmp/selected-devices.txt
+          while IFS='|' read -r kind name udid; do
+            [ -n "$udid" ] || { echo "No simulator for $kind" >&2; exit 1; }
+            echo "Capturing $kind on $name ($udid)"
+            xcrun simctl shutdown "$udid" >/dev/null 2>&1 || true
+            xcrun simctl boot "$udid"
             xcrun simctl bootstatus "$udid" -b
             xcrun simctl install "$udid" "$APP"
             xcrun simctl launch "$udid" tw.ozisun.jlptstudylab
-            sleep 20
+            sleep 22
             xcrun simctl io "$udid" screenshot "../../screenshots/ios/ios-${kind}-01.png"
             xcrun simctl shutdown "$udid" || true
-          done
+          done < /tmp/selected-devices.txt
       - uses: actions/upload-artifact@v4
         with:
           name: app-store-screenshots
