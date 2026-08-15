@@ -2,4 +2,5 @@
 <resources>
     <color name="status_bar_color">#3157D5</color>
     <color name="navigation_bar_color">#FFFFFF</color>
+    <color name="launcher_blue">#3157D5</color>
 </resources>
