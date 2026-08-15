@@ -27,9 +27,7 @@ public class MainActivity extends Activity {
     private FrameLayout adContainer;
 
     private static final String APP_URL = "https://jlpt-study-lab.vercel.app/?app=android";
-    // Google official Android anchored adaptive banner test ID.
-    // Replace with the production Android Banner Ad Unit ID before publishing.
-    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741";
+    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-3086163657339958/3415519835";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +70,7 @@ public class MainActivity extends Activity {
         settings.setAllowContentAccess(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         settings.setMediaPlaybackRequiresUserGesture(true);
-        settings.setUserAgentString(settings.getUserAgentString() + " JLPTStudyLabAndroid/1.1");
+        settings.setUserAgentString(settings.getUserAgentString() + " JLPTStudyLabAndroid/1.2");
 
         CookieManager cookies = CookieManager.getInstance();
         cookies.setAcceptCookie(true);
