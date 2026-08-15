@@ -10,11 +10,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false">
 
-        <!-- Google sample AdMob App ID for development/testing only.
-             Replace with the production Android AdMob App ID before publishing. -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-3086163657339958~3389996929" />
 
         <activity
             android:name=".MainActivity"
