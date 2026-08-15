@@ -1,10 +1,10 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>v38：降低 Listen and Repeat 難度；保留自適應層級，但縮短句長、減少複雜從屬結構與記憶負荷，Take an Interview 不變。</p></div></div><script>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>v39：再次降低 Listen and Repeat 難度，並在進入題目及實際播放／錄音／顯示答案前強制套用短句版，避免被自適應 Speaking 較長句覆蓋。</p></div></div><script>
 (async()=>{try{
   try{
     const keys=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k)keys.push(k);}
     keys.forEach(k=>{if(/^v-/i.test(k)||/^toefl-error-reasons-/i.test(k)||/^v-error-reason/i.test(k)||k==='notes')localStorage.removeItem(k);});
   }catch(e){}
-  const r=await fetch('./index.html?study_fix=v38',{cache:'no-store'});
+  const r=await fetch('./index.html?study_fix=v39',{cache:'no-store'});
   if(!r.ok)throw new Error('HTTP '+r.status);
   let html=await r.text();
   const patchTag=`
@@ -15,26 +15,26 @@ window.__toeflBaseRenderV20=window.render;
 window.__toeflNativeMutationObserverV20=window.MutationObserver;
 window.MutationObserver=function(){this.observe=function(){};this.disconnect=function(){};this.takeRecords=function(){return[];};};
 <\/script>
-<script src="./study-patch.js?v=38"><\/script>
-<script src="./writing-auto-grade-v12.js?v=38"><\/script>
-<script src="./build-sentence-highlight-v15.js?v=38"><\/script>
-<script src="./reading-writing-2026-v17.js?v=38"><\/script>
-<script src="./speaking-record-v19.js?v=38"><\/script>
+<script src="./study-patch.js?v=39"><\/script>
+<script src="./writing-auto-grade-v12.js?v=39"><\/script>
+<script src="./build-sentence-highlight-v15.js?v=39"><\/script>
+<script src="./reading-writing-2026-v17.js?v=39"><\/script>
+<script src="./speaking-record-v19.js?v=39"><\/script>
 <script>
 if(window.__toeflNativeMutationObserverV20){window.MutationObserver=window.__toeflNativeMutationObserverV20;}
 <\/script>
-<script src="./stability-v20.js?v=38"><\/script>
-<script src="./speaking-show-answer-v21.js?v=38"><\/script>
-<script src="./error-reason-v25.js?v=38"><\/script>
-<script src="./fresh-session-v27.js?v=38"><\/script>
-<script src="./build-sentence-shuffle-v28.js?v=38"><\/script>
-<script src="./show-answer-v30.js?v=38"><\/script>
-<script src="./build-sentence-format-v31.js?v=38"><\/script>
-<script src="./build-sentence-difficulty-v32.js?v=38"><\/script>
-<script src="./adaptive-difficulty-v33.js?v=38"><\/script>
-<script src="./option-shuffle-v34.js?v=38"><\/script>
-<script src="./writing-task-prompt-v37.js?v=38"><\/script>
-<script src="./speaking-repeat-easier-v38.js?v=38"><\/script>`;
+<script src="./stability-v20.js?v=39"><\/script>
+<script src="./speaking-show-answer-v21.js?v=39"><\/script>
+<script src="./error-reason-v25.js?v=39"><\/script>
+<script src="./fresh-session-v27.js?v=39"><\/script>
+<script src="./build-sentence-shuffle-v28.js?v=39"><\/script>
+<script src="./show-answer-v30.js?v=39"><\/script>
+<script src="./build-sentence-format-v31.js?v=39"><\/script>
+<script src="./build-sentence-difficulty-v32.js?v=39"><\/script>
+<script src="./adaptive-difficulty-v33.js?v=39"><\/script>
+<script src="./option-shuffle-v34.js?v=39"><\/script>
+<script src="./writing-task-prompt-v37.js?v=39"><\/script>
+<script src="./speaking-repeat-easier-v39.js?v=39"><\/script>`;
   html=html.replace('</body>',patchTag+'</body>');
   document.open();document.write(html);document.close();
 }catch(e){
