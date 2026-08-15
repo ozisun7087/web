@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -31,7 +31,7 @@ jobs:
       - name: Build installable APK
         run: gradle -p mobile/android :app:assembleDebug --no-daemon
 
-      - name: Copy APK to releases folder
+      - name: Prepare APK
         run: |
           mkdir -p mobile/releases
           cp mobile/android/app/build/outputs/apk/debug/app-debug.apk mobile/releases/TOEFL-Study-Lab-Android.apk
@@ -41,13 +41,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TOEFL-Study-Lab-Android
-          path: mobile/releases/TOEFL-Study-Lab-Android.apk
-
-      - name: Publish APK in repository
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add mobile/releases/TOEFL-Study-Lab-Android.apk mobile/releases/TOEFL-Study-Lab-Android.apk.sha256
-          git diff --cached --quiet && exit 0
-          git commit -m "Build Android APK"
-          git push
+          path: |
+            mobile/releases/TOEFL-Study-Lab-Android.apk
+            mobile/releases/TOEFL-Study-Lab-Android.apk.sha256
