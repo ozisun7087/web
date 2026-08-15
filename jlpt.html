@@ -5,156 +5,128 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>JLPT Study Lab</title>
 <style>
-:root{--bg:#f4f7fb;--card:#fff;--ink:#182237;--muted:#667085;--line:#dbe3ef;--blue:#3c5bdc;--navy:#182237;--good:#087443;--bad:#b42318;--soft:#eef3ff}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Noto Sans JP",Arial,sans-serif;background:var(--bg);color:var(--ink)}
-body{font-size:17px;line-height:1.55}.wrap{max-width:1180px;margin:0 auto;padding:16px}.top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topin{max-width:1180px;margin:auto;padding:12px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}.brand{font-weight:900;font-size:1.15rem}.levelbox{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
-button,select,textarea,input{font:inherit}.btn,.tab,.level{border:1px solid #cfd9f2;background:#fff;color:var(--ink);border-radius:14px;padding:10px 15px;font-weight:800;cursor:pointer}.btn.primary,.level.on,.tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}.btn.dark,.tab.on{box-shadow:inset 0 0 0 2px var(--navy)}.btn:disabled{opacity:.48;cursor:not-allowed}
-.hero,.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0;box-shadow:0 8px 24px #1c2d5508}.hero h1{margin:0 0 8px;font-size:1.65rem}.small{font-size:.93rem;color:var(--muted)}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.tab{padding:11px 15px}.section-title{font-size:1.32rem;font-weight:900;margin:8px 0 14px}.accent{background:var(--soft);border:1px solid #c8d6ff;border-radius:13px;padding:12px 14px;margin:10px 0}
-.q{border:1px solid #d7e0ee;background:#fff;border-radius:16px;padding:16px;margin:14px 0}.q h3{margin:0 0 6px;font-size:1.05rem}.prompt{margin:9px 0;font-size:1.05rem}.jp{font-family:"Noto Sans JP","Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif;line-height:1.8}.opts{display:grid;gap:8px;margin:12px 0}.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 10px;border-radius:10px}.opt.good{background:#eaf8f1;color:var(--good);font-weight:800}.opt.bad{background:#fff0ed;color:var(--bad);font-weight:800}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.feedback{margin-top:10px;padding:10px 12px;border-radius:10px;display:none}.feedback.good{display:block;background:#eaf8f1;color:var(--good);font-weight:800}.feedback.bad{display:block;background:#fff0ed;color:var(--bad);font-weight:800}.reason{border-top:1px dashed #d7e0ee;margin-top:13px;padding-top:11px;display:grid;grid-template-columns:130px minmax(0,1fr);gap:10px;align-items:center}.reason select{width:100%;padding:10px;border:1px solid #cfd9f2;border-radius:12px;background:#fff}.passage{background:#f8fafc;border-left:4px solid #b8c7ed;border-radius:8px;padding:12px 14px;margin:10px 0}.audio{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}.audio button{background:var(--blue);color:#fff;border:0;border-radius:12px;padding:9px 13px;font-weight:800;cursor:pointer}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.stat{border:1px solid #d7e0ee;border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between;gap:8px}.stat b{color:var(--blue)}textarea{width:100%;min-height:150px;border:1px solid #cfd9f2;border-radius:13px;padding:12px;background:#fff}.scorebox{font-weight:900;margin:10px 0}.mockgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mockcard{border:1px solid #d7e0ee;border-radius:14px;padding:13px}.hidden{display:none!important}
-@media(max-width:720px){body{font-size:16px}.wrap{padding:10px}.hero,.panel{padding:14px;border-radius:16px}.stats,.mockgrid{grid-template-columns:1fr}.reason{grid-template-columns:1fr}.tab,.level,.btn{padding:10px 12px}.top{position:static}}
+:root{--bg:#f4f7fb;--card:#fff;--ink:#182237;--muted:#667085;--line:#dbe3ef;--blue:#3c5bdc;--good:#087443;--bad:#b42318;--soft:#eef3ff}*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Noto Sans JP",Arial,sans-serif;background:var(--bg);color:var(--ink)}body{font-size:17px;line-height:1.55}.wrap{max-width:1180px;margin:auto;padding:16px}.top{position:sticky;top:0;z-index:10;background:#ffffffee;border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}.topin{max-width:1180px;margin:auto;padding:12px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.brand{font-weight:900}.levels,.tabs,.actions,.audio{display:flex;gap:8px;flex-wrap:wrap;align-items:center}button,select,textarea{font:inherit}.level,.tab,.btn{border:1px solid #cfd9f2;background:#fff;border-radius:14px;padding:10px 14px;font-weight:800;color:var(--ink);cursor:pointer}.level.on,.tab.on,.btn.primary,.audio button{background:var(--blue);color:#fff;border-color:var(--blue)}.tab.on{box-shadow:inset 0 0 0 2px var(--ink)}.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0;box-shadow:0 8px 24px #1c2d5508}.hero h1{margin:0 0 8px}.tabs{margin-top:14px}.small{font-size:.93rem;color:var(--muted)}.accent{background:var(--soft);border:1px solid #c8d6ff;border-radius:13px;padding:12px 14px;margin:10px 0}.section-title{font-size:1.3rem;font-weight:900;margin:4px 0 12px}.q{border:1px solid #d7e0ee;border-radius:16px;padding:16px;margin:14px 0;background:#fff}.q h3{margin:0 0 6px}.jp{font-family:"Noto Sans JP","Yu Gothic",sans-serif;line-height:1.8}.prompt{font-size:1.05rem;margin:9px 0}.passage{background:#f8fafc;border-left:4px solid #b8c7ed;border-radius:8px;padding:12px 14px;margin:10px 0}.opts{display:grid;gap:7px;margin:10px 0}.opt{padding:9px 10px;border-radius:10px;display:flex;gap:10px}.opt.good{background:#eaf8f1;color:var(--good);font-weight:800}.opt.bad{background:#fff0ed;color:var(--bad);font-weight:800}.feedback{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;font-weight:800}.feedback.good{display:block;background:#eaf8f1;color:var(--good)}.feedback.bad{display:block;background:#fff0ed;color:var(--bad)}.reason{border-top:1px dashed #d7e0ee;margin-top:13px;padding-top:11px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;align-items:center}.reason select{width:100%;padding:10px;border:1px solid #cfd9f2;border-radius:12px;background:#fff}.audio button{border:0;border-radius:12px;padding:9px 13px;font-weight:800;cursor:pointer}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.stat{border:1px solid #d7e0ee;border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between}.stat b{color:var(--blue)}textarea{width:100%;min-height:150px;border:1px solid #cfd9f2;border-radius:13px;padding:12px}.mockgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mockcard{border:1px solid #d7e0ee;border-radius:14px;padding:13px}@media(max-width:720px){body{font-size:16px}.wrap{padding:10px}.hero,.panel{padding:14px;border-radius:16px}.top{position:static}.stats,.mockgrid{grid-template-columns:1fr}.reason{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header class="top"><div class="topin"><div class="brand">日本語能力試驗 JLPT Study Lab</div><div class="levelbox"><span class="small">級數</span><button class="level" data-level="N5">N5</button><button class="level" data-level="N4">N4</button><button class="level on" data-level="N3">N3</button><button class="level" data-level="N2">N2</button><button class="level" data-level="N1">N1</button></div></div></header>
+<header class="top"><div class="topin"><div class="brand">日本語能力試驗 JLPT Study Lab</div><div class="levels"><span class="small">級數</span><button class="level" data-level="N5">N5</button><button class="level" data-level="N4">N4</button><button class="level on" data-level="N3">N3</button><button class="level" data-level="N2">N2</button><button class="level" data-level="N1">N1</button></div></div></header>
 <main class="wrap">
-<section class="hero"><h1>互動練習</h1><div id="officialSummary" class="small"></div><div class="accent" id="difficultyNote"></div><div class="tabs" id="tabs"></div></section>
+<section class="hero"><h1>互動練習</h1><div id="summary" class="small"></div><div id="difficulty" class="accent"></div><div id="tabs" class="tabs"></div></section>
 <section class="panel"><div id="content"></div></section>
-<section class="panel"><div class="section-title">弱項與複盤</div><div class="accent"><b>錯題原因統計</b><div class="small" id="markedCount">本輪已標記 0 題</div><div class="stats" id="reasonStats"></div></div><textarea id="reviewNotes" placeholder="記錄今天最常出錯的題型、單字、文法、讀解策略、聽解盲點與下次改善動作…"></textarea></section>
+<section class="panel"><div class="section-title">弱項與複盤</div><div class="accent"><b>錯題原因統計</b><div id="marked" class="small">本輪已標記 0 題</div><div id="stats" class="stats"></div></div><textarea id="notes" placeholder="記錄今天最常出錯的題型、單字、文法、讀解策略、聽解盲點與下次改善動作…"></textarea></section>
 </main>
 <script>
 (()=>{
 'use strict';
-const LEVEL_TIMES={N1:'言語知識（文字・語彙・文法）・讀解 110 分；聽解 55 分',N2:'言語知識（文字・語彙・文法）・讀解 105 分；聽解 50 分',N3:'文字・語彙 30 分；文法・讀解 70 分；聽解 40 分',N4:'文字・語彙 25 分；文法・讀解 55 分；聽解 35 分',N5:'文字・語彙 20 分；文法・讀解 40 分；聽解 30 分'};
-const TABS=[['vocab','文字・語彙'],['grammar','文法'],['reading','讀解'],['listening','聽解'],['weakness','弱項'],['mock','模擬'],['review','複盤']];
+const TIMES={N1:'言語知識（文字・語彙・文法）・讀解 110 分；聽解 55 分',N2:'言語知識（文字・語彙・文法）・讀解 105 分；聽解 50 分',N3:'文字・語彙 30 分；文法・讀解 70 分；聽解 40 分',N4:'文字・語彙 25 分；文法・讀解 55 分；聽解 35 分',N5:'文字・語彙 20 分；文法・讀解 40 分；聽解 30 分'};
+const TAB=[['vocab','文字・語彙'],['grammar','文法'],['reading','讀解'],['listening','聽解'],['weakness','弱項'],['mock','模擬'],['review','複盤']];
 const REASONS=['漢字讀音／表記','語彙','文法','讀解推論','資訊定位','聽解內容','語速／音辨識','粗心','時間不足'];
-const state={level:'N3',tab:'vocab',answers:{},reasons:{},checked:{},revealed:{},startedAt:Date.now()};
-const today=()=>{const d=new Date(),p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())};
 const HIST='jlpt-study-history-v1';
-function loadHist(){try{return JSON.parse(localStorage.getItem(HIST)||'{}')||{}}catch(e){return{}}}
-function prior(level){const h=loadHist(),a=Array.isArray(h[level])?h[level]:[];return a.filter(x=>x.date<today()).sort((a,b)=>b.date.localeCompare(a.date))[0]||null}
-function tier(level){const p=prior(level);if(!p)return 0;const a=p.accuracy;return a<.6?0:a<.8?1:a<.9?2:3}
-const TL=['基礎','標準','進階','挑戰'];
-function saveHistory(acc){const h=loadHist(),a=Array.isArray(h[state.level])?h[state.level]:[];const item={date:today(),accuracy:acc,ts:Date.now()};const i=a.findIndex(x=>x.date===item.date);if(i>=0)a[i]=item;else a.push(item);h[state.level]=a.slice(-20);localStorage.setItem(HIST,JSON.stringify(h))}
-function esc(s){return String(s).replace(/[&<>\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[m]||m))}
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const S={level:'N3',tab:'vocab',answers:{},checked:{},shown:{},reasons:{}};
 const DATA={
 N5:{
 vocab:[
-{id:'n5v1',type:'漢字讀法',p:'まいあさ 六時に おきます。',target:'六時',o:['ろくじ','ろくにち','むいか','ろっぷん'],a:'ろくじ',e:'「六時」讀作「ろくじ」。'},
-{id:'n5v2',type:'表記',p:'きょうは てんきが いいです。',target:'てんき',o:['天気','電気','天气','点気'],a:'天気',e:'「てんき」的正確漢字是「天気」。'},
-{id:'n5v3',type:'前後關係',p:'のどが かわきました。水を（　）。',o:['のみます','ききます','よみます','あいます'],a:'のみます',e:'口渴時喝水，用「水を飲みます」。'},
-{id:'n5v4',type:'近義替換',p:'このへやは とても しずかです。',o:['うるさくないです','せまいです','くらいです','あついです'],a:'うるさくないです',e:'「静か」在此可理解為「不吵」。'}],
+{id:'n5v1',type:'漢字讀法',p:'まいあさ 六時に おきます。',o:['ろくじ','ろくにち','むいか','ろっぷん'],a:'ろくじ',e:'「六時」讀作「ろくじ」。'},
+{id:'n5v2',type:'表記',p:'きょうは てんきが いいです。',o:['天気','電気','点気','天气'],a:'天気',e:'「てんき」寫作「天気」。'},
+{id:'n5v3',type:'前後關係',p:'のどが かわきました。水を（　）。',o:['のみます','ききます','よみます','あいます'],a:'のみます',e:'口渴時「水を飲みます」。'}],
 grammar:[
-{id:'n5g1',type:'句子語法1',p:'わたしは まいにち バス（　）学校へ行きます。',o:['で','を','に','が'],a:'で',e:'交通工具後使用助詞「で」。'},
-{id:'n5g2',type:'句子語法1',p:'きのう えいがを（　）。',o:['みました','みます','みません','みる'],a:'みました',e:'「きのう」表示過去，使用「見ました」。'},
-{id:'n5g3',type:'句子語法2',p:'★ に入るものを選んでください： わたしは［1 日本語を］［2 ★］［3 べんきょうして］［4 います］。',o:['まいにち','きのう','とてもを','学校が'],a:'まいにち',e:'自然語序是「私は日本語を毎日勉強しています」。'}],
+{id:'n5g1',type:'句子語法1',p:'わたしは バス（　）学校へ行きます。',o:['で','を','に','が'],a:'で',e:'交通工具後用「で」。'},
+{id:'n5g2',type:'句子語法1',p:'きのう えいがを（　）。',o:['みました','みます','みません','みる'],a:'みました',e:'「きのう」表示過去。'},
+{id:'n5g3',type:'句子語法2',p:'★ に入るもの： わたしは 日本語を ★ べんきょうしています。',o:['まいにち','きのうを','学校が','とてもを'],a:'まいにち',e:'自然語序是「日本語を毎日勉強しています」。'}],
 reading:[
-{id:'n5r1',type:'內容理解（短篇）',pass:'田中さんへ。きょうのアルバイトは午後三時からです。二時五十分までに店に来てください。山田',p:'田中さんは何時までに店に行きますか。',o:['2時50分','3時50分','2時30分','3時00分'],a:'2時50分',e:'文中明確寫「二時五十分までに」。'},
+{id:'n5r1',type:'內容理解（短篇）',pass:'田中さんへ。きょうのアルバイトは午後三時からです。二時五十分までに店に来てください。',p:'田中さんは何時までに店に行きますか。',o:['2時50分','3時50分','2時30分','3時00分'],a:'2時50分',e:'文中寫「二時五十分までに」。'},
 {id:'n5r2',type:'信息檢索',pass:'図書館：月〜金 9:00〜20:00／土 10:00〜17:00／日 休み',p:'土曜日の午後6時に図書館へ行けますか。',o:['行けません','行けます','午前だけ行けます','日曜日なら行けます'],a:'行けません',e:'星期六 17:00 關館。'}],
 listening:[
-{id:'n5l1',type:'即時應答',audio:'すみません、今、何時ですか。',p:'最も自然な答えはどれですか。',o:['三時です。','学生です。','駅です。','毎日です。'],a:'三時です。',e:'詢問時間，回答「三時です」。'},
-{id:'n5l2',type:'問題理解',audio:'女の人：あした、駅で十時に会いましょう。男の人：十時ですね。わかりました。',p:'二人は何時に会いますか。',o:['10時','9時','11時','12時'],a:'10時',e:'對話中約定十時。'}]},
+{id:'n5l1',type:'即時應答',audio:'すみません、今、何時ですか。',p:'最も自然な答えはどれですか。',o:['三時です。','学生です。','駅です。','毎日です。'],a:'三時です。',e:'詢問時間。'},
+{id:'n5l2',type:'問題理解',audio:'女の人：あした、駅で十時に会いましょう。男の人：十時ですね。わかりました。',p:'二人は何時に会いますか。',o:['10時','9時','11時','12時'],a:'10時',e:'對話約定十時。'}]},
 N4:{
 vocab:[
-{id:'n4v1',type:'漢字讀法',p:'この道は 夜になると暗いです。',target:'夜',o:['よる','ひる','あさ','ばんごう'],a:'よる',e:'「夜」讀作「よる」。'},
-{id:'n4v2',type:'表記',p:'らいしゅう 友だちと りょこうします。',target:'りょこう',o:['旅行','旅校','料行','旅行う'],a:'旅行',e:'「りょこう」寫作「旅行」。'},
-{id:'n4v3',type:'前後關係',p:'電車が遅れたので、会社に（　）しました。',o:['遅刻','約束','準備','説明'],a:'遅刻',e:'電車誤點導致上班遲到。'},
-{id:'n4v4',type:'用法',p:'「間に合う」の使い方として正しいものはどれですか。',o:['急げば電車に間に合います。','電車を間に合います。','時間が間に合いです。','駅へ間に合いをします。'],a:'急げば電車に間に合います。',e:'「〜に間に合う」表示趕得上。'}],
+{id:'n4v1',type:'漢字讀法',p:'この道は 夜になると暗いです。',o:['よる','ひる','あさ','ばんごう'],a:'よる',e:'「夜」讀作「よる」。'},
+{id:'n4v2',type:'表記',p:'らいしゅう 友だちと りょこうします。',o:['旅行','旅校','料行','旅行う'],a:'旅行',e:'「りょこう」寫作「旅行」。'},
+{id:'n4v3',type:'用法',p:'「間に合う」の使い方として正しいものはどれですか。',o:['急げば電車に間に合います。','電車を間に合います。','時間が間に合いです。','駅へ間に合いをします。'],a:'急げば電車に間に合います。',e:'「〜に間に合う」表示趕得上。'}],
 grammar:[
-{id:'n4g1',type:'句子語法1',p:'日本へ来てから、すしが好き（　）なりました。',o:['に','を','で','が'],a:'に',e:'「〜になる」前接名詞／な形容詞時用「に」。'},
+{id:'n4g1',type:'句子語法1',p:'日本へ来てから、すしが好き（　）なりました。',o:['に','を','で','が'],a:'に',e:'「好きになる」前用「に」。'},
 {id:'n4g2',type:'句子語法1',p:'雨が降りそうですから、かさを持って（　）ほうがいいです。',o:['いった','いく','いって','いけば'],a:'いった',e:'「〜たほうがいい」表示建議。'},
-{id:'n4g3',type:'文章語法',p:'A：このケーキ、食べてもいいですか。 B：ええ、（　）。',o:['どうぞ','まだです','そうです','でしょう'],a:'どうぞ',e:'允許對方做某事時可回答「どうぞ」。'}],
+{id:'n4g3',type:'文章語法',p:'A：このケーキ、食べてもいいですか。 B：ええ、（　）。',o:['どうぞ','まだです','そうです','でしょう'],a:'どうぞ',e:'允許對方時可回答「どうぞ」。'}],
 reading:[
-{id:'n4r1',type:'內容理解（短篇）',pass:'佐藤さん、会議の時間が変わりました。午後2時ではなく、午後3時からです。場所は同じ301号室です。',p:'会議について正しいものはどれですか。',o:['3時から301号室で行う','2時から301号室で行う','3時から場所が変わる','会議は中止になった'],a:'3時から301号室で行う',e:'時間只改成 3 點，地點不變。'},
-{id:'n4r2',type:'信息檢索',pass:'市民プール：平日 9:00〜21:00／土日 9:00〜18:00。毎月第2月曜日は休館。',p:'第2月曜日の午後に利用できますか。',o:['利用できません','18時まで利用できます','21時まで利用できます','午前だけ利用できます'],a:'利用できません',e:'每月第二個星期一休館。'}],
+{id:'n4r1',type:'內容理解（短篇）',pass:'佐藤さん、会議の時間が変わりました。午後2時ではなく、午後3時からです。場所は同じ301号室です。',p:'会議について正しいものはどれですか。',o:['3時から301号室で行う','2時から301号室で行う','3時から場所も変わる','会議は中止になった'],a:'3時から301号室で行う',e:'時間改為 3 點，地點不變。'},
+{id:'n4r2',type:'信息檢索',pass:'市民プール：平日 9:00〜21:00／土日 9:00〜18:00。毎月第2月曜日は休館。',p:'第2月曜日の午後に利用できますか。',o:['利用できません','18時まで利用できます','21時まで利用できます','午前だけ利用できます'],a:'利用できません',e:'第二個星期一休館。'}],
 listening:[
-{id:'n4l1',type:'語言表達',audio:'店員：いらっしゃいませ。何をお探しですか。',p:'客として最も自然な返事はどれですか。',o:['白いシャツを探しています。','毎日働いています。','駅へ行きました。','三人います。'],a:'白いシャツを探しています。',e:'店員問正在找什麼。'},
-{id:'n4l2',type:'重點理解',audio:'男の人：土曜日は雨らしいですよ。女の人：じゃあ、山へ行くのは日曜日にしましょう。',p:'二人はいつ山へ行きますか。',o:['日曜日','土曜日','金曜日','月曜日'],a:'日曜日',e:'因星期六可能下雨，改成星期日。'}]},
+{id:'n4l1',type:'語言表達',audio:'店員：いらっしゃいませ。何をお探しですか。',p:'客として最も自然な返事はどれですか。',o:['白いシャツを探しています。','毎日働いています。','駅へ行きました。','三人います。'],a:'白いシャツを探しています。',e:'店員問在找什麼。'},
+{id:'n4l2',type:'重點理解',audio:'男の人：土曜日は雨らしいですよ。女の人：じゃあ、山へ行くのは日曜日にしましょう。',p:'二人はいつ山へ行きますか。',o:['日曜日','土曜日','金曜日','月曜日'],a:'日曜日',e:'因星期六可能下雨，改為星期日。'}]},
 N3:{
 vocab:[
-{id:'n3v1',type:'漢字讀法',p:'この計画について、詳しい説明が必要です。',target:'詳しい',o:['くわしい','ただしい','やさしい','めずらしい'],a:'くわしい',e:'「詳しい」讀作「くわしい」。'},
-{id:'n3v2',type:'表記',p:'この仕事には けいけん が必要です。',target:'けいけん',o:['経験','経険','験経','計験'],a:'経験',e:'「けいけん」寫作「経験」。'},
-{id:'n3v3',type:'前後關係',p:'説明を聞いて、ようやく問題の（　）が分かった。',o:['原因','用事','習慣','機会'],a:'原因',e:'聽完說明後終於明白問題的原因。'},
-{id:'n3v4',type:'近義替換',p:'この仕事は思ったより大変だった。',o:['予想したより難しかった','とても簡単だった','すぐ終わった','予定どおりだった'],a:'予想したより難しかった',e:'「思ったより大変」≈ 比預想更辛苦／困難。'},
-{id:'n3v5',type:'用法',p:'「確か」の使い方として最も自然なものはどれですか。',o:['確か、会議は三時からだったと思います。','この料理は確かを食べます。','確かに駅を歩きます。','彼は確かな来ます。'],a:'確か、会議は三時からだったと思います。',e:'「確か、〜だったと思う」表示帶有記憶確認語氣。'}],
+{id:'n3v1',type:'漢字讀法',p:'この計画について、詳しい説明が必要です。',o:['くわしい','ただしい','やさしい','めずらしい'],a:'くわしい',e:'「詳しい」讀作「くわしい」。'},
+{id:'n3v2',type:'表記',p:'この仕事には けいけん が必要です。',o:['経験','経険','験経','計験'],a:'経験',e:'「けいけん」寫作「経験」。'},
+{id:'n3v3',type:'近義替換',p:'この仕事は思ったより大変だった。',o:['予想したより難しかった','とても簡単だった','すぐ終わった','予定どおりだった'],a:'予想したより難しかった',e:'「思ったより大変」是比預想更困難。'}],
 grammar:[
 {id:'n3g1',type:'句子語法1',p:'この店は駅から近い（　）、値段も安い。',o:['うえに','ところで','ほど','ばかり'],a:'うえに',e:'「〜うえに」表示不僅 A 而且 B。'},
-{id:'n3g2',type:'句子語法1',p:'忙しくても、メールぐらいは返す（　）だ。',o:['べき','はずがない','ことにする','ようになる'],a:'べき',e:'「〜べきだ」表示應該做某事。'},
-{id:'n3g3',type:'句子語法2',p:'★ に入るものを選んでください： この問題は［1 一人で］［2 解決する］［3 ★］［4 難しい］。',o:['には','だけで','ほど','しか'],a:'には',e:'「一人で解決するには難しい」表示要靠一個人解決很困難。'},
-{id:'n3g4',type:'文章語法',p:'新しい制度には利点もある。（　）、準備に時間がかかるという問題もある。',o:['一方で','つまり','そのため','たとえば'],a:'一方で',e:'前後為優點與缺點的對比。'}],
+{id:'n3g2',type:'句子語法2',p:'★ に入るもの： この問題は 一人で 解決する ★ 難しい。',o:['には','だけで','ほど','しか'],a:'には',e:'「一人で解決するには難しい」。'},
+{id:'n3g3',type:'文章語法',p:'新しい制度には利点もある。（　）、準備に時間がかかるという問題もある。',o:['一方で','つまり','そのため','たとえば'],a:'一方で',e:'前後是優缺點對比。'}],
 reading:[
-{id:'n3r1',type:'內容理解（短篇）',pass:'最近、会社では会議の時間を短くする取り組みが始まった。以前は一時間かかることが多かったが、今は資料を事前に共有し、三十分以内に終えることを目標にしている。その結果、会議後の作業時間を確保しやすくなった。',p:'会社が会議を短くした主な目的は何ですか。',o:['会議後の作業時間を確保するため','資料を作らなくてよくするため','会議の回数を増やすため','社員を早く帰らせるため'],a:'会議後の作業時間を確保するため',e:'最後一句明示會議縮短後更容易確保後續工作時間。'},
-{id:'n3r2',type:'內容理解（中篇）',pass:'地域の図書館では、利用者が本を借りるだけでなく、勉強会や子ども向けの読み聞かせにも参加できる。最近はオンラインで予約した本を駅前の受取所で受け取れるサービスも始まった。仕事で開館時間に間に合わない人から特に好評だ。',p:'新しいサービスが特に便利なのはどんな人ですか。',o:['開館時間に図書館へ行きにくい人','子どもに本を読んでほしい人','勉強会を開きたい人','図書館で長時間勉強したい人'],a:'開館時間に図書館へ行きにくい人',e:'文中指出無法趕上開館時間的上班族特別好評。'},
-{id:'n3r3',type:'信息檢索',pass:'講座A：土曜10時・初心者向け／講座B：土曜14時・経験者向け／講座C：日曜10時・初心者向け。申込締切はすべて金曜日17時。',p:'初心者で土曜日の午後に参加したい人に合う講座はありますか。',o:['ありません','講座A','講座B','講座C'],a:'ありません',e:'星期六下午只有 B，但 B 是有經驗者向。'}],
+{id:'n3r1',type:'內容理解（短篇）',pass:'会社では会議を短くする取り組みが始まった。資料を事前に共有し、三十分以内に終えることで、会議後の作業時間を確保しやすくなった。',p:'会議を短くした主な目的は何ですか。',o:['会議後の作業時間を確保するため','資料を作らないため','会議の回数を増やすため','社員を早く帰らせるため'],a:'会議後の作業時間を確保するため',e:'最後一句是主要目的。'},
+{id:'n3r2',type:'信息檢索',pass:'講座A：土曜10時・初心者向け／講座B：土曜14時・経験者向け／講座C：日曜10時・初心者向け。',p:'初心者で土曜日の午後に参加したい人に合う講座はありますか。',o:['ありません','講座A','講座B','講座C'],a:'ありません',e:'星期六下午只有 B，但 B 是經驗者向。'}],
 listening:[
-{id:'n3l1',type:'問題理解',audio:'女の人：コピー用紙がもうありません。男の人：じゃあ、会議が始まる前に一階の店で買ってきます。',p:'男の人はこのあと何をしますか。',o:['コピー用紙を買いに行く','会議を中止する','資料をコピーする','一階で会議をする'],a:'コピー用紙を買いに行く',e:'男子說會議開始前去一樓的店買影印紙。'},
-{id:'n3l2',type:'重點理解',audio:'先生：レポートは金曜日までですが、メールではなく、授業のときに紙で出してください。',p:'学生はレポートをどうやって出しますか。',o:['授業で紙を出す','金曜日にメールする','事務室に持って行く','オンラインで提出する'],a:'授業で紙を出す',e:'老師明確說不要 email，要上課時交紙本。'},
-{id:'n3l3',type:'概要理解',audio:'男の人：最近、自転車で通勤するようにしたんです。最初は疲れましたが、今は運動にもなるし、電車の混雑も避けられるので気に入っています。',p:'男の人は自転車通勤についてどう思っていますか。',o:['今は気に入っている','疲れるのでやめたい','電車より時間がかかりすぎる','運動にならないと思っている'],a:'今は気に入っている',e:'男子說現在因可運動且避開擁擠而喜歡。'},
-{id:'n3l4',type:'即時應答',audio:'すみません、この資料、今日中に確認してもらえますか。',p:'最も自然な返事はどれですか。',o:['はい、夕方までに見ておきます。','いいえ、資料が好きです。','今日はこちらです。','確認は三枚あります。'],a:'はい、夕方までに見ておきます。',e:'對「今天之內可以確認嗎」的自然回應。'}]},
+{id:'n3l1',type:'問題理解',audio:'女の人：コピー用紙がもうありません。男の人：じゃあ、会議が始まる前に一階の店で買ってきます。',p:'男の人はこのあと何をしますか。',o:['コピー用紙を買いに行く','会議を中止する','資料をコピーする','一階で会議をする'],a:'コピー用紙を買いに行く',e:'男子要去買影印紙。'},
+{id:'n3l2',type:'重點理解',audio:'先生：レポートは金曜日までですが、メールではなく、授業のときに紙で出してください。',p:'学生はレポートをどうやって出しますか。',o:['授業で紙を出す','金曜日にメールする','事務室に持って行く','オンラインで提出する'],a:'授業で紙を出す',e:'老師要求上課交紙本。'},
+{id:'n3l3',type:'即時應答',audio:'すみません、この資料、今日中に確認してもらえますか。',p:'最も自然な返事はどれですか。',o:['はい、夕方までに見ておきます。','いいえ、資料が好きです。','今日はこちらです。','確認は三枚あります。'],a:'はい、夕方までに見ておきます。',e:'自然回應是承諾今天確認。'}]},
 N2:{
 vocab:[
-{id:'n2v1',type:'漢字讀法',p:'新しい制度の導入には慎重な検討が必要だ。',target:'慎重',o:['しんちょう','しんじゅう','せんちょう','しんしょう'],a:'しんちょう',e:'「慎重」讀作「しんちょう」。'},
-{id:'n2v2',type:'表記',p:'調査結果を ぶんせき して報告書にまとめた。',target:'ぶんせき',o:['分析','分折','文析','分積'],a:'分析',e:'「ぶんせき」寫作「分析」。'},
-{id:'n2v3',type:'詞語構成',p:'「未完成」の「未」と同じ意味で使われているものはどれですか。',o:['未確認','再確認','確認済み','要確認'],a:'未確認',e:'「未〜」表示尚未完成某行為。'},
-{id:'n2v4',type:'前後關係',p:'長時間の議論の末、ようやく双方が（　）できる案がまとまった。',o:['納得','省略','延期','担当'],a:'納得',e:'雙方都能接受／信服的方案，用「納得できる」。'},
-{id:'n2v5',type:'用法',p:'「著しい」の使い方として最も自然なものはどれですか。',o:['この地域では人口の増加が著しい。','私は著しいを駅で買った。','著しく会議に参加した。','彼は著しい人を説明した。'],a:'この地域では人口の増加が著しい。',e:'「著しい」表示顯著、明顯。'}],
+{id:'n2v1',type:'漢字讀法',p:'新しい制度の導入には慎重な検討が必要だ。',o:['しんちょう','しんじゅう','せんちょう','しんしょう'],a:'しんちょう',e:'「慎重」讀作「しんちょう」。'},
+{id:'n2v2',type:'詞語構成',p:'「未完成」の「未」と同じ意味で使われているものはどれですか。',o:['未確認','再確認','確認済み','要確認'],a:'未確認',e:'「未〜」表示尚未。'},
+{id:'n2v3',type:'用法',p:'「著しい」の使い方として最も自然なものはどれですか。',o:['この地域では人口の増加が著しい。','私は著しいを駅で買った。','著しく会議に参加した。','彼は著しい人を説明した。'],a:'この地域では人口の増加が著しい。',e:'「著しい」表示顯著。'}],
 grammar:[
-{id:'n2g1',type:'句子語法1',p:'この制度は便利である（　）、利用者の負担が増える可能性もある。',o:['一方で','に限って','ものなら','ばかりに'],a:'一方で',e:'前後為兩面性對照，用「一方で」。'},
-{id:'n2g2',type:'句子語法1',p:'説明を聞いた（　）、すぐに理解できるような問題ではない。',o:['からといって','ところで','ばかりか','ものの'],a:'からといって',e:'「〜からといって…とは限らない／ない」表示不能僅因 A 就推論 B。'},
-{id:'n2g3',type:'句子語法2',p:'★ に入るものを選んでください： この計画を［1 実現する］［2 ★］［3 多くの課題を］［4 解決しなければならない］。',o:['ためには','ことから','どころか','にすぎず'],a:'ためには',e:'「実現するためには、多くの課題を…」。'},
-{id:'n2g4',type:'文章語法',p:'オンライン会議は移動時間を減らせる。（　）、対面に比べて細かな反応を読み取りにくいという指摘もある。',o:['その一方で','したがって','つまり','それどころか'],a:'その一方で',e:'前後呈現優點與缺點對比。'}],
+{id:'n2g1',type:'句子語法1',p:'この制度は便利である（　）、利用者の負担が増える可能性もある。',o:['一方で','に限って','ものなら','ばかりに'],a:'一方で',e:'前後呈現兩面性。'},
+{id:'n2g2',type:'句子語法1',p:'説明を聞いた（　）、すぐに理解できるような問題ではない。',o:['からといって','ところで','ばかりか','ものの'],a:'からといって',e:'不能僅因 A 就推論 B。'},
+{id:'n2g3',type:'句子語法2',p:'★ に入るもの： この計画を 実現する ★ 多くの課題を解決しなければならない。',o:['ためには','ことから','どころか','にすぎず'],a:'ためには',e:'「実現するためには」。'}],
 reading:[
-{id:'n2r1',type:'內容理解（中篇）',pass:'働き方の柔軟性が高まる一方で、仕事と私生活の境界が曖昧になるという問題も指摘されている。自宅で仕事ができること自体は便利だが、いつでも連絡に応じなければならないと感じれば、かえって休みにくくなる。重要なのは、場所を自由にするだけでなく、連絡可能な時間帯についても組織内で共通のルールを設けることだ。',p:'筆者が最も重要だと考えていることは何ですか。',o:['連絡可能な時間帯にも共通ルールを設けること','全員を毎日出社させること','自宅勤務を禁止すること','仕事の連絡を一切しないこと'],a:'連絡可能な時間帯にも共通ルールを設けること',e:'最後一句為作者主張。'},
-{id:'n2r2',type:'綜合理解',pass:'資料A：駅前広場をイベント中心に活用すれば来訪者が増える。／資料B：日常的に使えるベンチや緑地を増やすほうが住民の満足度につながる。',p:'二つの資料の違いは何ですか。',o:['Aは来訪者増加、Bは日常利用を重視している','AもBも駐車場の拡大を主張している','Aは緑地、Bはイベントだけを否定している','二つとも同じ立場である'],a:'Aは来訪者増加、Bは日常利用を重視している',e:'兩資料重視的對象不同。'},
-{id:'n2r3',type:'論點理解（長篇）',pass:'政策を評価するとき、数字で測れる成果だけを重視すると、利用者が実際にどのように感じているかを見落とすことがある。しかし、個人の感想だけでは全体像を判断しにくい。したがって、統計と聞き取りのどちらか一方を選ぶのではなく、互いの弱点を補うように組み合わせる必要がある。',p:'筆者の主張は何ですか。',o:['統計と聞き取りを組み合わせるべきだ','統計は使うべきではない','個人の感想だけで十分だ','評価そのものをやめるべきだ'],a:'統計と聞き取りを組み合わせるべきだ',e:'最後一句即作者結論。'}],
+{id:'n2r1',type:'內容理解（中篇）',pass:'働き方の柔軟性が高まる一方で、仕事と私生活の境界が曖昧になる問題もある。重要なのは場所を自由にするだけでなく、連絡可能な時間帯についても共通のルールを設けることだ。',p:'筆者が重要だと考えていることは何ですか。',o:['連絡可能な時間帯にも共通ルールを設けること','全員を毎日出社させること','自宅勤務を禁止すること','仕事の連絡を一切しないこと'],a:'連絡可能な時間帯にも共通ルールを設けること',e:'最後一句是作者主張。'},
+{id:'n2r2',type:'綜合理解',pass:'資料A：駅前広場をイベント中心に活用すれば来訪者が増える。／資料B：日常的に使えるベンチや緑地を増やすほうが住民の満足度につながる。',p:'二つの資料の違いは何ですか。',o:['Aは来訪者増加、Bは日常利用を重視する','AもBも駐車場拡大を重視する','Aは緑地だけを重視する','二つは同じ立場だ'],a:'Aは来訪者増加、Bは日常利用を重視する',e:'兩資料重視的目標不同。'}],
 listening:[
-{id:'n2l1',type:'問題理解',audio:'女の人：会議資料は私が印刷します。あなたは参加者に時間変更のメールを送ってもらえますか。男の人：わかりました。すぐ送ります。',p:'男の人はこのあと何をしますか。',o:['時間変更のメールを送る','資料を印刷する','参加者名簿を作る','会議室を予約する'],a:'時間変更のメールを送る',e:'女子請男子寄時間變更通知，男子答應。'},
-{id:'n2l2',type:'重點理解',audio:'男の人：新しいシステムは便利ですが、操作方法を覚えるまで少し時間がかかりました。特に最初の一週間は問い合わせが多かったですね。',p:'男の人が最も強調していることは何ですか。',o:['導入直後は操作に慣れるのが大変だった','システムは役に立たない','問い合わせは全くなかった','一週間でシステムを廃止した'],a:'導入直後は操作に慣れるのが大変だった',e:'重點是初期需要時間熟悉操作。'},
-{id:'n2l3',type:'概要理解',audio:'女の人：地域イベントは人を集める効果があります。でも、一度来てもらうだけでは十分ではありません。普段から使いたくなる場所にする工夫も必要だと思います。',p:'女の人の考えに最も近いものはどれですか。',o:['イベントと日常利用の両方が重要だ','イベントだけで十分だ','人を集める必要はない','日常利用を減らすべきだ'],a:'イベントと日常利用の両方が重要だ',e:'活動引流之外，也要讓人平常願意使用。'},
-{id:'n2l4',type:'綜合理解',audio:'先生：A案は費用が安いですが完成まで時間がかかります。B案は費用は高いものの、来月から利用できます。予算には余裕がありますが、できるだけ早く始めたいというのが今回の条件です。',p:'条件に最も合うのはどちらですか。',o:['B案','A案','どちらも同じ','どちらも条件に合わない'],a:'B案',e:'條件是預算有餘裕且希望越快開始，B 較符合。'}]},
+{id:'n2l1',type:'問題理解',audio:'女の人：会議資料は私が印刷します。あなたは参加者に時間変更のメールを送ってもらえますか。男の人：わかりました。',p:'男の人はこのあと何をしますか。',o:['時間変更のメールを送る','資料を印刷する','名簿を作る','会議室を予約する'],a:'時間変更のメールを送る',e:'男子負責寄時間變更通知。'},
+{id:'n2l2',type:'概要理解',audio:'女の人：地域イベントは人を集める効果があります。でも、一度来てもらうだけでは十分ではありません。普段から使いたくなる場所にする工夫も必要です。',p:'女の人の考えに近いものはどれですか。',o:['イベントと日常利用の両方が重要だ','イベントだけで十分だ','人を集める必要はない','日常利用を減らすべきだ'],a:'イベントと日常利用の両方が重要だ',e:'活動與日常使用都重要。'},
+{id:'n2l3',type:'綜合理解',audio:'先生：A案は費用が安いですが完成まで時間がかかります。B案は費用は高いものの、来月から利用できます。予算には余裕がありますが、できるだけ早く始めたいのが今回の条件です。',p:'条件に最も合うのはどちらですか。',o:['B案','A案','どちらも同じ','どちらも合わない'],a:'B案',e:'重點是盡快開始且預算有餘裕。'}]},
 N1:{
 vocab:[
-{id:'n1v1',type:'漢字讀法',p:'今回の決定は、今後の方針を大きく左右する。',target:'左右する',o:['さゆうする','そうゆうする','ざゆうする','さようする'],a:'さゆうする',e:'「左右する」讀作「さゆうする」，意為左右、影響。'},
-{id:'n1v2',type:'前後關係',p:'その提案は一見合理的だが、長期的な影響については十分な（　）が必要だ。',o:['吟味','放置','免除','妥協'],a:'吟味',e:'「吟味する」表示仔細檢討、審視。'},
-{id:'n1v3',type:'近義替換',p:'彼の説明は要領を得なかった。',o:['何を言いたいのか分かりにくかった','非常に簡潔で分かりやすかった','必要な情報が十分だった','結論だけが明確だった'],a:'何を言いたいのか分かりにくかった',e:'「要領を得ない」表示不得要領、不清楚重點。'},
-{id:'n1v4',type:'用法',p:'「あながち」の使い方として最も自然なものはどれですか。',o:['その予想もあながち間違いとは言えない。','私はあながち駅へ行った。','あながちを三つ買った。','会議があながち始まった。'],a:'その予想もあながち間違いとは言えない。',e:'「あながち〜ない」表示未必、不能一概否定。'}],
+{id:'n1v1',type:'漢字讀法',p:'今回の決定は、今後の方針を大きく左右する。',o:['さゆうする','そうゆうする','ざゆうする','さようする'],a:'さゆうする',e:'「左右する」讀作「さゆうする」。'},
+{id:'n1v2',type:'前後關係',p:'その提案は一見合理的だが、長期的な影響については十分な（　）が必要だ。',o:['吟味','放置','免除','妥協'],a:'吟味',e:'「吟味」是仔細審視。'},
+{id:'n1v3',type:'近義替換',p:'彼の説明は要領を得なかった。',o:['何を言いたいのか分かりにくかった','非常に簡潔だった','必要な情報が十分だった','結論だけが明確だった'],a:'何を言いたいのか分かりにくかった',e:'「要領を得ない」是不清楚重點。'}],
 grammar:[
-{id:'n1g1',type:'句子語法1',p:'十分な検証を行わない（　）、制度を全国に拡大するのは危険だ。',o:['ことには','までもなく','といったら','そばから'],a:'ことには',e:'「〜ないことには」表示如果不先滿足前項條件，就無法進行後項。'},
+{id:'n1g1',type:'句子語法1',p:'十分な検証を行わない（　）、制度を全国に拡大するのは危険だ。',o:['ことには','までもなく','といったら','そばから'],a:'ことには',e:'「〜ないことには」表示前項是必要條件。'},
 {id:'n1g2',type:'句子語法1',p:'担当者の説明は、問題の本質に触れているとは（　）。',o:['言い難い','言うまでもない','言いかねない','言ってやまない'],a:'言い難い',e:'「〜とは言い難い」表示很難說是…。'},
-{id:'n1g3',type:'句子語法2',p:'★ に入るものを選んでください： 社会的な合意を［1 形成する］［2 ★］［3 十分な情報公開が］［4 欠かせない］。',o:['うえでは','どころか','ものなら','にひきかえ'],a:'うえでは',e:'「〜するうえでは」表示在進行某事時。'},
-{id:'n1g4',type:'文章語法',p:'短期的な成果だけを見れば、この施策は成功したと言える。（　）、長期的な費用まで含めて評価すれば、結論は異なる可能性がある。',o:['もっとも','それゆえ','ひいては','まして'],a:'もっとも',e:'「もっとも」可補充限制或轉折說明。'}],
+{id:'n1g3',type:'文章語法',p:'短期的な成果だけを見れば成功と言える。（　）、長期的な費用まで含めれば結論は異なる可能性がある。',o:['もっとも','それゆえ','ひいては','まして'],a:'もっとも',e:'「もっとも」可補充限制條件。'}],
 reading:[
-{id:'n1r1',type:'內容理解（長篇）',pass:'制度設計では、利用者の選択肢を増やすことが常に自由の拡大につながるとは限らない。選択肢が多すぎれば、比較に必要な情報や時間も増え、かえって決定が難しくなるからである。重要なのは数を増やすこと自体ではなく、利用者が違いを理解し、自分の目的に合った選択をできるように情報を整理することである。',p:'筆者が最も重視していることは何か。',o:['選択肢の違いを理解できるよう情報を整理すること','選択肢をできるだけ多くすること','利用者に比較させないこと','制度を一つに統一すること'],a:'選択肢の違いを理解できるよう情報を整理すること',e:'作者不是主張越多越好，而是讓使用者可理解差異並做合適選擇。'},
-{id:'n1r2',type:'綜合理解',pass:'文章A：公共空間は多様な人が偶然出会える余地を残すべきだ。／文章B：利用目的を明確に分けることで、安全で効率的な管理が可能になる。',p:'二つの文章の立場の違いとして最も適切なものはどれか。',o:['Aは用途の余白を重視し、Bは用途の明確化を重視する','AもBも用途を完全に固定すべきだとする','Aは安全性を否定し、Bは交流を否定する','両者に違いはない'],a:'Aは用途の余白を重視し、Bは用途の明確化を重視する',e:'A 重偶發交流的彈性，B 重用途明確與管理效率。'},
-{id:'n1r3',type:'論點理解（長篇）',pass:'データに基づく政策判断が重要であることに異論はない。しかし、何をデータとして採用するかという段階ですでに価値判断が入り込む。測定しやすい指標だけを集めれば、測りにくいが重要な影響が見えなくなる可能性がある。したがって、「数字に基づいているから中立だ」と考えるのではなく、指標の選び方そのものを検討対象にすべきである。',p:'筆者の主張は何か。',o:['指標の選択自体にも価値判断があることを意識すべきだ','数字を使う政策判断はすべて誤りだ','測定しにくいものは政策から除外すべきだ','データがあれば完全に中立な判断ができる'],a:'指標の選択自体にも価値判断があることを意識すべきだ',e:'核心在於指標選擇本身也需被檢討。'}],
+{id:'n1r1',type:'內容理解（長篇）',pass:'制度設計では、選択肢を増やすことが常に自由の拡大につながるとは限らない。選択肢が多すぎれば比較に必要な情報や時間も増える。重要なのは数ではなく、利用者が違いを理解し、自分の目的に合った選択をできるよう情報を整理することだ。',p:'筆者が最も重視していることは何か。',o:['選択肢の違いを理解できるよう情報を整理すること','選択肢をできるだけ多くすること','利用者に比較させないこと','制度を一つに統一すること'],a:'選択肢の違いを理解できるよう情報を整理すること',e:'作者重視可理解的資訊整理。'},
+{id:'n1r2',type:'論點理解（長篇）',pass:'データに基づく政策判断は重要だが、何をデータとして採用するかという段階ですでに価値判断が入り込む。したがって「数字に基づくから中立」と考えるのではなく、指標の選び方そのものを検討対象にすべきである。',p:'筆者の主張は何か。',o:['指標の選択自体にも価値判断があることを意識すべきだ','数字を使う判断はすべて誤りだ','測定しにくいものは除外すべきだ','データがあれば完全に中立だ'],a:'指標の選択自体にも価値判断があることを意識すべきだ',e:'核心是指標選擇本身也包含價值判斷。'}],
 listening:[
-{id:'n1l1',type:'問題理解',audio:'女の人：最終案は今日中にまとめます。あなたは関係部署に、明日の会議までに意見を送ってほしいと連絡してもらえますか。男の人：承知しました。',p:'男の人は何をしますか。',o:['関係部署に意見提出を依頼する','最終案を今日中にまとめる','会議を延期する','関係部署の意見を削除する'],a:'関係部署に意見提出を依頼する',e:'女子請男子聯絡相關部門在明日會議前提供意見。'},
-{id:'n1l2',type:'重點理解',audio:'男の人：調査の対象を広げればデータは増えますが、比較条件がそろわなくなる恐れがあります。今回は範囲を限定して、同じ基準で詳しく見るほうがいいでしょう。',p:'男の人はどの方法を勧めていますか。',o:['対象を限定して同じ基準で詳しく調べる','できるだけ多くの対象を集める','比較をやめる','基準を毎回変える'],a:'対象を限定して同じ基準で詳しく調べる',e:'男子主張先限定範圍，以相同基準深入比較。'},
-{id:'n1l3',type:'概要理解',audio:'女の人：制度を変えるとき、内容そのものだけでなく、なぜ変えるのかを利用者に説明することが大切です。理由が分からないまま変更だけ求められると、必要な改革でも反発が強くなることがあります。',p:'女の人が最も言いたいことは何ですか。',o:['制度変更の理由も丁寧に説明すべきだ','制度は変えるべきではない','利用者の反発は無視すべきだ','説明より変更の速度が重要だ'],a:'制度変更の理由も丁寧に説明すべきだ',e:'主旨是改革內容之外，也要說明為何改革。'},
-{id:'n1l4',type:'綜合理解',audio:'先生：A案は短期間で成果が見えますが維持費が高い。B案は効果が出るまで時間がかかりますが維持費は低い。今回は来年度だけでなく五年間の総費用を重視します。',p:'今回の条件では、どちらの案をより詳しく検討すべきですか。',o:['B案','A案','どちらも検討する必要はない','短期効果だけでA案に決める'],a:'B案',e:'條件強調五年總成本，因此維持費低的 B 更值得深入考慮。'}]}}
+{id:'n1l1',type:'問題理解',audio:'女の人：最終案は今日中にまとめます。あなたは関係部署に、明日の会議までに意見を送ってほしいと連絡してもらえますか。男の人：承知しました。',p:'男の人は何をしますか。',o:['関係部署に意見提出を依頼する','最終案をまとめる','会議を延期する','意見を削除する'],a:'関係部署に意見提出を依頼する',e:'男子負責聯絡相關部門提交意見。'},
+{id:'n1l2',type:'重點理解',audio:'男の人：調査対象を広げればデータは増えますが、比較条件がそろわなくなる恐れがあります。今回は範囲を限定し、同じ基準で詳しく見るほうがいいでしょう。',p:'男の人はどの方法を勧めていますか。',o:['対象を限定して同じ基準で詳しく調べる','対象をできるだけ増やす','比較をやめる','基準を毎回変える'],a:'対象を限定して同じ基準で詳しく調べる',e:'建議限定範圍後深入比較。'},
+{id:'n1l3',type:'概要理解',audio:'女の人：制度を変えるとき、内容そのものだけでなく、なぜ変えるのかを利用者に説明することが大切です。理由が分からないまま変更だけ求められると反発が強くなることがあります。',p:'女の人が最も言いたいことは何ですか。',o:['制度変更の理由も丁寧に説明すべきだ','制度は変えるべきではない','反発は無視すべきだ','説明より速度が重要だ'],a:'制度変更の理由も丁寧に説明すべきだ',e:'主旨是改革理由也必須說明。'}]}
 };
-function allFor(skill){return DATA[state.level][skill]||[]}
-function sectionItems(skill){const a=allFor(skill);const t=tier(state.level);return a.slice(0,Math.min(a.length,3+t))}
-function qkey(q){return state.level+'|'+state.tab+'|'+q.id}
-function pickOptions(q){if(!q._order)q._order=shuffle(q.o);return q._order}
-function reasonSelect(key){const cur=state.reasons[key]||'';return '<div class="reason"><b>錯題原因</b><select data-reason="'+esc(key)+'"><option value="">未選擇錯題原因</option>'+REASONS.map(x=>'<option '+(cur===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select></div>'}
-function mcq(q,skill){const key=state.level+'|'+skill+'|'+q.id,sel=state.answers[key]||'',checked=state.checked[key],rev=state.revealed[key],opts=pickOptions(q);let oh=opts.map((o,i)=>{let cls='opt';if(rev&&o===q.a)cls+=' good';if(rev&&sel&&o===sel&&o!==q.a)cls+=' bad';return '<label class="'+cls+'"><input type="radio" name="'+esc(key)+'" value="'+esc(o)+'" '+(sel===o?'checked':'')+'> <span>'+String.fromCharCode(65+i)+'. '+esc(o)+'</span></label>'}).join('');let fb='';if(checked){const ok=sel===q.a;fb='<div class="feedback '+(ok?'good':'bad')+'">'+(ok?'✓ 正確':'✗ 再檢查一次')+'</div>'}const audio=q.audio?'<div class="audio"><button type="button" data-speak="'+esc(q.audio)+'">▶ 播放音檔</button><span class="small">日語語音可重播</span></div>':'';const passage=q.pass?'<div class="passage jp">'+esc(q.pass)+'</div>':'';const target=q.target?'<div class="small">目標：<b class="jp">'+esc(q.target)+'</b></div>':'';return '<article class="q" data-q="'+esc(key)+'"><h3>'+esc(q.type)+'</h3>'+passage+audio+'<div class="prompt jp">'+esc(q.p)+'</div>'+target+'<div class="opts">'+oh+'</div><div class="actions"><button class="btn" data-check="'+esc(key)+'">檢查答案</button><button class="btn" data-show="'+esc(key)+'">顯示答案</button></div>'+fb+(rev?'<div class="accent"><b>正確答案：</b><span class="jp">'+esc(q.a)+'</span><br><span class="small">'+esc(q.e)+'</span></div>':'')+reasonSelect(key)+'</article>'}
-function renderSkill(skill,title){const items=sectionItems(skill);return '<div class="section-title">'+title+'</div><div class="accent"><b>今日難度：'+TL[tier(state.level)]+'</b><div class="small">'+(prior(state.level)?'依前次 '+state.level+' 作答正確率調整。':'無前次紀錄，使用簡單基準。')+'</div></div>'+items.map(q=>mcq(q,skill)).join('')+'<div class="actions"><button class="btn primary" data-finish="'+skill+'">完成本區並記錄</button></div>'}
-function weakness(){const counts={};REASONS.forEach(r=>counts[r]=0);Object.values(state.reasons).forEach(r=>{if(r)counts[r]++});const top=Object.entries(counts).sort((a,b)=>b[1]-a[1]);return '<div class="section-title">弱項</div><div class="accent"><b>本輪主要弱項</b><div>'+top.slice(0,3).map(([r,n])=>esc(r)+'：'+n).join('　')+'</div></div><div class="small">建議先回到錯誤最多的題型練習，再用模擬題確認是否改善。</div>'}
-function mock(){const groups=[['vocab','文字・語彙'],['grammar','文法'],['reading','讀解'],['listening','聽解']];return '<div class="section-title">'+state.level+' 模擬</div><div class="accent"><b>官方基準時間：</b>'+esc(LEVEL_TIMES[state.level])+'<div class="small">本站目前提供互動式迷你模擬；題目為本站原創練習題，不是官方試題。</div></div><div class="mockgrid">'+groups.map(([s,n])=>'<div class="mockcard"><b>'+n+'</b><div class="small">'+allFor(s).length+' 題題庫</div><button class="btn primary" data-mockskill="'+s+'">開始 '+n+'</button></div>').join('')+'</div><div id="mockArea"></div>'}
-function review(){return '<div class="section-title">複盤</div><div class="accent"><b>本輪完成度</b><div class="small">已作答 '+Object.keys(state.answers).filter(k=>k.startsWith(state.level+'|')).length+' 題；已標記錯題原因 '+Object.values(state.reasons).filter(Boolean).length+' 題。</div></div><textarea id="reviewInner" placeholder="寫下今天最重要的 2 個弱項，以及下一次要採取的具體改善方式。">'+esc(document.getElementById('reviewNotes')?.value||'')+'</textarea>'}
-function render(){document.querySelectorAll('.level').forEach(b=>b.classList.toggle('on',b.dataset.level===state.level));document.getElementById('officialSummary').textContent=state.level+'｜'+LEVEL_TIMES[state.level]+'。題型依官方 JLPT 架構分類。';const p=prior(state.level);document.getElementById('difficultyNote').innerHTML='<b>今日難度：'+TL[tier(state.level)]+'</b><br><span class="small">'+(p?'上次正確率 '+Math.round(p.accuracy*100)+'% → 本輪自動調整。':'無前次紀錄，使用簡單基準。')+' 重新整理頁面會清空本輪作答。</span>';document.getElementById('tabs').innerHTML=TABS.map(([id,n])=>'<button class="tab '+(state.tab===id?'on':'')+'" data-tab="'+id+'">'+n+'</button>').join('');let html='';if(state.tab==='vocab')html=renderSkill('vocab','文字・語彙');if(state.tab==='grammar')html=renderSkill('grammar','文法');if(state.tab==='reading')html=renderSkill('reading','讀解');if(state.tab==='listening')html=renderSkill('listening','聽解');if(state.tab==='weakness')html=weakness();if(state.tab==='mock')html=mock();if(state.tab==='review')html=review();document.getElementById('content').innerHTML=html;updateStats()}
-function updateStats(){const c={};REASONS.forEach(r=>c[r]=0);Object.values(state.reasons).forEach(r=>{if(r)c[r]++});document.getElementById('reasonStats').innerHTML=REASONS.map(r=>'<div class="stat"><span>'+r+'</span><b>'+c[r]+'</b></div>').join('');document.getElementById('markedCount').textContent='本輪已標記 '+Object.values(state.reasons).filter(Boolean).length+' 題'}
-function findQ(key){const parts=key.split('|'),skill=parts[1],id=parts.slice(2).join('|');return (DATA[parts[0]]?.[skill]||[]).find(q=>q.id===id)}
-function finish(skill){const qs=allFor(skill),done=qs.filter(q=>state.answers[state.level+'|'+skill+'|'+q.id]);if(!done.length){alert('請先作答至少一題。');return}const ok=done.filter(q=>state.answers[state.level+'|'+skill+'|'+q.id]===q.a).length,acc=ok/done.length;saveHistory(acc);alert('本區 '+ok+'/'+done.length+'，正確率 '+Math.round(acc*100)+'%。已記錄為今天的 '+state.level+' 練習摘要。')}
-function speak(text){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='ja-JP';u.rate=.92;const vs=speechSynthesis.getVoices(),v=vs.find(x=>/^ja/i.test(x.lang));if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){alert('目前瀏覽器無法播放日語語音。')}}
-document.addEventListener('change',e=>{const r=e.target.closest('[data-reason]');if(r){state.reasons[r.dataset.reason]=r.value;updateStats();return}if(e.target.matches('input[type=radio]'))state.answers[e.target.name]=e.target.value});
-document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.level){state.level=b.dataset.level;state.tab='vocab';state.answers={};state.reasons={};state.checked={};state.revealed={};render();return}if(b.dataset.tab){state.tab=b.dataset.tab;render();return}if(b.dataset.check){const q=findQ(b.dataset.check);if(!q)return;const sel=state.answers[b.dataset.check];if(!sel){alert('請先選擇答案。');return}state.checked[b.dataset.check]=true;render();return}if(b.dataset.show){state.revealed[b.dataset.show]=true;render();return}if(b.dataset.speak){speak(b.dataset.speak);return}if(b.dataset.finish){finish(b.dataset.finish);render();return}if(b.dataset.mockskill){const skill=b.dataset.mockskill;const area=document.getElementById('mockArea');area.innerHTML='<div class="section-title" style="margin-top:18px">Mock '+({vocab:'文字・語彙',grammar:'文法',reading:'讀解',listening:'聽解'}[skill])+'</div>'+allFor(skill).map(q=>mcq(q,skill)).join('');return}});
-document.addEventListener('input',e=>{if(e.target.id==='reviewInner'){const x=document.getElementById('reviewNotes');if(x)x.value=e.target.value}});
-window.addEventListener('beforeunload',()=>{try{speechSynthesis.cancel()}catch(e){}});
+function dkey(){const d=new Date(),p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())}
+function hist(){try{return JSON.parse(localStorage.getItem(HIST)||'{}')||{}}catch(e){return{}}}
+function prior(){const a=Array.isArray(hist()[S.level])?hist()[S.level]:[];return a.filter(x=>x.date<dkey()).sort((a,b)=>b.date.localeCompare(a.date))[0]||null}
+function tier(){const p=prior();if(!p)return 0;return p.acc<.6?0:p.acc<.8?1:p.acc<.9?2:3}
+const TL=['基礎','標準','進階','挑戰'];
+function esc(v){return String(v??'').replace(/[&<>\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[m]||m))}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function items(skill){const a=DATA[S.level][skill]||[],n=Math.min(a.length,2+tier());return a.slice(0,Math.max(2,n))}
+function key(skill,q){return S.level+'|'+skill+'|'+q.id}
+function options(q){if(!q._order)q._order=shuffle(q.o);return q._order}
+function reason(k){const cur=S.reasons[k]||'';return '<div class="reason"><b>錯題原因</b><select data-reason="'+esc(k)+'"><option value="">未選擇錯題原因</option>'+REASONS.map(r=>'<option '+(cur===r?'selected':'')+'>'+esc(r)+'</option>').join('')+'</select></div>'}
+function card(q,skill){const k=key(skill,q),sel=S.answers[k]||'',show=S.shown[k],checked=S.checked[k];const opts=options(q).map((o,i)=>{let c='opt';if(show&&o===q.a)c+=' good';if(show&&sel===o&&o!==q.a)c+=' bad';return '<label class="'+c+'"><input type="radio" name="'+esc(k)+'" value="'+esc(o)+'" '+(sel===o?'checked':'')+'> <span>'+String.fromCharCode(65+i)+'. '+esc(o)+'</span></label>'}).join('');const audio=q.audio?'<div class="audio"><button data-speak="'+esc(q.audio)+'">▶ 播放音檔</button><span class="small">可重複播放</span></div>':'';const passage=q.pass?'<div class="passage jp">'+esc(q.pass)+'</div>':'';const fb=checked?'<div class="feedback '+(sel===q.a?'good':'bad')+'">'+(sel===q.a?'✓ 正確':'✗ 再檢查一次')+'</div>':'';const ans=show?'<div class="accent"><b>正確答案：</b><span class="jp">'+esc(q.a)+'</span><br><span class="small">'+esc(q.e)+'</span></div>':'';return '<article class="q"><h3>'+esc(q.type)+'</h3>'+passage+audio+'<div class="prompt jp">'+esc(q.p)+'</div><div class="opts">'+opts+'</div><div class="actions"><button class="btn" data-check="'+esc(k)+'">檢查答案</button><button class="btn" data-show="'+esc(k)+'">顯示答案</button></div>'+fb+ans+reason(k)+'</article>'}
+function skill(skill,title){return '<div class="section-title">'+title+'</div><div class="accent"><b>今日難度：'+TL[tier()]+'</b><div class="small">'+(prior()?'依前次 '+S.level+' 正確率調整。':'無前次紀錄，使用簡單基準。')+'</div></div>'+items(skill).map(q=>card(q,skill)).join('')+'<button class="btn primary" data-finish="'+skill+'">完成本區並記錄</button>'}
+function weak(){const c=Object.fromEntries(REASONS.map(r=>[r,0]));Object.values(S.reasons).forEach(r=>{if(r)c[r]++});const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,3);return '<div class="section-title">弱項</div><div class="accent"><b>本輪主要弱項</b><div>'+top.map(x=>esc(x[0])+'：'+x[1]).join('　')+'</div></div><div class="small">先回到錯誤最多的題型，再用模擬題確認改善。</div>'}
+function mock(){const g=[['vocab','文字・語彙'],['grammar','文法'],['reading','讀解'],['listening','聽解']];return '<div class="section-title">'+S.level+' 模擬</div><div class="accent"><b>官方基準時間：</b>'+esc(TIMES[S.level])+'<div class="small">本站為互動式迷你模擬，題目為本站原創，不是官方試題。</div></div><div class="mockgrid">'+g.map(x=>'<div class="mockcard"><b>'+x[1]+'</b><div class="small">'+DATA[S.level][x[0]].length+' 題題庫</div><button class="btn primary" data-mock="'+x[0]+'">開始</button></div>').join('')+'</div><div id="mockArea"></div>'}
+function review(){return '<div class="section-title">複盤</div><div class="accent"><b>本輪完成度</b><div class="small">已作答 '+Object.keys(S.answers).filter(k=>k.startsWith(S.level+'|')).length+' 題；已標記錯題原因 '+Object.values(S.reasons).filter(Boolean).length+' 題。</div></div><textarea id="innerNotes" placeholder="寫下今天最重要的 2 個弱項與下一次改善動作。">'+esc(document.getElementById('notes').value)+'</textarea>'}
+function render(){document.querySelectorAll('.level').forEach(b=>b.classList.toggle('on',b.dataset.level===S.level));document.getElementById('summary').textContent=S.level+'｜'+TIMES[S.level]+'。題型依 JLPT 官方分類架構設計。';const p=prior();document.getElementById('difficulty').innerHTML='<b>今日難度：'+TL[tier()]+'</b><br><span class="small">'+(p?'上次正確率 '+Math.round(p.acc*100)+'% → 本輪自動調整。':'無前次紀錄，使用簡單基準。')+' 重新整理頁面會清空本輪作答。</span>';document.getElementById('tabs').innerHTML=TAB.map(x=>'<button class="tab '+(S.tab===x[0]?'on':'')+'" data-tab="'+x[0]+'">'+x[1]+'</button>').join('');let h='';if(S.tab==='vocab')h=skill('vocab','文字・語彙');else if(S.tab==='grammar')h=skill('grammar','文法');else if(S.tab==='reading')h=skill('reading','讀解');else if(S.tab==='listening')h=skill('listening','聽解');else if(S.tab==='weakness')h=weak();else if(S.tab==='mock')h=mock();else h=review();document.getElementById('content').innerHTML=h;stats()}
+function stats(){const c=Object.fromEntries(REASONS.map(r=>[r,0]));Object.values(S.reasons).forEach(r=>{if(r)c[r]++});document.getElementById('stats').innerHTML=REASONS.map(r=>'<div class="stat"><span>'+r+'</span><b>'+c[r]+'</b></div>').join('');document.getElementById('marked').textContent='本輪已標記 '+Object.values(S.reasons).filter(Boolean).length+' 題'}
+function find(k){const [lv,skill,id]=k.split('|');return (DATA[lv]?.[skill]||[]).find(q=>q.id===id)}
+function finish(skillName){const a=DATA[S.level][skillName]||[],done=a.filter(q=>S.answers[key(skillName,q)]);if(!done.length){alert('請先作答至少一題。');return}const ok=done.filter(q=>S.answers[key(skillName,q)]===q.a).length,acc=ok/done.length;const h=hist(),arr=Array.isArray(h[S.level])?h[S.level]:[],it={date:dkey(),acc,ts:Date.now()},i=arr.findIndex(x=>x.date===it.date);if(i>=0)arr[i]=it;else arr.push(it);h[S.level]=arr.slice(-20);localStorage.setItem(HIST,JSON.stringify(h));alert('本區 '+ok+'/'+done.length+'，正確率 '+Math.round(acc*100)+'%。已記錄。')}
+function speak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=.9;const v=speechSynthesis.getVoices().find(x=>/^ja/i.test(x.lang));if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){alert('目前瀏覽器無法播放日語語音。')}}
+document.addEventListener('change',e=>{if(e.target.matches('input[type=radio]'))S.answers[e.target.name]=e.target.value;const r=e.target.closest('[data-reason]');if(r){S.reasons[r.dataset.reason]=r.value;stats()}});
+document.addEventListener('input',e=>{if(e.target.id==='innerNotes')document.getElementById('notes').value=e.target.value});
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.level){S.level=b.dataset.level;S.tab='vocab';S.answers={};S.checked={};S.shown={};S.reasons={};render();return}if(b.dataset.tab){S.tab=b.dataset.tab;render();return}if(b.dataset.check){if(!S.answers[b.dataset.check]){alert('請先選擇答案。');return}S.checked[b.dataset.check]=true;render();return}if(b.dataset.show){S.shown[b.dataset.show]=true;render();return}if(b.dataset.speak){speak(b.dataset.speak);return}if(b.dataset.finish){finish(b.dataset.finish);render();return}if(b.dataset.mock){const s=b.dataset.mock;document.getElementById('mockArea').innerHTML='<div class="section-title" style="margin-top:18px">Mock '+s+'</div>'+DATA[S.level][s].map(q=>card(q,s)).join('');return}});
 render();
 })();
 </script>
