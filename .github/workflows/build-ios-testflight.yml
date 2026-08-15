@@ -1,0 +1,229 @@
+name: Build signed iOS IPA and upload to TestFlight
+
+on:
+  workflow_dispatch:
+    inputs:
+      marketing_version:
+        description: Marketing version (CFBundleShortVersionString)
+        required: true
+        default: '1.0.57'
+        type: string
+      upload_to_testflight:
+        description: Upload the signed IPA to App Store Connect / TestFlight
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  signed-ios:
+    runs-on: macos-latest
+    env:
+      BUNDLE_ID: tw.leon.toeflstudy
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      CERT_P12_B64: ${{ secrets.APPLE_DISTRIBUTION_CERT_P12_BASE64 }}
+      CERT_P12_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERT_PASSWORD }}
+      ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+      ASC_KEY_P8_B64: ${{ secrets.ASC_KEY_P8_BASE64 }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up latest stable Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Verify required Apple signing secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          missing=0
+          for name in APPLE_TEAM_ID CERT_P12_B64 CERT_P12_PASSWORD ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_P8_B64; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::Missing required GitHub Actions secret for $name"
+              missing=1
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then
+            echo "See mobile/ios/TESTFLIGHT_SETUP.md for the required secret names and setup steps."
+            exit 1
+          fi
+
+      - name: Install Apple Distribution certificate and App Store Connect API key
+        shell: bash
+        env:
+          RUNNER_TEMP_DIR: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          CERT_PATH="$RUNNER_TEMP_DIR/apple-distribution.p12"
+          API_KEY_DIR="$HOME/.appstoreconnect/private_keys"
+          API_KEY_PATH="$API_KEY_DIR/AuthKey_${ASC_KEY_ID}.p8"
+          KEYCHAIN_PATH="$RUNNER_TEMP_DIR/toefl-signing.keychain-db"
+          KEYCHAIN_PASSWORD="$(openssl rand -hex 24)"
+
+          export CERT_PATH API_KEY_PATH
+          python3 - <<'PY'
+          import base64, os, pathlib
+          pathlib.Path(os.environ['CERT_PATH']).write_bytes(base64.b64decode(os.environ['CERT_P12_B64']))
+          pathlib.Path(os.environ['API_KEY_PATH']).parent.mkdir(parents=True, exist_ok=True)
+          pathlib.Path(os.environ['API_KEY_PATH']).write_bytes(base64.b64decode(os.environ['ASC_KEY_P8_B64']))
+          PY
+          chmod 600 "$API_KEY_PATH"
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security import "$CERT_PATH" -P "$CERT_P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security default-keychain -s "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH"
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH"
+
+          echo "TOEFL_KEYCHAIN_PATH=$KEYCHAIN_PATH" >> "$GITHUB_ENV"
+          echo "TOEFL_KEYCHAIN_PASSWORD=$KEYCHAIN_PASSWORD" >> "$GITHUB_ENV"
+          echo "ASC_API_KEY_PATH=$API_KEY_PATH" >> "$GITHUB_ENV"
+
+      - name: Generate Xcode project
+        working-directory: mobile/ios
+        run: xcodegen generate
+
+      - name: Resolve Google Mobile Ads packages
+        working-directory: mobile/ios
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project TOEFLStudyLab.xcodeproj \
+            -scheme TOEFLStudyLab
+
+      - name: Archive with Apple Distribution signing
+        working-directory: mobile/ios
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_NUMBER="$(date -u +%Y%m%d%H%M)"
+          echo "TESTFLIGHT_BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_ENV"
+
+          xcodebuild \
+            -project TOEFLStudyLab.xcodeproj \
+            -scheme TOEFLStudyLab \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$PWD/build/TOEFLStudyLab.xcarchive" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$ASC_API_KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            CODE_SIGN_STYLE=Automatic \
+            PRODUCT_BUNDLE_IDENTIFIER="$BUNDLE_ID" \
+            MARKETING_VERSION='${{ inputs.marketing_version }}' \
+            CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+            archive
+
+      - name: Verify archive signing
+        working-directory: mobile/ios
+        shell: bash
+        run: |
+          set -euo pipefail
+          APP_PATH="$(find build/TOEFLStudyLab.xcarchive/Products/Applications -maxdepth 1 -name '*.app' -print -quit)"
+          test -n "$APP_PATH"
+          codesign --verify --deep --strict --verbose=2 "$APP_PATH"
+          {
+            echo "Marketing version: ${{ inputs.marketing_version }}"
+            echo "Build number: $TESTFLIGHT_BUILD_NUMBER"
+            echo "Bundle ID: $BUNDLE_ID"
+            echo "Team ID: $APPLE_TEAM_ID"
+            codesign -dv --verbose=4 "$APP_PATH" 2>&1
+          } | tee build/signing-summary.txt
+
+      - name: Export signed App Store Connect IPA
+        working-directory: mobile/ios
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > build/ExportOptions.plist <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store-connect</string>
+            <key>destination</key>
+            <string>export</string>
+            <key>signingStyle</key>
+            <string>automatic</string>
+            <key>teamID</key>
+            <string>${APPLE_TEAM_ID}</string>
+            <key>stripSwiftSymbols</key>
+            <true/>
+            <key>uploadSymbols</key>
+            <true/>
+          </dict>
+          </plist>
+          EOF
+
+          rm -rf build/export
+          xcodebuild -exportArchive \
+            -archivePath "$PWD/build/TOEFLStudyLab.xcarchive" \
+            -exportPath "$PWD/build/export" \
+            -exportOptionsPlist "$PWD/build/ExportOptions.plist" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$ASC_API_KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+
+          IPA="$(find build/export -maxdepth 2 -name '*.ipa' -print -quit)"
+          test -n "$IPA"
+          cp "$IPA" "TOEFL-Study-Lab-iOS-signed-${TESTFLIGHT_BUILD_NUMBER}.ipa"
+          echo "SIGNED_IPA=$PWD/TOEFL-Study-Lab-iOS-signed-${TESTFLIGHT_BUILD_NUMBER}.ipa" >> "$GITHUB_ENV"
+
+      - name: Validate signed IPA with App Store Connect
+        working-directory: mobile/ios
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcrun altool --validate-app \
+            -f "$SIGNED_IPA" \
+            -t ios \
+            --apiKey "$ASC_KEY_ID" \
+            --apiIssuer "$ASC_ISSUER_ID"
+
+      - name: Upload to App Store Connect / TestFlight
+        if: ${{ inputs.upload_to_testflight }}
+        working-directory: mobile/ios
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcrun altool --upload-app \
+            -f "$SIGNED_IPA" \
+            -t ios \
+            --apiKey "$ASC_KEY_ID" \
+            --apiIssuer "$ASC_ISSUER_ID"
+          echo "Upload accepted by App Store Connect. The build will appear in TestFlight after Apple processing."
+
+      - name: Upload signed IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TOEFL-Study-Lab-iOS-signed-${{ github.run_number }}
+          path: |
+            mobile/ios/TOEFL-Study-Lab-iOS-signed-*.ipa
+            mobile/ios/build/signing-summary.txt
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Clean signing keychain
+        if: always()
+        shell: bash
+        run: |
+          if [ -n "${TOEFL_KEYCHAIN_PATH:-}" ] && [ -f "$TOEFL_KEYCHAIN_PATH" ]; then
+            security delete-keychain "$TOEFL_KEYCHAIN_PATH" || true
+          fi
+          if [ -n "${ASC_API_KEY_PATH:-}" ]; then
+            rm -f "$ASC_API_KEY_PATH" || true
+          fi
