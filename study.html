@@ -1,108 +1,12 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>Build a Sentence 已改為真正亂序；Listening 多人對話強制分離角色聲線；Listening／Speaking 支援穩定重播。</p></div></div><script>
-(async()=>{try{let r=await fetch('./index.html?study_fix=v8',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);let html=await r.text();const patch=`<script>(function(){
-/* ---------- Reliable speech playback + strongly separated dialogue voices ---------- */
-let __speechToken=0,__speechTimer=null,__speechUtterance=null,__speechBtn=null;
-function __resetSpeechButton(btn){if(!btn)return;btn.disabled=false;if(btn.dataset.playLabel)btn.textContent=btn.dataset.playLabel;btn.removeAttribute('aria-busy');}
-function __voiceId(v){return String((v&&v.voiceURI)||'')+'|'+String((v&&v.name)||'')+'|'+String((v&&v.lang)||'')}
-function __allEnglishVoices(){
- const raw=((window.speechSynthesis&&speechSynthesis.getVoices())||[]).filter(v=>(v.lang||'').toLowerCase().startsWith('en'));
- const seen=new Set();return raw.filter(v=>{const k=__voiceId(v);if(seen.has(k))return false;seen.add(k);return true});
-}
-function __localePrefs(lang){
- const t=String(lang||'en-US');
- if(t==='en-NZ')return['en-NZ','en-AU','en-GB','en-US','en-CA'];
- if(t==='en-AU')return['en-AU','en-NZ','en-GB','en-US','en-CA'];
- if(t==='en-GB')return['en-GB','en-IE','en-AU','en-NZ','en-US'];
- return['en-US','en-CA','en-GB','en-AU','en-NZ'];
-}
-function __rankedVoices(lang){
- const prefs=__localePrefs(lang).map(x=>x.toLowerCase()),target=String(lang||'en-US').toLowerCase();
- return __allEnglishVoices().slice().sort((a,b)=>{
-   function score(v){const l=String(v.lang||'').toLowerCase(),p=prefs.indexOf(l);let s=p<0?50:p*5;if(l===target)s-=30;if(v.localService)s-=1;return s}
-   return score(a)-score(b);
- });
-}
-function __fallbackRoleLang(lang,i){const p=__localePrefs(lang);return p[i%p.length]||lang||'en-US'}
-function __findVoice(lang){const v=__rankedVoices(lang);if(v.length)return v[0];if(typeof voiceFor==='function'){try{return voiceFor(lang)||null}catch(e){}}return null}
-function __dialogueSegments(text){
- const original=String(text||'').trim();if(!original)return[];
- const qm=' Question. ',qi=original.lastIndexOf(qm),body=qi>0?original.slice(0,qi).trim():original,question=qi>0?original.slice(qi+qm.length).trim():'';
- const re=/(^|\\s)([A-Z][A-Za-z]*(?:\\s+(?:[A-Z][A-Za-z]*|[A-Z0-9]+)){0,2}):\\s*/g,matches=[];let m;
- while((m=re.exec(body))){matches.push({speaker:m[2].trim(),labelStart:m.index+(m[1]?m[1].length:0),textStart:re.lastIndex})}
- let out=[];
- if(matches.length>=2){
-   const unique=[];matches.forEach(x=>{const k=x.speaker.toLowerCase();if(!unique.some(y=>y.toLowerCase()===k))unique.push(x.speaker)});
-   if(unique.length>=2){
-     if(matches[0].labelStart>0){const pre=body.slice(0,matches[0].labelStart).trim();if(pre)out.push({speaker:'__NARRATOR__',text:pre,narrator:true})}
-     matches.forEach((x,i)=>{const end=i+1<matches.length?matches[i+1].labelStart:body.length,t=body.slice(x.textStart,end).trim();if(t)out.push({speaker:x.speaker,text:t,narrator:false})});
-   }
- }
- if(!out.length&&body)out=[{speaker:null,text:body,narrator:false}];
- if(question)out.push({speaker:'__QUESTION__',text:'Question. '+question,narrator:true});
- return out;
-}
-function __speakerProfiles(segments,lang){
- const names=[];segments.forEach(x=>{if(x.speaker&&!x.narrator&&!names.some(n=>n.toLowerCase()===x.speaker.toLowerCase()))names.push(x.speaker)});
- const voices=__rankedVoices(lang),used=new Set(),map={};
- const pitches=[0.76,1.28,0.93,1.38,0.84],rates=[0.88,0.96,0.91,0.86,0.98];
- names.forEach((name,i)=>{
-   let v=null;for(const cand of voices){const k=__voiceId(cand);if(!used.has(k)){v=cand;used.add(k);break}}
-   map[name.toLowerCase()]={voice:v,lang:v?(v.lang||lang):__fallbackRoleLang(lang,i),pitch:pitches[i%pitches.length],rate:rates[i%rates.length]};
- });
- let nv=null;for(const cand of voices){const k=__voiceId(cand);if(!used.has(k)){nv=cand;used.add(k);break}}
- map.__narrator__={voice:nv||voices[0]||__findVoice(lang),lang:(nv&&nv.lang)||lang||'en-US',pitch:1,rate:.9};
- return map;
-}
-function __profileFor(seg,state){if(seg.narrator)return state.profiles.__narrator__;if(!seg.speaker)return{voice:__findVoice(state.lang),lang:state.lang,pitch:1,rate:.9};return state.profiles[String(seg.speaker).toLowerCase()]||{voice:null,lang:state.lang,pitch:1,rate:.9}}
-function __speechState(text,lang,btn,token){
- const segments=__dialogueSegments(text),profiles=__speakerProfiles(segments,lang),roles=new Set(segments.filter(x=>x.speaker&&!x.narrator).map(x=>String(x.speaker).toLowerCase()));
- return{segments,profiles,lang:lang||'en-US',btn,token,isDialogue:roles.size>1,retried:{}};
-}
-function __speakQueueItem(state,index){
- if(state.token!==__speechToken)return;
- if(index>=state.segments.length){__resetSpeechButton(state.btn);__speechUtterance=null;return}
- const seg=state.segments[index],profile=__profileFor(seg,state),u=new SpeechSynthesisUtterance(String(seg.text||''));
- __speechUtterance=u;u.lang=profile.lang||state.lang;u.volume=1;u.rate=profile.rate;u.pitch=profile.pitch;if(profile.voice)u.voice=profile.voice;
- u.onstart=()=>{if(state.token!==__speechToken)return;if(state.btn){state.btn.textContent=state.isDialogue?'🔊 播放中｜角色聲線已分離':'🔊 播放中｜再按可重播';state.btn.setAttribute('aria-busy','true')}};
- u.onend=()=>{if(state.token!==__speechToken)return;const next=state.segments[index+1],pause=state.isDialogue&&next&&next.speaker!==seg.speaker?110:35;__speechTimer=setTimeout(()=>__speakQueueItem(state,index+1),pause)};
- u.onerror=()=>{if(state.token!==__speechToken)return;if(!state.retried[index]){state.retried[index]=true;__speechTimer=setTimeout(()=>__speakQueueItem(state,index),180)}else{__speechTimer=setTimeout(()=>__speakQueueItem(state,index+1),80)}};
- try{speechSynthesis.speak(u)}catch(e){u.onerror()}
-}
-function __startSpeech(text,lang,btn,token){if(token!==__speechToken)return;const state=__speechState(text,lang,btn,token);__speechTimer=setTimeout(()=>__speakQueueItem(state,0),80)}
-window.__toeflSpeak=function(text,lang,btn){
- if(!('speechSynthesis' in window)){alert('目前瀏覽器不支援語音播放，請改用 Safari／Chrome 開啟。');return}
- const token=++__speechToken;clearTimeout(__speechTimer);
- if(__speechBtn&&__speechBtn!==btn)__resetSpeechButton(__speechBtn);__speechBtn=btn;
- if(btn&&!btn.dataset.playLabel)btn.dataset.playLabel=btn.textContent;
- if(btn){btn.disabled=false;btn.textContent='準備播放…';btn.setAttribute('aria-busy','true')}
- try{speechSynthesis.cancel()}catch(e){};try{if(speechSynthesis.paused)speechSynthesis.resume()}catch(e){}
- try{speechSynthesis.getVoices()}catch(e){}
- if(__allEnglishVoices().length===0)__speechTimer=setTimeout(()=>__startSpeech(text,lang,btn,token),320);else __startSpeech(text,lang,btn,token);
-};
-window.speakText=function(text,lang,btn){window.__toeflSpeak(text,lang,btn)};
-function wireReliablePlayback(){
- document.querySelectorAll('button.play').forEach(b=>{
-   if(!b.dataset.playLabel)b.dataset.playLabel=b.textContent;b.disabled=false;
-   b.onclick=(ev)=>{ev.preventDefault();window.__toeflSpeak(b.dataset.text||'',b.dataset.lang||'en-US',b)};
-   const segs=__dialogueSegments(b.dataset.text||''),speakerCount=new Set(segs.filter(x=>x.speaker&&!x.narrator).map(x=>String(x.speaker).toLowerCase())).size;
-   if(speakerCount>1){const host=b.closest('.audio')||b.parentElement;if(host&&!host.querySelector('.dialogue-voice-note')){const note=document.createElement('span');note.className='small dialogue-voice-note';note.textContent='多人對話：不同角色強制使用不同聲線';host.appendChild(note)}}
- });
- document.querySelectorAll('button.splay').forEach(b=>{
-   if(!b.dataset.playLabel)b.dataset.playLabel=b.textContent;b.disabled=false;
-   b.onclick=(ev)=>{ev.preventDefault();window.__toeflSpeak(b.dataset.text||'','en-US',b)};
- });
-}
-
-/* ---------- Build a Sentence: deterministic daily scrambling ---------- */
-function __dayKey(){const d=new Date(),p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())}
-function __hash32(s){let h=2166136261>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
-function __rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-function __shuffleChunks(chunks,key){const original=chunks.slice(),a=chunks.slice(),rnd=__rng(__hash32(__dayKey()+'|'+key+'|'+original.join('|')));for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]]}if(a.length>1&&a.every((x,i)=>x===original[i]))a.push(a.shift());return a}
-function scrambleSentenceCards(){document.querySelectorAll('input[type="text"][id]').forEach(input=>{if(!/^(ws|ww|mws)\\d+$/.test(input.id))return;const q=input.closest('.q');if(!q)return;const prompt=q.firstElementChild;if(!prompt)return;let source=prompt.dataset.originalPrompt||prompt.textContent||'';if(!source.includes('/'))return;prompt.dataset.originalPrompt=source;const chunks=source.split('/').map(x=>x.trim()).filter(Boolean);if(chunks.length<2)return;const shuffled=__shuffleChunks(chunks,input.id);prompt.textContent=shuffled.join(' / ');prompt.dataset.scrambled='1';if(!q.querySelector('.scramble-note')){const note=document.createElement('div');note.className='small scramble-note';note.textContent='字詞組已打亂，請重組成自然且文法正確的英文句子。';prompt.insertAdjacentElement('afterend',note)}})}
-function enhanceAll(){wireReliablePlayback();scrambleSentenceCards()}
-if(typeof render==='function'){const _render=render;render=function(){_render();setTimeout(enhanceAll,0)}}
-if(typeof mockPart==='function'){const _mock=mockPart;mockPart=function(p){_mock(p);setTimeout(enhanceAll,0)}}
-if('speechSynthesis'in window){try{speechSynthesis.getVoices()}catch(e){};speechSynthesis.onvoiceschanged=()=>{try{speechSynthesis.getVoices()}catch(e){}}}
-if(typeof render==='function')render();setTimeout(enhanceAll,0);setTimeout(enhanceAll,250);
-})();<\/script>`;html=html.replace('</body>',patch+'</body>');document.open();document.write(html);document.close()}catch(e){document.getElementById('status').innerHTML='<b class="error">網站載入失敗</b><p>請重新整理頁面；若仍失敗，請改用 Safari／Chrome 開啟。</p><p class="error">'+String(e.message||e)+'</p>'}})();
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>Listening 多人對話角色使用不同聲線；題問固定使用未被該題對話角色使用的 narrator 聲線；Listening／Speaking 支援穩定重播。</p></div></div><script>
+(async()=>{try{
+  const r=await fetch('./index.html?study_fix=v9',{cache:'no-store'});
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  let html=await r.text();
+  const patchTag='<script src="./study-patch.js?v=9"><\/script>';
+  html=html.replace('</body>',patchTag+'</body>');
+  document.open();document.write(html);document.close();
+}catch(e){
+  document.getElementById('status').innerHTML='<b class="error">網站載入失敗</b><p>請重新整理頁面；若仍失敗，請改用 Safari／Chrome 開啟。</p><p class="error">'+String(e.message||e)+'</p>';
+}})();
 </script></body></html>
