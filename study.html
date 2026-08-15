@@ -1,10 +1,10 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>v43：Take an Interview 每輪錄音完成後，依最新逐字稿自動模擬 0–5 分並更新 Interview score；重新錄音會覆蓋舊分數。</p></div></div><script>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TOEFL iBT 2026 Study Lab</title><style>html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:#f4f7fb;color:#182237}.loading{min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}.box{max-width:560px;background:#fff;border:1px solid #dbe3ef;border-radius:18px;padding:22px;box-shadow:0 8px 24px #1c2d5510}.error{color:#b42318}</style></head><body><div class="loading"><div class="box" id="status"><b>正在載入 TOEFL iBT 2026 研習站…</b><p>v44：Take an Interview 改採較嚴格、題型感知的 TOEFL 2026 逐字稿模擬評分；短而未充分展開的 opinion 回答不再高估為 4–5 分。</p></div></div><script>
 (async()=>{try{
   try{
     const keys=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k)keys.push(k);}
     keys.forEach(k=>{if(/^v-/i.test(k)||/^toefl-error-reasons-/i.test(k)||/^v-error-reason/i.test(k)||k==='notes')localStorage.removeItem(k);});
   }catch(e){}
-  const r=await fetch('./index.html?study_fix=v43',{cache:'no-store'});
+  const r=await fetch('./index.html?study_fix=v44',{cache:'no-store'});
   if(!r.ok)throw new Error('HTTP '+r.status);
   let html=await r.text();
   const patchTag=`
@@ -15,28 +15,28 @@ window.__toeflBaseRenderV20=window.render;
 window.__toeflNativeMutationObserverV20=window.MutationObserver;
 window.MutationObserver=function(){this.observe=function(){};this.disconnect=function(){};this.takeRecords=function(){return[];};};
 <\/script>
-<script src="./study-patch.js?v=43"><\/script>
-<script src="./writing-auto-grade-v12.js?v=43"><\/script>
-<script src="./build-sentence-highlight-v15.js?v=43"><\/script>
-<script src="./reading-writing-2026-v17.js?v=43"><\/script>
-<script src="./speaking-interview-auto-grade-v43.js?v=43"><\/script>
-<script src="./speaking-record-v42.js?v=43"><\/script>
+<script src="./study-patch.js?v=44"><\/script>
+<script src="./writing-auto-grade-v12.js?v=44"><\/script>
+<script src="./build-sentence-highlight-v15.js?v=44"><\/script>
+<script src="./reading-writing-2026-v17.js?v=44"><\/script>
+<script src="./speaking-interview-auto-grade-v44.js?v=44"><\/script>
+<script src="./speaking-record-v42.js?v=44"><\/script>
 <script>
 if(window.__toeflNativeMutationObserverV20){window.MutationObserver=window.__toeflNativeMutationObserverV20;}
 <\/script>
-<script src="./stability-v20.js?v=43"><\/script>
-<script src="./speaking-show-answer-v21.js?v=43"><\/script>
-<script src="./error-reason-v25.js?v=43"><\/script>
-<script src="./fresh-session-v27.js?v=43"><\/script>
-<script src="./build-sentence-shuffle-v28.js?v=43"><\/script>
-<script src="./show-answer-v30.js?v=43"><\/script>
-<script src="./build-sentence-format-v31.js?v=43"><\/script>
-<script src="./build-sentence-difficulty-v32.js?v=43"><\/script>
-<script src="./adaptive-difficulty-v33.js?v=43"><\/script>
-<script src="./option-shuffle-v34.js?v=43"><\/script>
-<script src="./writing-task-prompt-v37.js?v=43"><\/script>
-<script src="./speaking-repeat-easier-v39.js?v=43"><\/script>
-<script src="./speaking-no-history-simple-v40.js?v=43"><\/script>`;
+<script src="./stability-v20.js?v=44"><\/script>
+<script src="./speaking-show-answer-v21.js?v=44"><\/script>
+<script src="./error-reason-v25.js?v=44"><\/script>
+<script src="./fresh-session-v27.js?v=44"><\/script>
+<script src="./build-sentence-shuffle-v28.js?v=44"><\/script>
+<script src="./show-answer-v30.js?v=44"><\/script>
+<script src="./build-sentence-format-v31.js?v=44"><\/script>
+<script src="./build-sentence-difficulty-v32.js?v=44"><\/script>
+<script src="./adaptive-difficulty-v33.js?v=44"><\/script>
+<script src="./option-shuffle-v34.js?v=44"><\/script>
+<script src="./writing-task-prompt-v37.js?v=44"><\/script>
+<script src="./speaking-repeat-easier-v39.js?v=44"><\/script>
+<script src="./speaking-no-history-simple-v40.js?v=44"><\/script>`;
   html=html.replace('</body>',patchTag+'</body>');
   document.open();document.write(html);document.close();
 }catch(e){
