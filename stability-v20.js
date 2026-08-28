@@ -1,55 +1,11 @@
 (function(){
 'use strict';
-/* TOEFL Study Lab stability v20
-   - Mock Speaking bypasses layered mockPart wrappers and uses the original renderer.
-   - Writing auto-grade UI is initialized explicitly; no MutationObserver is needed.
-*/
 const baseMock=window.__toeflBaseMockPartV20;
 const patchedMock=window.mockPart;
-
 function writingMap(){return {wemail:'erub',wdisc:'drub',mwemail:'mwer',mwdisc:'mwdr'};}
-function installWritingOne(id,scoreId){
-  const ta=document.getElementById(id);if(!ta)return;
-  const sel=document.getElementById(scoreId);
-  if(sel){const d=sel.closest('details');if(d)d.style.display='none';}
-  if(ta.dataset.v20AutoGrade==='1')return;
-  ta.dataset.v20AutoGrade='1';
-  let result=document.getElementById(id+'-auto-result');
-  const wrap=document.createElement('div');wrap.className='auto-grade-actions';wrap.style.cssText='display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px';
-  const btn=document.createElement('button');btn.type='button';btn.textContent='評分';btn.className='auto-grade-btn';
-  btn.addEventListener('click',function(){if(typeof window.gradeToeflWritingV12==='function')window.gradeToeflWritingV12(id);});
-  const note=document.createElement('span');note.className='small';note.textContent='按下後立即模擬 TOEFL iBT Writing 0–5 評分。';
-  wrap.append(btn,note);
-  if(!result){result=document.createElement('div');result.id=id+'-auto-result';result.className='score';result.style.display='none';}
-  ta.insertAdjacentElement('afterend',wrap);wrap.insertAdjacentElement('afterend',result);
-  ta.addEventListener('input',function(){
-    delete ta.dataset.autoScore;
-    if(sel)sel.value='';
-    if(result){result.style.display='block';result.innerHTML='<span class="small">內容已修改，請重新按「評分」。</span>';}
-  });
-}
+function installWritingOne(id,scoreId){const ta=document.getElementById(id);if(!ta)return;const sel=document.getElementById(scoreId);if(sel){const d=sel.closest('details');if(d)d.style.display='none';}if(ta.dataset.v20AutoGrade==='1')return;ta.dataset.v20AutoGrade='1';let result=document.getElementById(id+'-auto-result');const wrap=document.createElement('div');wrap.className='auto-grade-actions';wrap.style.cssText='display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px';const btn=document.createElement('button');btn.type='button';btn.textContent='評分';btn.className='auto-grade-btn';btn.addEventListener('click',function(){if(typeof window.gradeToeflWritingV12==='function')window.gradeToeflWritingV12(id);});const note=document.createElement('span');note.className='small';note.textContent='按下後立即模擬 TOEFL iBT Writing 0–5 評分。';wrap.append(btn,note);if(!result){result=document.createElement('div');result.id=id+'-auto-result';result.className='score';result.style.display='none';}ta.insertAdjacentElement('afterend',wrap);wrap.insertAdjacentElement('afterend',result);ta.addEventListener('input',function(){delete ta.dataset.autoScore;if(sel)sel.value='';if(result){result.style.display='block';result.innerHTML='<span class="small">內容已修改，請重新按「評分」。</span>';}});}
 function installWritingUI(){const m=writingMap();Object.keys(m).forEach(id=>installWritingOne(id,m[id]));}
-
-/* Most important safety fix: Mock Speaking does NOT traverse the Reading/Writing mock wrapper chain. */
-if(typeof baseMock==='function'&&typeof patchedMock==='function'){
-  window.mockPart=function(p){
-    if(p==='ms'){
-      return baseMock.apply(this,arguments);
-    }
-    const r=patchedMock.apply(this,arguments);
-    if(p==='mw')setTimeout(installWritingUI,0);
-    return r;
-  };
-}
-
-/* Explicit initialization only on relevant user actions. */
-document.addEventListener('click',function(ev){
-  const b=ev.target&&ev.target.closest?ev.target.closest('button'):null;if(!b)return;
-  if(b.dataset&&b.dataset.t==='Writing')setTimeout(installWritingUI,0);
-  if(/mockPart\(['\"]mw['\"]\)/.test(String(b.getAttribute('onclick')||'')))setTimeout(installWritingUI,0);
-},false);
-setTimeout(installWritingUI,0);
-
-/* Lightweight heartbeat for debugging/recovery; no DOM polling. */
-window.__toeflV20Ready=true;
-})();
+function installMobilePartB(){if(document.getElementById('toefl-mobile-partb-v21-style'))return;const s=document.createElement('style');s.id='toefl-mobile-partb-v21-style';s.textContent='@media(max-width:720px){#content,#content *{box-sizing:border-box;max-width:100%}#content{width:100%;min-width:0;overflow-x:hidden}#content .q{width:100%;min-width:0;overflow-wrap:anywhere}#content [class*="part-b" i],#content [id*="part-b" i],#content [data-part="B"],#content [data-section="B"]{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;overflow:visible!important;overflow-wrap:anywhere!important;float:none!important;clear:both!important}#content [class*="part-b" i] .grid,#content [id*="part-b" i] .grid,#content [data-part="B"] .grid,#content [data-section="B"] .grid{grid-template-columns:1fr!important}#content [class*="part-b" i] .actions,#content [id*="part-b" i] .actions,#content [data-part="B"] .actions,#content [data-section="B"] .actions{display:flex!important;flex-wrap:wrap!important;width:100%!important}#content [class*="part-b" i] .actions>button,#content [id*="part-b" i] .actions>button,#content [data-part="B"] .actions>button,#content [data-section="B"] .actions>button{flex:1 1 140px!important;min-width:0!important}#content [class*="part-b" i] table,#content [id*="part-b" i] table,#content [data-part="B"] table,#content [data-section="B"] table{display:block!important;width:100%!important;overflow-x:auto!important}#content [class*="part-b" i] pre,#content [id*="part-b" i] pre,#content [data-part="B"] pre,#content [data-section="B"] pre{white-space:pre-wrap!important;overflow-wrap:anywhere!important;word-break:break-word!important}}';document.head.appendChild(s)}
+if(typeof baseMock==='function'&&typeof patchedMock==='function'){window.mockPart=function(p){if(p==='ms')return baseMock.apply(this,arguments);const r=patchedMock.apply(this,arguments);if(p==='mw')setTimeout(installWritingUI,0);setTimeout(installMobilePartB,0);return r;};}
+document.addEventListener('click',function(ev){const b=ev.target&&ev.target.closest?ev.target.closest('button'):null;if(!b)return;if(b.dataset&&b.dataset.t==='Writing')setTimeout(installWritingUI,0);if(/mockPart\(['\"]mw['\"]\)/.test(String(b.getAttribute('onclick')||'')))setTimeout(installWritingUI,0);setTimeout(installMobilePartB,0);},false);
+setTimeout(installWritingUI,0);setTimeout(installMobilePartB,0);window.__toeflV20Ready=true;window.__toeflMobilePartBReady=true;})();
