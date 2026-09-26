@@ -41,7 +41,7 @@ function renderReading(){
     if(it.type==="words"){
       html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/36</div><span class="tag">Complete the Words</span><p>'+esc(it.text).replace("_","<span class=\"blank\">____</span>")+'</p><input class="wordInput" data-id="'+it.id+'" type="text" autocapitalize="none" autocomplete="off" spellcheck="false" placeholder="Type the missing word"><div class="actions"><button class="checkWord" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>字彙</option><option>拼字</option><option>詞性／word form</option></select></div><div class="result hidden" id="RF-'+it.id+'"></div></div>';
     }else{
-      var p=prepared(it,pi++,"R"),o=p.options;rState[it.id].correct=p.correct;
+      var p=prepared(it,pi++,"R"),o=p.options;rState[it.id].correct=p.correct;it._options=o;it._correctIndex=p.correct;
       html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/36</div><span class="tag">'+esc(it.type==="daily"?"Read in Daily Life":"Read an Academic Passage")+'</span>'+ (it.title?'<span class="tag">'+esc(it.title)+'</span>':'') +
       (it.passage?'<div class="passage"><b>Text</b>'+it.passage.split("\\n").map(function(t){return"<p>"+esc(t)+"</p>"}).join("")+'</div>':'')+
       '<p><b>'+esc(it.question)+'</b></p>'+o.map(function(v,j){return'<button class="option rOpt" data-id="'+it.id+'" data-i="'+j+'">'+String.fromCharCode(65+j)+". "+esc(v)+"</button>"}).join("")+
@@ -54,7 +54,7 @@ function listeningAudioLabel(type){return type==="response"?"Listen and Choose a
 function renderListening(){
   var box=$("#listeningContent"),html="",plan=positionPlan(listening.length,"L");
   listening.forEach(function(it,i){
-    var p=prepared(it,i,"L");lState[it.id]={selected:null,checked:false,correct:p.correct};
+    var p=prepared(it,i,"L");it._options=p.options;it._correctIndex=p.correct;lState[it.id]={selected:null,checked:false,correct:p.correct};
     html+='<div class="q" id="L-'+it.id+'"><div class="small">LISTENING '+(i+1)+'/36</div><span class="tag">'+esc(listeningAudioLabel(it.type))+'</span><span class="tag">'+esc(it.lang)+'</span>'+
       '<div class="audio"><button class="playBtn" data-id="'+it.id+'" data-mode="full">🔊 播放完整音檔</button>'+ (it.type==="response"?"":'<button class="playBtn" data-id="'+it.id+'" data-mode="question">🔊 只重播題問</button>')+'</div>'+
       '<p><b>題問</b> '+esc(it.question)+'</p>'+p.options.map(function(v,j){return'<button class="option lOpt" data-id="'+it.id+'" data-i="'+j+'">'+String.fromCharCode(65+j)+". "+esc(v)+"</button>"}).join("")+
