@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#3157d5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>TOEFL iBT 2026｜Saturday Full Mock｜2026-09-26</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#182237;--muted:#667085;--line:#dbe3ef;--brand:#3157d5;--ok:#14785a;--bad:#b42318;--warn:#8a5b00;--soft:#f7f9ff}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.58 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;overflow-x:hidden}
+main{max-width:980px;margin:auto;padding:12px 10px 90px}
+.hero,.card,.q{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0}
+.hero{background:linear-gradient(135deg,#fff,#eef3ff)}
+h1{font-size:clamp(1.65rem,6vw,2.6rem);line-height:1.08;margin:4px 0 10px}
+h2{font-size:1.28rem;margin:4px 0 10px}
+h3{font-size:1.06rem;margin:4px 0 9px}
+.small{font-size:.9rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.actions,.barbtns{display:flex;gap:8px;flex-wrap:wrap}
+.actions>*{flex:1 1 160px}
+button,textarea,input,select{font:inherit}
+button{min-height:44px;border:0;border-radius:11px;padding:9px 13px;font-weight:800;background:var(--brand);color:#fff;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button.ghost{background:#fff;color:var(--brand);border:1px solid #c7d3f7}
+button:disabled{opacity:.55;cursor:not-allowed}
+.timer{font-size:1.8rem;font-weight:950}
+.sectionBar{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.progress{height:9px;background:#e7ecf4;border-radius:999px;overflow:hidden}.progress>div{height:100%;width:0;background:var(--brand)}
+.note,.instruction,.result{padding:10px;border-radius:10px;background:var(--soft);border:1px solid #c8d6ff}
+.instruction{background:#fffaf0;border-color:#eedca9}
+.result.ok{background:#edf9f4;color:#126147;border-color:#b7ead6}
+.result.bad{background:#fff1ef;color:#9f241b;border-color:#f2c2bc}
+.result.warn{background:#fff8df;color:#7a5600;border-color:#ead49b}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0}
+.chip,.answerchip{background:#fff;color:var(--text);border:1px solid #cfd8e6;border-radius:10px;padding:9px 10px;min-height:44px}
+.chip.used{opacity:.35}
+.answerline{display:flex;flex-wrap:wrap;gap:7px;min-height:56px;border:1px dashed #b9c5d7;border-radius:12px;padding:8px;background:#fbfcff;align-items:center}
+.answerchip{background:#eef3ff;border-color:#c7d3f7;font-weight:750}
+.option{display:block;width:100%;text-align:left;background:#fff;color:var(--text);border:1px solid #cfd8e6;margin:7px 0;min-height:50px;font-weight:650}
+.option.selected{border:2px solid var(--brand);background:#f3f6ff}
+.tag{display:inline-block;font-size:.78rem;border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--muted);margin-right:5px}
+.passage{background:#fbfcff;border:1px solid var(--line);border-radius:12px;padding:12px;line-height:1.72;margin:9px 0}
+.passage p{margin:0 0 10px}
+.blank{font-weight:900;color:var(--brand)}
+textarea{width:100%;padding:11px;border:1px solid #cfd8e6;border-radius:10px;background:#fff;font-size:16px;min-height:180px;resize:vertical}
+input[type=text]{width:100%;padding:11px;border:1px solid #cfd8e6;border-radius:10px;background:#fff;min-height:44px}
+select{padding:9px;border:1px solid #cfd8e6;border-radius:9px;background:#fff;min-height:44px}
+.count{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem;margin-top:5px}
+.audio{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0}.audio button{flex:1 1 190px}
+.transcript{background:#fbfcff;border:1px solid var(--line);border-radius:10px;padding:9px;margin-top:8px}
+.recordbox{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fbfcff;margin-top:9px}
+.recAudio{display:block;width:100%;margin:9px 0}
+.hidden{display:none!important}
+.kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:10px}
+.kpi>div{background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px;text-align:center}.kpi b{display:block;font-size:1.18rem}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.check{border:1px solid var(--line);border-radius:10px;padding:9px;background:#fff}
+.sticky{position:sticky;bottom:8px;z-index:5;background:rgba(255,255,255,.97);border:1px solid #c7d3f7;border-radius:13px;padding:10px;box-shadow:0 8px 24px #1c2d5514}
+#voiceStatus{margin-top:8px}
+@media(max-width:720px){
+ .grid,.kpi{grid-template-columns:1fr 1fr}.checks{grid-template-columns:1fr}
+ .hero,.card,.q{padding:12px;border-radius:13px}
+ .sectionBar{align-items:flex-start;flex-direction:column}
+ .actions>*{flex-basis:100%}
+ .audio button{flex-basis:100%}
+}
+@media(max-width:390px){body{font-size:15px}.grid,.kpi{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<section class="hero">
+<div class="small">2026 NEW TOEFL iBT｜Saturday Full Mock + Review｜2026-09-26</div>
+<h1>今天進行新版 TOEFL iBT 完整模擬考</h1>
+<p>今天是固定週六 180 分鐘：<b>完整模擬考＋訂正</b>。只使用 2026/1/21 起新版題型，全部題目與互動直接內建於本頁。</p>
+<div class="grid">
+<div class="note"><b>學習目標</b><br>先穩定達到 4.5，再以 5.0 為進階目標。今天主要用途是找出 Reading、Listening、Writing、Speaking 四科的主要瓶頸。</div>
+<div class="instruction"><b>完成標準</b><br>完成 36 Reading、36 Listening、12 Writing、11 Speaking；完成自動計分；至少整理 3 個錯因與 1 個下週優先改善項目。</div>
+</div>
+</section>
+
+<section class="card">
+<div class="sectionBar">
+<div><b>180 分鐘總計時</b><div id="timer" class="timer">03:00:00</div></div>
+<div class="actions"><button id="startTimer">開始</button><button id="pauseTimer" class="ghost">暫停</button><button id="resetTimer" class="ghost">歸零</button></div>
+</div>
+<div class="progress"><div id="timerBar"></div></div>
+<p class="small">建議節奏：模考主體約 120 分鐘，最後約 60 分鐘訂正與紀錄。音檔可重播，但正式模擬時盡量一次完成。</p>
+</section>
+
+<section class="card">
+<h2>今天的策略</h2>
+<div class="grid">
+<div class="note"><b>Reading</b><br>先抓文本目的與段落功能，再找證據。Complete the Words 先看上下文與詞性，不因單字停太久。</div>
+<div class="note"><b>Listening</b><br>記主旨、轉折、原因／結果、說話者目的與態度。Conversation、Announcement、Academic Talk 都會在同一次播放中依序播放內容與題問。</div>
+<div class="note"><b>Writing</b><br>Build a Sentence 先抓主詞＋動詞骨架；Email 先目的→背景→請求；Discussion 先立場→理由→例子→結果。</div>
+<div class="note"><b>Speaking</b><br>Listen and Repeat 先求清楚與完整，再求速度。Interview 用「答案→理由→例子／結果」迅速展開。</div>
+</div>
+</section>
+
+<section class="card" id="readingSection">
+<h2>Part 1｜Reading｜36 題</h2>
+<div id="rKpi" class="kpi"></div>
+<div id="readingContent"></div>
+</section>
+
+<section class="card" id="listeningSection">
+<h2>Part 2｜Listening｜36 題</h2>
+<div class="note"><b>今日音域</b>：混合 North America、U.K.、Australia、New Zealand。指定口音若裝置沒有高品質正常聲線，會退回最近的正常英文聲線；不使用 novelty／機械／效果聲線。</div>
+<div id="voiceStatus"></div>
+<div id="lKpi" class="kpi" style="margin-top:10px"></div>
+<div id="listeningContent"></div>
+</section>
+
+<section class="card" id="writingSection">
+<h2>Part 3｜Writing｜12 題</h2>
+<div id="writingContent"></div>
+</section>
+
+<section class="card" id="speakingSection">
+<h2>Part 4｜Speaking｜11 題</h2>
+<div class="note">Raw 0–55 = 7 題 Listen and Repeat × 0–5 + 4 題 Take an Interview × 0–5。自動建議分僅供站內練習，Listen and Repeat 仍必須人工修正 pronunciation／intelligibility；Interview 仍需人工修正 pace／pauses、pronunciation／rhythm／intonation／intelligibility、grammar／vocabulary。</div>
+<div id="speakingContent"></div>
+</section>
+
+<section class="card">
+<h2>最後訂正＋量化紀錄</h2>
+<div class="grid">
+<div>
+<div class="note"><b>四科 Raw</b><div id="overallRaw" style="font-weight:900;font-size:1.08rem;margin-top:5px">尚未完成</div><div class="small">客觀題直接計分；Writing／Speaking 依站內練習 raw 規則。</div></div>
+<div class="note" style="margin-top:9px"><b>錯題分類摘要</b><div id="errorSummary" style="margin-top:5px">完成作答後自動整理。</div></div>
+</div>
+<div>
+<div class="checks">
+<label class="check"><input class="selfCheck" id="checkGoal" type="checkbox"> 完成四科＋180 分鐘計時</label>
+<label class="check"><input class="selfCheck" id="checkAudio" type="checkbox"> Listening／Speaking 播放鍵可重播</label>
+<label class="check"><input class="selfCheck" id="checkRecord" type="checkbox"> Speaking 已測試錄音＋回放</label>
+<label class="check"><input class="selfCheck" id="checkReview" type="checkbox"> 已檢查至少 3 題錯題</label>
+</div>
+<textarea id="reviewNotes" style="min-height:160px;margin-top:9px" placeholder="量化紀錄：Reading __/36；Listening __/36；Writing __/20；Speaking __/55。&#10;最常見錯因：____。&#10;今天保留的策略：____。&#10;下週最優先改善：____。"></textarea>
+</div>
+</div>
+<div class="actions" style="margin-top:10px"><button id="saveRecord">儲存今天紀錄</button><button id="clearRecord" class="ghost">清除今天作答</button></div>
+</section>
+
+<div class="sticky"><b>目前總覽</b>　<span id="stickyScore">R 0/36 · L 0/36 · W 0/20 · S 0/55</span><div class="small">2026-09-26 題庫固定；同一天不重覆、選項位置固定隨機化、Build a Sentence 亂序固定。</div></div>
+</main>
+<script src="./toefl-mock-data-2026-09-26.js"></script>
+<script src="./toefl-mock-app-2026-09-26.js"></script>
+</body>
+</html>
