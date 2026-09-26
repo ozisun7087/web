@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/study.html" }
+    { "source": "/", "destination": "/toefl-mock-2026-09-26.html" }
   ],
   "headers": [
     {
