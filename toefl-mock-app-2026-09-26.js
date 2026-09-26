@@ -33,16 +33,16 @@ function prepared(item,index,section){
   return{options:out,correct:pos};
 }
 function renderReading(){
-  var box=$("#readingContent"),html='<div class="q"><div class="instruction"><b>Mock composition</b>：6 Complete the Words + 6 Read in Daily Life + 24 Read an Academic Passage = 36 items.</div></div>';
+  var box=$("#readingContent"),html='<div class="q"><div class="instruction"><b>Mock composition</b>：6 Complete the Words + 8 Read in Daily Life + 36 Read an Academic Passage = 50 items.</div></div>';
   var plan=positionPlan( reading.filter(function(x){return x.type!=="words"}).length,"R");
   var pi=0;
   reading.forEach(function(it,i){
     rState[it.id]={selected:null,checked:false,correct:false};
     if(it.type==="words"){
-      html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/36</div><span class="tag">Complete the Words</span><p>'+esc(it.text).replace("_","<span class=\"blank\">____</span>")+'</p><input class="wordInput" data-id="'+it.id+'" type="text" autocapitalize="none" autocomplete="off" spellcheck="false" placeholder="Type the missing word"><div class="actions"><button class="checkWord" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>字彙</option><option>拼字</option><option>詞性／word form</option></select></div><div class="result hidden" id="RF-'+it.id+'"></div></div>';
+      html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/50</div><span class="tag">Complete the Words</span><p>'+esc(it.text).replace("_","<span class=\"blank\">____</span>")+'</p><input class="wordInput" data-id="'+it.id+'" type="text" autocapitalize="none" autocomplete="off" spellcheck="false" placeholder="Type the missing word"><div class="actions"><button class="checkWord" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>字彙</option><option>拼字</option><option>詞性／word form</option></select></div><div class="result hidden" id="RF-'+it.id+'"></div></div>';
     }else{
       var p=prepared(it,pi++,"R"),o=p.options;rState[it.id].correct=p.correct;it._options=o;it._correctIndex=p.correct;
-      html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/36</div><span class="tag">'+esc(it.type==="daily"?"Read in Daily Life":"Read an Academic Passage")+'</span>'+ (it.title?'<span class="tag">'+esc(it.title)+'</span>':'') +
+      html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/50</div><span class="tag">'+esc(it.type==="daily"?"Read in Daily Life":"Read an Academic Passage")+'</span>'+ (it.title?'<span class="tag">'+esc(it.title)+'</span>':'') +
       (it.passage?'<div class="passage"><b>Text</b>'+it.passage.split("\\n").map(function(t){return"<p>"+esc(t)+"</p>"}).join("")+'</div>':'')+
       '<p><b>'+esc(it.question)+'</b></p>'+o.map(function(v,j){return'<button class="option rOpt" data-id="'+it.id+'" data-i="'+j+'">'+String.fromCharCode(65+j)+". "+esc(v)+"</button>"}).join("")+
       '<div class="actions"><button class="checkR" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>主旨／purpose</option><option>細節／detail</option><option>推論／inference</option><option>字彙／vocabulary</option><option>組織／organization</option><option>說話者意圖</option></select><button class="ghost showR" data-id="'+it.id+'">顯示答案</button></div><div class="result hidden" id="RF-'+it.id+'"></div></div>';
@@ -55,7 +55,7 @@ function renderListening(){
   var box=$("#listeningContent"),html="",plan=positionPlan(listening.length,"L");
   listening.forEach(function(it,i){
     var p=prepared(it,i,"L");it._options=p.options;it._correctIndex=p.correct;lState[it.id]={selected:null,checked:false,correct:p.correct};
-    html+='<div class="q" id="L-'+it.id+'"><div class="small">LISTENING '+(i+1)+'/36</div><span class="tag">'+esc(listeningAudioLabel(it.type))+'</span><span class="tag">'+esc(it.lang)+'</span>'+
+    html+='<div class="q" id="L-'+it.id+'"><div class="small">LISTENING '+(i+1)+'/47</div><span class="tag">'+esc(listeningAudioLabel(it.type))+'</span><span class="tag">'+esc(it.lang)+'</span>'+
       '<div class="audio"><button class="playBtn" data-id="'+it.id+'" data-mode="full">🔊 播放完整音檔</button>'+ (it.type==="response"?"":'<button class="playBtn" data-id="'+it.id+'" data-mode="question">🔊 只重播題問</button>')+'</div>'+
       '<p><b>題問</b> '+esc(it.question)+'</p>'+p.options.map(function(v,j){return'<button class="option lOpt" data-id="'+it.id+'" data-i="'+j+'">'+String.fromCharCode(65+j)+". "+esc(v)+"</button>"}).join("")+
       '<div class="actions"><button class="checkL" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>主旨／main idea</option><option>細節／detail</option><option>推論／inference</option><option>說話者意圖／purpose</option><option>語氣／attitude</option><option>Response</option></select><button class="ghost showL" data-id="'+it.id+'">顯示答案</button></div><div class="result hidden" id="LF-'+it.id+'"></div><details class="transcript"><summary>訂正後看逐字稿</summary><div>'+esc(it.audio)+'</div></details></div>';
@@ -92,10 +92,10 @@ function renderScores(){
   var bs=wState.bs.filter(function(x){return x.checked&&x.correct}).length;
   var wr=bs+(wState.email?wState.email.score:0)+(wState.discussion?wState.discussion.score:0);
   var ss=speakingScore();
-  $("#rKpi").innerHTML="<div><b>"+rb+"</b><span>對題</span></div><div><b>"+rw+"/36</b><span>已評</span></div><div><b>"+(rw?Math.round(rb/rw*100):0)+"%</b><span>正確率</span></div><div><b>"+(rw-rb)+"</b><span>錯題</span></div>";
-  $("#lKpi").innerHTML="<div><b>"+lb+"</b><span>對題</span></div><div><b>"+lw+"/36</b><span>已評</span></div><div><b>"+(lw?Math.round(lb/lw*100):0)+"%</b><span>正確率</span></div><div><b>"+(lw-lb)+"</b><span>錯題</span></div>";
-  $("#overallRaw").textContent="Reading "+rb+"/36｜Listening "+lb+"/36｜Writing "+wr+"/20｜Speaking "+ss+"/55";
-  $("#stickyScore").textContent="R "+rb+"/36 · L "+lb+"/36 · W "+wr+"/20 · S "+ss+"/55";
+  $("#rKpi").innerHTML="<div><b>"+rb+"</b><span>對題</span></div><div><b>"+rw+"/50</b><span>已評</span></div><div><b>"+(rw?Math.round(rb/rw*100):0)+"%</b><span>正確率</span></div><div><b>"+(rw-rb)+"</b><span>錯題</span></div>";
+  $("#lKpi").innerHTML="<div><b>"+lb+"</b><span>對題</span></div><div><b>"+lw+"/47</b><span>已評</span></div><div><b>"+(lw?Math.round(lb/lw*100):0)+"%</b><span>正確率</span></div><div><b>"+(lw-lb)+"</b><span>錯題</span></div>";
+  $("#overallRaw").textContent="Reading "+rb+"/50｜Listening "+lb+"/47｜Writing "+wr+"/20｜Speaking "+ss+"/55";
+  $("#stickyScore").textContent="R "+rb+"/50 · L "+lb+"/47 · W "+wr+"/20 · S "+ss+"/55";
   var wrong=reading.concat(listening).filter(function(x){return x._checked&&!x._correct}),tags={};
   wrong.forEach(function(x){var sec=x._sec==="L"?"L-":"R-",sel=$("#"+sec+x.id);if(sel){var s=$(".errorTag",sel);if(s&&s.value)tags[s.value]=(tags[s.value]||0)+1}});
   $("#errorSummary").innerHTML=wrong.length?("目前客觀題錯 "+wrong.length+" 題。 "+Object.keys(tags).map(function(k){return esc(k)+" × "+tags[k]}).join("；")+"。"):("目前尚無已確認錯題。");
