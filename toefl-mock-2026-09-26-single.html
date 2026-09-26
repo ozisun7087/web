@@ -147,7 +147,397 @@ select{padding:9px;border:1px solid #cfd8e6;border-radius:9px;background:#fff;mi
 
 <div class="sticky"><b>目前總覽</b>　<span id="stickyScore">R 0/36 · L 0/36 · W 0/20 · S 0/55</span><div class="small">2026-09-26 題庫固定；同一天不重覆、選項位置固定隨機化、Build a Sentence 亂序固定。</div></div>
 </main>
-<script src="./toefl-mock-data-2026-09-26.js"></script>
-<script src="./toefl-mock-app-2026-09-26.js"></script>
+<script>
+window.TOEFL_MOCK_DATA = {
+reading: {
+words: [
+ ["history","harmony","housing","harvest","Planning researchers often examine local _istory to understand how residents remember a place.","Vocabulary"],
+ ["access","advice","archive","agenda","A public plaza should provide clear _ccess for people with different mobility needs.","Vocabulary"],
+ ["approving","arriving","adapting","announcing","The committee requested additional evidence before _pproving the proposal.","Word form"],
+ ["frequency","framework","frontage","fragment","Transit _equency can affect how confidently residents plan daily trips.","Vocabulary"],
+ ["oral","urban","open","official","Researchers used _ral histories to document memories that were absent from formal plans.","Vocabulary"],
+ ["evaluate","exchange","enclose","estimate","A short pilot can help planners _valuate how people use a new public space.","Word form"]
+],
+daily: [
+ ["d1","Campus notice","The Community Planning Center will close its study room at 5 p.m. on Thursday for electrical work. Students who need the room after 5 p.m. may use the second-floor reading area instead. The reading area will remain open until 9 p.m.","What should students do if they need a study space after 5 p.m?",["Use the second-floor reading area","Return on Friday morning","Study in the electrical room","Leave the campus"],0],
+ ["d2","Professor message","Professor Lin writes: The neighborhood field visit has moved from Wednesday to Friday because the community center is holding an event on Wednesday. Please meet at the east entrance of the station at 9:10 a.m.","Why was the field visit moved?",["The station is under repair","The community center is holding an event","The professor is traveling","The weather forecast changed"],1],
+ ["d3","Museum label","A museum label explains that a former market street once served as a place where residents exchanged food, news, and job information. The street later became a major bus corridor.","According to the label, what social function did the market street once serve?",["It was a private residential lane","It connected several airports","It helped residents exchange information","It was used mainly for parking"],2],
+ ["d4","Housing seminar","A seminar flyer states: Affordable Housing and Daily Mobility, 6:30–8:00 p.m., Room 204. The discussion will examine how housing location affects travel time and access to services.","What is one topic of the seminar?",["The history of airports","How housing location affects daily travel","How to design private gardens","How to calculate building taxes"],1],
+ ["d5","Community garden signup","A neighborhood garden notice says volunteers can register for Saturday morning planting by Wednesday evening. Participants should bring gloves, but basic tools will be provided.","What should participants bring?",["Their own fertilizer","Gloves","A ladder","A bus ticket"],1],
+ ["d6","Library announcement","The library announces that a collection of local oral histories will move to a new digital archive. Printed transcripts will remain available at the reference desk during the transition.","Where can people find printed transcripts during the transition?",["At the reference desk","In the cafeteria","At the station entrance","In the planning studio"],0]
+],
+academic: [
+ {title:"Vacant Lots and Temporary Public Use", text:"In many older districts, vacant lots appear after warehouses close or buildings are removed. Planners sometimes use these sites for temporary public purposes rather than leaving them fenced off. A temporary plaza may provide seating, trees, or a small market, while a vacant site awaits permanent redevelopment. Supporters argue that such projects can test how people use a place before a long-term design is fixed. A short experiment can also reveal which entrances are convenient, where shade is needed, and whether nearby residents actually use the space. Critics point out that temporary projects can create unrealistic expectations if residents believe every temporary feature will become permanent. They also note that maintenance responsibilities must be clear. A temporary project therefore works best when its goals, duration, budget, and evaluation methods are made explicit.",
+ qs:[
+ ["What is the main purpose of the passage?",["To compare different financing systems for public plazas","To explain how temporary uses can help planners test vacant sites","To argue that vacant lots should always remain undeveloped","To describe the history of warehouses in older districts"],1,"Main idea"],
+ ["According to the passage, what can a short experiment reveal?",["Which entrances are convenient","How much a permanent building will cost","Which developer should receive the site","How many apartments can be constructed"],0,"Detail"],
+ ["Why might critics worry about temporary projects?",["They require no public participation","They may create expectations about permanent features","They usually increase transportation costs","They prevent residents from using public space"],1,"Inference"],
+ ["Why does the author mention maintenance responsibilities?",["To show that temporary projects still require practical planning","To suggest residents should pay all project costs","To compare private and public ownership","To explain why warehouses close"],0,"Purpose"],
+ ["The word explicit is closest in meaning to",["clearly stated","financially profitable","legally disputed","physically attractive"],0,"Vocabulary"],
+ ["How is the passage organized?",["A problem is introduced, benefits and concerns are discussed, and conditions for success are given","A historical event is described and then compared with a future prediction","Two neighborhoods are compared in detail","A definition is given followed by unrelated examples"],0,"Organization"]
+ ]},
+ {title:"Housing and Transit Access", text:"Affordable housing is often evaluated by its monthly rent, but location can be equally important. A household paying less for an apartment may still face high costs if daily trips require long journeys or several transfers. Researchers therefore examine housing affordability together with access to jobs, schools, clinics, and public transportation. In one study of metropolitan neighborhoods, households living near frequent transit reported shorter average travel times even when their housing payments were not the lowest in the region. The researchers cautioned that transit proximity alone does not guarantee accessibility. A station may be nearby but difficult to reach on foot, especially for older adults or people with mobility limitations. They concluded that housing policy should consider not only the price of a dwelling but also the time, effort, and reliability involved in reaching essential destinations.",
+ qs:[
+ ["What central claim does the passage make about housing affordability?",["Why transit stations are expensive to build","Why housing affordability should include access and travel costs","Why older adults prefer suburban housing","Why rent is the only useful affordability measure"],1,"Main idea"],
+ ["What did households near frequent transit report?",["Higher housing payments in every case","Shorter average travel times","More private car ownership","Fewer nearby schools"],1,"Detail"],
+ ["Why might a nearby station still provide poor accessibility?",["It may be difficult to reach on foot","It may have too many restaurants","It may be located in a historic district","It may offer cheaper housing"],0,"Inference"],
+ ["Which groups are specifically mentioned as potentially facing walking difficulties?",["Tourists and students","Developers and planners","Older adults and people with mobility limitations","Business owners and commuters"],2,"Detail"],
+ ["The word reliability is closest in meaning to",["predictability","profitability","visibility","popularity"],0,"Vocabulary"],
+ ["Why does the author describe the metropolitan study?",["To provide evidence that travel conditions matter in evaluating affordability","To prove that all transit stations are equally useful","To show that low rents cause traffic congestion","To explain how schools set housing prices"],0,"Purpose"]
+ ]},
+ {title:"Cultural Heritage and Oral Histories", text:"Official heritage registers identify buildings and places that a society considers historically significant. Yet a register cannot capture every meaning that residents attach to a neighborhood. Oral-history interviews can reveal memories about shops, festivals, workplaces, and daily routes that may not appear in architectural surveys. These memories do not automatically determine preservation policy, but they can broaden the evidence considered by planners. For example, a modest storefront might have little architectural distinction while serving for decades as a meeting point for a migrant community. Researchers who document such experiences can show why cultural value is sometimes connected to social relationships rather than physical appearance alone. The challenge is to combine this qualitative evidence with legal definitions, building conditions, and practical maintenance requirements. In this approach, heritage is treated not simply as an object to be protected but also as a relationship between people and place.",
+ qs:[
+ ["What is the main idea?",["Oral histories can add social meanings to heritage assessment","Architectural surveys are always unreliable","Only registered buildings have cultural value","Preservation policy should ignore residents' memories"],0,"Main idea"],
+ ["What may oral-history interviews reveal?",["Only building dimensions","Memories of shops, festivals, workplaces, and daily routes","The exact future cost of redevelopment","Which contractor should restore a building"],1,"Detail"],
+ ["Why might a modest storefront have cultural value?",["It may be used as a meeting point for a community","It is always architecturally unique","It is newer than nearby buildings","It requires no maintenance"],0,"Inference"],
+ ["Why does the author say memories do not automatically determine policy?",["They are one form of evidence that must be considered with other constraints","Residents are never allowed to participate","Legal definitions are unnecessary","Architectural evidence is more expensive"],0,"Purpose"],
+ ["The word qualitative is closest in meaning to",["focused on experiences and meanings","based only on numerical measurements","limited to construction materials","concerned with tax revenue"],0,"Vocabulary"],
+ ["What contrast is central to the passage?",["Physical appearance alone versus social relationships and lived meaning","Private ownership versus government ownership","Old buildings versus new bridges","Local taxes versus national taxes"],0,"Organization"]
+ ]},
+ {title:"Accessible Street Design", text:"Street redesign is often discussed in terms of traffic flow, but pedestrians experience a street differently from drivers. A project may improve vehicle movement while making a crossing harder to understand or longer to reach. Accessibility specialists therefore pay attention to crossing distance, curb design, surface quality, lighting, and the clarity of pedestrian routes. In one neighborhood project, curb extensions shortened the distance people needed to cross at several intersections. However, the project team discovered that poorly placed street furniture narrowed the accessible path. The team moved benches and signs after observing how wheelchair users and people with strollers navigated the area. This example shows why accessibility can depend on details that are easy to miss in a plan. Design drawings are important, but observation after construction can reveal how a street is actually experienced.",
+ qs:[
+ ["What is the passage mainly about?",["Why vehicle traffic should always be reduced","How pedestrian accessibility depends on design details and observation","Why street furniture should be removed from cities","How curb extensions increase property values"],1,"Main idea"],
+ ["What did curb extensions do in the example?",["They shortened crossing distances","They increased car speeds","They removed street lighting","They created new parking spaces"],0,"Detail"],
+ ["Why were benches and signs moved?",["They narrowed the accessible path","They were historically inaccurate","They blocked a bus route","They increased construction costs"],0,"Inference"],
+ ["Why does the author mention observation after construction?",["It can reveal how people actually experience the street","It replaces all design drawings","It determines the property tax rate","It prevents the need for maintenance"],0,"Purpose"],
+ ["The word navigated is closest in meaning to",["moved through a space","paid for a service","designed a building","measured traffic"],0,"Vocabulary"],
+ ["Which element is NOT listed as a concern for accessibility specialists?",["Crossing distance","Curb design","Surface quality","Property ownership history"],3,"Detail"]
+ ]}
+]
+},
+listening: {
+responses: [
+ ["Could you tell me where the housing policy seminar is being held?",["Sure, it is in Room 204.","I attended yesterday morning.","The policy was published last year.","Yes, the housing units are affordable."],0],
+ ["Why did the planner postpone the community meeting?",["Because the projector was expensive.","Because several residents were away.","Because the building was historic.","Because the meeting room was larger."],1],
+ ["Would you mind sending me the neighborhood map?",["No, I can email it this afternoon.","The map shows three districts.","It was printed in blue.","The neighborhood is west of campus."],0],
+ ["What is the main reason for adding more benches?",["To reduce construction time.","To provide places for people to rest.","To increase traffic speed.","To hide utility equipment."],1],
+ ["Did the museum keep the original storefront sign?",["Yes, it was preserved during renovation.","The museum closes at six.","The storefront was on a different street.","No, the exhibit has two floors."],0],
+ ["When should students meet the professor?",["At noon on Monday.","At the station entrance at nine ten.","After the community event ends.","Inside the museum café."],1],
+ ["Why is the new sidewalk wider?",["It was built from older bricks.","The city wanted more space for accessible movement.","The road became a bus corridor.","The storefronts were moved indoors."],1],
+ ["Could the field visit include the public housing site?",["Yes, the second stop is the housing site.","It included a lecture last year.","The site is privately owned.","The visit begins after lunch."],0],
+ ["What did the survey measure?",["Resident travel time and service access.","The age of the city hall.","Building paint colors only.","The number of museum tickets."],0],
+ ["Do residents have to register before Saturday's workshop?",["No, registration closed last month.","Yes, the sign-up form is required.","The workshop is on Sunday.","The library handles registration for museums."],1],
+ ["Why did the team move the benches?",["They wanted to create a wider pedestrian path.","The benches were too expensive.","Residents preferred indoor seating.","The street was converted into parking."],0],
+ ["What can the digital archive help researchers do?",["Compare local memories across interviews.","Repair historic buildings automatically.","Calculate housing prices.","Change transit schedules."],0]
+],
+conversations: [
+ ["c1","Maya: I was reading the proposal for the community plaza. It looks attractive, but I wonder whether the seating will be usable in winter.\nLeo: The designers planned covered areas near the north wall. They also want movable chairs so people can change locations.\nMaya: That sounds useful. Maybe the field team should record how the space is used across seasons.",
+  [["What concern does Maya raise?",["Winter usability of the seating","The price of the land","The location of the bus stop","The number of trees"],0],
+   ["What do the designers plan?",["A covered seating area and movable chairs","A new underground station","A permanent market building","A larger parking garage"],0]]],
+ ["c2","Amelia: The heritage survey lists the old cinema, but the report says very little about its social history.\nJon: That is because the survey focused mainly on architectural features.\nAmelia: We should add interviews with former workers and local residents. That would document meanings that the building survey misses.",
+  [["Why does the report contain little social history?",["It focused mainly on architecture","The cinema never had any workers","Residents refused all interviews","The building was too new"],0],
+   ["What does Amelia propose?",["Interviews with former workers and residents","A new cinema design","A transport study","A property tax survey"],0]]],
+ ["c3","Sophie: Have you checked the bus stop near the new housing block?\nEthan: Yes. The shelter is fine, but there is a signpost in the middle of the accessible route.\nSophie: Then the issue is not the shelter itself. We should relocate the sign and watch how people use the path after the change.",
+  [["What problem does Ethan identify?",["A signpost blocks the accessible route","The shelter has no roof","The bus stop is too far from the housing","The route has too many benches"],0],
+   ["What does Sophie suggest doing?",["Relocate the sign and observe the path","Remove the bus stop","Build a new housing block","Close the route permanently"],0]]],
+ ["c4","Noah: I thought the planning workshop began at ten.\nGrace: It was moved to ten-thirty because the guest speaker's train was delayed.\nNoah: Good to know. I will send the updated time to the student group.",
+  [["Why was the workshop moved?",["The guest speaker's train was delayed","The room was too small","The weather was severe","The student group was unavailable"],0],
+   ["What will Noah do?",["Send the updated time to the student group","Change the guest speaker","Cancel the workshop","Book a different station"],0]]],
+ ["c5","Priya: The affordable housing survey has a surprising result. Residents near the frequent bus route reported shorter travel times.\nDaniel: That makes sense, but did the study consider walking conditions?\nPriya: Yes. The researchers noted that a nearby station is less useful when sidewalks are difficult to navigate.",
+  [["What result surprised Priya?",["Residents near frequent transit reported shorter travel times","Residents preferred cars to buses","Housing prices were identical","The survey included no travel data"],0],
+   ["What limitation does Daniel ask about?",["Walking conditions to reach the station","Building height","Museum ticket prices","The age of the bus drivers"],0]]],
+ ["c6","Liam: The community garden has more volunteers than expected.\nHannah: That is good, but the coordinator says the Saturday orientation will need another room.\nLiam: I can help move the registration table after the orientation. Maybe that will keep the entrance clear.",
+  [["Why is another room needed?",["There are more volunteers than expected","The garden lost its tools","The entrance is closed","The orientation was cancelled"],0],
+   ["What will Liam offer to do?",["Move the registration table after the orientation","Cancel the orientation","Build a new garden","Print museum labels"],0]]]
+],
+announcements: [
+ ["a1","Announcement: The City Archive reading room will close at 4 p.m. on Tuesday for routine equipment maintenance. Researchers with appointments after 4 p.m. should email the archivist to reschedule.",
+   [["Why will the reading room close early?",["For routine equipment maintenance","For a public lecture","For a neighborhood festival","For a staff holiday"],0],
+    ["What should researchers with late appointments do?",["Email the archivist to reschedule","Wait outside the building","Bring their own equipment","Visit the transit office"],0]]],
+ ["a2","Announcement: Students joining Friday's field visit to a mixed-use redevelopment site should bring identification and comfortable walking shoes. The group will enter the construction-adjacent area at 10:15.",
+   [["What should students bring?",["Identification and comfortable walking shoes","A printed housing contract","A laptop and projector","A museum membership card"],0],
+    ["When will the group enter the construction-adjacent area?",["10:15","8:30","12:45","3:00"],0]]],
+ ["a3","Announcement: The community consultation portal will remain open until Sunday evening. Residents who cannot attend the in-person meeting may submit comments online.",
+   [["What is the purpose of the portal?",["To collect resident comments","To sell housing units","To schedule bus drivers","To register museum visitors"],0],
+    ["What can residents do if they cannot attend in person?",["Submit comments online","Attend a different country's meeting","Call the construction company only","Wait until the portal closes"],0]]]
+],
+talks: [
+ ["t1","Academic Talk: Urban researchers often distinguish between physical accessibility and perceived accessibility. A path may meet technical standards yet feel difficult to use because signs are confusing or crossings are stressful. One useful method is to combine design measurements with short interviews after people complete a route.",
+  [["What distinction does the speaker make?",["Physical accessibility and perceived accessibility","Private housing and public housing","Old buildings and new buildings","Transit schedules and museum hours"],0],
+   ["What method does the speaker recommend?",["Combining design measurements with short interviews","Using only satellite images","Ignoring users after construction","Measuring property prices"],0]]],
+ ["t2","Academic Talk: Heritage conservation can involve selecting which elements of a place should remain visible. Scholars increasingly argue that preservation is not only about material fabric; it may also concern practices, stories, and relationships. This approach does not eliminate legal or technical requirements. Instead, it expands the evidence used when deciding what matters.",
+  [["What may preservation concern in addition to material fabric?",["Practices, stories, and relationships","Only construction budgets","Only property ownership","Only traffic flow"],0],
+   ["What does this broader approach do?",["It expands the evidence considered","It removes all legal requirements","It prevents community participation","It guarantees a building will never change"],0]]],
+ ["t3","Academic Talk: Housing affordability is sometimes measured with a ratio between housing costs and household income. Researchers caution that this metric may miss other burdens, such as long travel times or unreliable transit. A resident may spend a moderate share of income on rent yet lose many hours each week commuting.",
+  [["What limitation of the common affordability ratio is mentioned?",["It may miss travel and transit burdens","It measures building height poorly","It ignores household income completely","It can only be used for historic buildings"],0],
+   ["What example does the speaker give?",["A resident loses many hours commuting","A resident owns too many cars","A museum loses ticket revenue","A plaza has too many benches"],0]]]
+]
+},
+writing: {
+bs: [
+ [["The","city","will","survey","residents","before","redesigning","the","public","square"],"The city will survey residents before redesigning the public square."],
+ [["Researchers","combine","oral","histories","with","maps","to","study","place"],"Researchers combine oral histories with maps to study place."],
+ [["Affordable","housing","can","reduce","travel","burdens","when","located","near","transit"],"Affordable housing can reduce travel burdens when located near transit."],
+ [["The","museum","plans","to","display","local","memories","alongside","architectural","drawings"],"The museum plans to display local memories alongside architectural drawings."],
+ [["Could","you","explain","why","the","crossing","needs","better","lighting"],"Could you explain why the crossing needs better lighting."],
+ [["The","committee","asked","whether","the","proposal","would","improve","daily","access"],"The committee asked whether the proposal would improve daily access."],
+ [["Residents","reported","that","the","new","bus","route","made","commuting","easier"],"Residents reported that the new bus route made commuting easier."],
+ [["Historic","streets","can","support","both","businesses","and","community","events"],"Historic streets can support both businesses and community events."],
+ [["The","planning","class","will","compare","two","approaches","to","heritage","preservation"],"The planning class will compare two approaches to heritage preservation."],
+ [["Public","space","works","best","when","different","users","can","share","it","comfortably"],"Public space works best when different users can share it comfortably."]
+],
+email: "You are a student in an urban studies course. Your instructor has arranged a Friday field visit to a neighborhood where new affordable housing and a community plaza were added. You have a required class at the same time. Write an email to the instructor. Explain the scheduling problem, say that you still want to complete the field visit requirement, and ask whether you can join another group or complete an alternative activity. Give a practical reason for your request.",
+discussion: "Professor: When older neighborhoods are redeveloped, should cities prioritize preserving cultural features or adding more housing? Maya: Housing should come first because many residents need affordable homes. Ethan: Cultural features deserve strong protection because they help communities maintain identity. Write a response to the professor. State your position clearly and support it with specific reasons or an example."
+},
+speaking: {
+repeat: [
+ ["Public housing works best when residents can reach schools, services, and transit without long daily trips.","en-US"],
+ ["Historic buildings can remain useful when new functions are introduced without erasing their local identity.","en-GB"],
+ ["Researchers often combine maps with interviews to understand how people experience a neighborhood.","en-AU"],
+ ["A well-designed public square should provide shade, seating, and clear routes for different users.","en-NZ"],
+ ["Urban renewal can change property values, but it can also reshape daily routines and social relationships.","en-US"],
+ ["Community participation is more useful when residents can understand the information and the choices before them.","en-GB"],
+ ["Cultural preservation does not always require keeping every building unchanged.","en-AU"]
+],
+interview: [
+ ["What makes a neighborhood a good place to live?",["housing","transit","services","safety","community","park","school","access"],"Name one or two factors, explain why they matter, and give a concrete example.","en-NZ"],
+ ["Should cities add more housing near major transit stations? Why or why not?",["housing","transit","density","jobs","travel","affordable","traffic","services"],"State a position, give at least one reason, and add an example or likely result.","en-US"],
+ ["How can cities preserve local identity while allowing neighborhoods to change?",["heritage","culture","residents","preserve","reuse","development","community","identity"],"Explain a balance or strategy and support it with an example.","en-GB"],
+ ["Tell me about a public space that people in your community can use effectively. What makes it work?",["park","plaza","shade","seating","access","events","people","safety"],"Describe the place, identify an effective design or management feature, and explain its impact.","en-AU"]
+]
+}
+};
+</script>
+<script>
+(function(){
+"use strict";
+var DATA=window.TOEFL_MOCK_DATA,DAY="2026-09-26",STORE="toefl-mock-"+DAY;
+var $=function(s,p){return(p||document).querySelector(s)},$=function(s,p){return Array.prototype.slice.call((p||document).querySelectorAll(s))};
+function esc(x){return String(x).replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])})}
+function norm(x){return String(x||"").toLowerCase().replace(/[.,!?;:]/g,"").replace(/\s+/g," ").trim()}
+function words(x){return(String(x||"").match(/\S+/g)||[])}
+function hash(s){var h=2166136261>>>0;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shuffle(a,seed){var x=a.slice(),r=rng(seed);for(var i=x.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var z=x[i];x[i]=x[j];x[j]=z}return x}
+function msg(id,text,kind){var e=$(id);if(!e)return;e.className="result "+(kind||"");e.innerHTML=text;e.classList.remove("hidden")}
+function countWords(s){return words(s).length}
+function positionPlan(n,key){var a=[];for(var i=0;i<n;i++)a.push(i%4);return shuffle(a,hash(DAY+"|"+key))}
+var reading=[],listening=[],rState={},lState={},wState={bs:DATA.writing.bs.map(function(){return{picked:[],checked:false,correct:false}}),email:null,discussion:null},sState={};
+function makeReading(){
+  DATA.reading.words.forEach(function(x,i){reading.push({id:"rw"+i,type:"words",text:x[4],answer:x[0],category:x[5],options:null})});
+  DATA.reading.daily.forEach(function(x){reading.push({id:x[0],type:"daily",title:x[1],passage:x[2],question:x[3],options:x[4],correct:x[5],category:"detail"})});
+  DATA.reading.academic.forEach(function(g,gi){g.qs.forEach(function(q,qi){reading.push({id:"a"+gi+"q"+qi,type:"academic",title:g.title,passage:g.text,question:q[0],options:q[1],correct:q[2],category:q[3]})})});
+}
+function makeListening(){
+  var accents=["en-US","en-GB","en-AU","en-NZ"];
+  DATA.listening.responses.forEach(function(x,i){listening.push({id:"lr"+i,type:"response",lang:accents[i%4],question:x[0],audio:x[0],options:x[1],correct:x[2],category:"Response"})});
+  DATA.listening.conversations.forEach(function(c,ci){c[2].forEach(function(q,qi){listening.push({id:c[0]+"q"+qi,type:"conversation",lang:accents[(ci+1)%4],dialogue:c[1],question:q[0],audio:c[1]+" Question: "+q[0],options:q[1],correct:q[2],category:"Detail"})})});
+  DATA.listening.announcements.forEach(function(c,ci){c[1].forEach(function(q,qi){listening.push({id:c[0]+"q"+qi,type:"announcement",lang:accents[(ci+2)%4],dialogue:c[1],question:q[0],audio:c[1]+" Question: "+q[0],options:q[1],correct:q[2],category:"Purpose"})})});
+  DATA.listening.talks.forEach(function(c,ci){c[1].forEach(function(q,qi){listening.push({id:c[0]+"q"+qi,type:"talk",lang:accents[(ci+3)%4],dialogue:c[1],question:q[0],audio:c[1]+" Question: "+q[0],options:q[1],correct:q[2],category:"Main idea"})})});
+}
+makeReading();makeListening();
+function prepared(item,index,section){
+  var pos=positionPlan(section==="R"?reading.length:listening.length,section)[index];
+  var others=item.options.map(function(v,i){return i===item.correct?null:v}).filter(Boolean);
+  others=shuffle(others,hash(DAY+"|"+section+"|"+item.id));
+  var out=[],k=0;for(var i=0;i<4;i++)out.push(i===pos?item.options[item.correct]:others[k++]);
+  return{options:out,correct:pos};
+}
+function renderReading(){
+  var box=$("#readingContent"),html='<div class="q"><div class="instruction"><b>Mock composition</b>：6 Complete the Words + 6 Read in Daily Life + 24 Read an Academic Passage = 36 items.</div></div>';
+  var plan=positionPlan( reading.filter(function(x){return x.type!=="words"}).length,"R");
+  var pi=0;
+  reading.forEach(function(it,i){
+    rState[it.id]={selected:null,checked:false,correct:false};
+    if(it.type==="words"){
+      html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/36</div><span class="tag">Complete the Words</span><p>'+esc(it.text).replace("_","<span class=\"blank\">____</span>")+'</p><input class="wordInput" data-id="'+it.id+'" type="text" autocapitalize="none" autocomplete="off" spellcheck="false" placeholder="Type the missing word"><div class="actions"><button class="checkWord" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>字彙</option><option>拼字</option><option>詞性／word form</option></select></div><div class="result hidden" id="RF-'+it.id+'"></div></div>';
+    }else{
+      var p=prepared(it,pi++,"R"),o=p.options;rState[it.id].correct=p.correct;
+      html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/36</div><span class="tag">'+esc(it.type==="daily"?"Read in Daily Life":"Read an Academic Passage")+'</span>'+ (it.title?'<span class="tag">'+esc(it.title)+'</span>':'') +
+      (it.passage?'<div class="passage"><b>Text</b>'+it.passage.split("\\n").map(function(t){return"<p>"+esc(t)+"</p>"}).join("")+'</div>':'')+
+      '<p><b>'+esc(it.question)+'</b></p>'+o.map(function(v,j){return'<button class="option rOpt" data-id="'+it.id+'" data-i="'+j+'">'+String.fromCharCode(65+j)+". "+esc(v)+"</button>"}).join("")+
+      '<div class="actions"><button class="checkR" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>主旨／purpose</option><option>細節／detail</option><option>推論／inference</option><option>字彙／vocabulary</option><option>組織／organization</option><option>說話者意圖</option></select><button class="ghost showR" data-id="'+it.id+'">顯示答案</button></div><div class="result hidden" id="RF-'+it.id+'"></div></div>';
+    }
+  });
+  box.innerHTML=html;
+}
+function listeningAudioLabel(type){return type==="response"?"Listen and Choose a Response":"Listening "+type.charAt(0).toUpperCase()+type.slice(1)}
+function renderListening(){
+  var box=$("#listeningContent"),html="",plan=positionPlan(listening.length,"L");
+  listening.forEach(function(it,i){
+    var p=prepared(it,i,"L");lState[it.id]={selected:null,checked:false,correct:p.correct};
+    html+='<div class="q" id="L-'+it.id+'"><div class="small">LISTENING '+(i+1)+'/36</div><span class="tag">'+esc(listeningAudioLabel(it.type))+'</span><span class="tag">'+esc(it.lang)+'</span>'+
+      '<div class="audio"><button class="playBtn" data-id="'+it.id+'" data-mode="full">🔊 播放完整音檔</button>'+ (it.type==="response"?"":'<button class="playBtn" data-id="'+it.id+'" data-mode="question">🔊 只重播題問</button>')+'</div>'+
+      '<p><b>題問</b> '+esc(it.question)+'</p>'+p.options.map(function(v,j){return'<button class="option lOpt" data-id="'+it.id+'" data-i="'+j+'">'+String.fromCharCode(65+j)+". "+esc(v)+"</button>"}).join("")+
+      '<div class="actions"><button class="checkL" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>主旨／main idea</option><option>細節／detail</option><option>推論／inference</option><option>說話者意圖／purpose</option><option>語氣／attitude</option><option>Response</option></select><button class="ghost showL" data-id="'+it.id+'">顯示答案</button></div><div class="result hidden" id="LF-'+it.id+'"></div><details class="transcript"><summary>訂正後看逐字稿</summary><div>'+esc(it.audio)+'</div></details></div>';
+  });
+  box.innerHTML=html;
+}
+function renderWriting(){
+  var h='<div class="q"><div class="instruction">Writing raw 0–20 = 10 Build a Sentence ×1 + Email 0–5 + Academic Discussion 0–5。Build a Sentence 今日亂序由 2026-09-26 固定種子產生，刷新後仍相同。</div></div>';
+  DATA.writing.bs.forEach(function(q,i){
+    var toks=shuffle(q[0],hash(DAY+"|BS|"+i));
+    if(toks.every(function(v,j){return v===q[0][j]}))toks.reverse();
+    h+='<div class="q" id="W-'+i+'"><div class="small">WRITING Build a Sentence '+(i+1)+'/10</div><div class="chips">'+toks.map(function(t){return '<button class="chip bsTok" data-i="'+i+'" data-t="'+esc(t)+'">'+esc(t)+'</button>'}).join('')+'</div><div class="small">Your sentence</div><div class="answerline" id="WL-'+i+'"><span class="small">點選字詞組開始。</span></div><div class="actions"><button class="ghost bsUndo" data-i="'+i+'">移除最後一組</button><button class="ghost bsReset" data-i="'+i+'">重設</button><button class="checkBS" data-i="'+i+'">檢查</button></div><div class="result hidden" id="WF-'+i+'"></div></div>';
+  });
+  h+='<div class="q"><h3>Write an Email｜1 題</h3><div class="note">'+esc(DATA.writing.email)+'</div><textarea id="emailAnswer" placeholder="Write your email here..."></textarea><div class="count"><span>Email</span><span id="emailCount">0 words</span></div><button id="gradeEmail">站內模擬評分 0–5</button><div class="result hidden" id="emailResult"></div></div>';
+  h+='<div class="q"><h3>Write for an Academic Discussion｜1 題</h3><div class="note">'+esc(DATA.writing.discussion)+'</div><textarea id="discussionAnswer" placeholder="Write your response here..."></textarea><div class="count"><span>Academic Discussion</span><span id="discussionCount">0 words</span></div><button id="gradeDiscussion">站內模擬評分 0–5</button><div class="result hidden" id="discussionResult"></div></div>';
+  $("#writingContent").innerHTML=h;wireWriting();
+}
+function bsRenderLine(i){
+  var box=$("#WL-"+i),a=wState.bs[i].picked;
+  box.innerHTML=a.length?a.map(function(t,k){return '<button class="answerchip bsPicked" data-i="'+i+'" data-k="'+k+'">'+esc(t)+'</button>'}).join(''):'<span class="small">點選字詞組開始。</span>';
+  $('.bsTok[data-i="'+i+'"]').forEach(function(b){b.classList.toggle("used",a.indexOf(b.dataset.t)>=0)})
+}
+function simpleWritingGrade(text,type){
+  var w=countWords(text),l=String(text).toLowerCase(),s=0,fb=[];
+  if(w>=55)s++;if(w>=90)s++;if(w>=130)s++;
+  if(type==="email"){if(/\b(dear|hello|hi)\b/i.test(text))s++;if(/\b(could|would|please|may i|would it be possible)\b/i.test(text))s++;if(/\b(field|visit|class|group|alternative|because|schedule)\b/i.test(text))s++;if(!/\b(could|would|please|may i)\b/i.test(text))fb.push("請把請求寫得更直接且禮貌。");}
+  else{if(/\b(i think|i believe|in my view|i would argue|my position)\b/i.test(text)||/\bshould\b/i.test(text))s++;if(/\b(because|for example|for instance|such as|however|therefore)\b/i.test(text))s++;if(/\b(housing|culture|identity|preservation|resident|community|redevelopment)\b/i.test(text))s++;if(!/\b(because|for example|for instance|such as)\b/i.test(text))fb.push("可加入明確理由與具體例子。");}
+  if(w<55)fb.push("內容偏短，建議補充背景、理由或結果。");
+  return{score:Math.min(5,s),feedback:fb.length?fb:["主要任務元素已涵蓋；仍請人工檢查文法與語意。"]};
+}
+function renderScores(){
+  var rb=reading.filter(function(x){return x._checked&&x._correct}).length,rw=reading.filter(function(x){return x._checked}).length;
+  var lb=listening.filter(function(x){return x._checked&&x._correct}).length,lw=listening.filter(function(x){return x._checked}).length;
+  var bs=wState.bs.filter(function(x){return x.checked&&x.correct}).length;
+  var wr=bs+(wState.email?wState.email.score:0)+(wState.discussion?wState.discussion.score:0);
+  var ss=speakingScore();
+  $("#rKpi").innerHTML="<div><b>"+rb+"</b><span>對題</span></div><div><b>"+rw+"/36</b><span>已評</span></div><div><b>"+(rw?Math.round(rb/rw*100):0)+"%</b><span>正確率</span></div><div><b>"+(rw-rb)+"</b><span>錯題</span></div>";
+  $("#lKpi").innerHTML="<div><b>"+lb+"</b><span>對題</span></div><div><b>"+lw+"/36</b><span>已評</span></div><div><b>"+(lw?Math.round(lb/lw*100):0)+"%</b><span>正確率</span></div><div><b>"+(lw-lb)+"</b><span>錯題</span></div>";
+  $("#overallRaw").textContent="Reading "+rb+"/36｜Listening "+lb+"/36｜Writing "+wr+"/20｜Speaking "+ss+"/55";
+  $("#stickyScore").textContent="R "+rb+"/36 · L "+lb+"/36 · W "+wr+"/20 · S "+ss+"/55";
+  var wrong=reading.concat(listening).filter(function(x){return x._checked&&!x._correct}),tags={};
+  wrong.forEach(function(x){var sec=x._sec==="L"?"L-":"R-",sel=$("#"+sec+x.id);if(sel){var s=$(".errorTag",sel);if(s&&s.value)tags[s.value]=(tags[s.value]||0)+1}});
+  $("#errorSummary").innerHTML=wrong.length?("目前客觀題錯 "+wrong.length+" 題。 "+Object.keys(tags).map(function(k){return esc(k)+" × "+tags[k]}).join("；")+"。"):("目前尚無已確認錯題。");
+}
+function wireReadingListening(){
+  document.addEventListener("click",function(e){
+    var b=e.target.closest(".rOpt,.lOpt");if(!b)return;
+    var id=b.dataset.id,st=b.classList.contains("rOpt")?rState[id]:lState[id],sel=b.classList.contains("rOpt")?".rOpt[data-id='"+id+"']":".lOpt[data-id='"+id+"']";
+    $(sel).forEach(function(x){x.classList.remove("selected")});b.classList.add("selected");st.selected=Number(b.dataset.i);
+  });
+  document.addEventListener("click",function(e){
+    var b=e.target.closest(".checkR,.checkL");if(!b)return;var id=b.dataset.id,isR=b.classList.contains("checkR"),st=isR?rState[id]:lState[id],fb=$("#"+(isR?"RF-":"LF-")+id);if(st.selected===null){msg(fb,"請先選擇答案。","bad");return}
+    st.checked=true;var item=(isR?reading:listening).find(function(x){return x.id===id});item._checked=true;item._correct=st.selected===st.correct;item._sec=isR?"R":"L";
+    msg(fb,item._correct?"✓ 正確":"✗ 錯誤：可按「顯示答案」訂正。"+(item._options?" 正確答案："+String.fromCharCode(65+st.correct)+". "+esc(item._options[st.correct]):""),item._correct?"ok":"bad");renderScores();autoSave();
+  });
+  document.addEventListener("click",function(e){
+    var b=e.target.closest(".showR,.showL");if(!b)return;var id=b.dataset.id,isR=b.classList.contains("showR"),item=(isR?reading:listening).find(function(x){return x.id===id}),fb=$("#"+(isR?"RF-":"LF-")+id),opts=item._options;msg(fb,"正確答案："+String.fromCharCode(65+item._correctIndex)+". "+esc(opts[item._correctIndex]),"ok");
+  });
+  document.addEventListener("click",function(e){
+    var b=e.target.closest(".checkWord");if(!b)return;var id=b.dataset.id,item=reading.find(function(x){return x.id===id}),v=$(".wordInput[data-id='"+id+"']").value.trim();item._checked=true;item._correct=norm(v)===norm(item.answer);item._sec="R";msg($("#RF-"+id),item._correct?"✓ Correct":"✗ Correct answer: "+esc(item.answer),item._correct?"ok":"bad");renderScores();autoSave();
+  });
+}
+function wireWriting(){
+  $(".bsTok").forEach(function(b){b.onclick=function(){var i=Number(b.dataset.i),a=wState.bs[i].picked;if(a.indexOf(b.dataset.t)<0){a.push(b.dataset.t);bsRenderLine(i)}autoSave()}});
+  $(".bsUndo").forEach(function(b){b.onclick=function(){var i=Number(b.dataset.i);wState.bs[i].picked.pop();bsRenderLine(i);autoSave()}});
+  $(".bsReset").forEach(function(b){b.onclick=function(){var i=Number(b.dataset.i);wState.bs[i].picked=[];wState.bs[i].checked=false;bsRenderLine(i);$("#WF-"+i).className="result hidden";autoSave()}});
+  $(".bsPicked").forEach(function(b){b.onclick=function(){var i=Number(b.dataset.i);wState.bs[i].picked.splice(Number(b.dataset.k),1);bsRenderLine(i);autoSave()}});
+  $(".checkBS").forEach(function(b){b.onclick=function(){var i=Number(b.dataset.i),st=wState.bs[i],ans=DATA.writing.bs[i][1];st.checked=true;st.correct=norm(st.picked.join(" "))===norm(ans);msg($("#WF-"+i),st.correct?"✓ 正確":"✗ 請檢查詞序與句型骨架。正確句："+esc(ans),st.correct?"ok":"bad");renderScores();autoSave()}});
+  var e=$("#emailAnswer"),d=$("#discussionAnswer");
+  e.oninput=function(){$("#emailCount").textContent=countWords(e.value)+" words";autoSave()};d.oninput=function(){$("#discussionCount").textContent=countWords(d.value)+" words";autoSave()};
+  $("#gradeEmail").onclick=function(){wState.email=simpleWritingGrade(e.value,"email");var r=wState.email;msg($("#emailResult"),"站內練習估分："+r.score+"/5<br>"+r.feedback.map(esc).join("<br>")+"<div class='small'>非 ETS 正式評分，也不是 1–6 正式換算。</div>",r.score>=4?"ok":"warn");renderScores();autoSave()};
+  $("#gradeDiscussion").onclick=function(){wState.discussion=simpleWritingGrade(d.value,"discussion");var r=wState.discussion;msg($("#discussionResult"),"站內練習估分："+r.score+"/5<br>"+r.feedback.map(esc).join("<br>")+"<div class='small'>非 ETS 正式評分，也不是 1–6 正式換算。</div>",r.score>=4?"ok":"warn");renderScores();autoSave()};
+}
+var BAD=["espeak","festival","flite","pico","mbrola","robot","whisper","bells","boing","bubbles","organ","zarvox"],voiceCache=[],speechToken=0;
+function voices(){if(!("speechSynthesis"in window))return[];var seen={};return speechSynthesis.getVoices().filter(function(v){var k=(v.voiceURI||v.name||"")+"|"+(v.lang||"");if(seen[k])return false;seen[k]=1;var n=(v.name||"").toLowerCase(),l=(v.lang||"").toLowerCase();return /^en(-|_)/i.test(l)&&!BAD.some(function(x){return n.indexOf(x)>=0})})}
+function voiceRank(v,locale,used){
+  var l=(v.lang||"").toLowerCase(),want=(locale||"en-US").toLowerCase(),pref=want==="en-nz"?["en-nz","en-au","en-gb","en-us","en-ca"]:want==="en-au"?["en-au","en-nz","en-gb","en-us","en-ca"]:want==="en-gb"?["en-gb","en-ie","en-au","en-nz","en-us"]:["en-us","en-ca","en-gb","en-au","en-nz"];
+  var p=pref.indexOf(l);if(p<0)p=50;var s=p*5;if(l===want)s-=30;var n=(v.name||"").toLowerCase();if(/natural|neural|enhanced|premium|google|microsoft|apple/.test(n))s-=8;if(v.localService)s-=1;if(used[v.voiceURI||v.name])s+=100;return s;
+}
+function pickVoice(locale,used){var a=voices().slice().sort(function(a,b){return voiceRank(a,locale,used)-voiceRank(b,locale,used)});return a[0]||null}
+function splitAudio(text,locale,questionOnly){
+  if(questionOnly)return[{role:"__NARRATOR__",text:text,locale:locale}];
+  var q=text.lastIndexOf(" Question:"),qtext=q>=0?text.slice(q+10).trim():"",body=q>=0?text.slice(0,q).trim():text,lines=body.split("\n").filter(Boolean),segs=[];
+  lines.forEach(function(line){var m=line.match(/^([A-Z][A-Za-z0-9 _-]{0,25}):\s*(.*)$/);if(m)segs.push({role:m[1],text:m[2],locale:locale});else if(segs.length)segs[segs.length-1].text+=" "+line;else segs.push({role:"__NARRATOR__",text:line,locale:locale})});
+  if(qtext)segs.push({role:"__NARRATOR__",text:qtext,locale:locale});
+  return segs;
+}
+function speakAudio(text,locale,button,questionOnly){
+  if(!("speechSynthesis"in window)){alert("目前瀏覽器不支援語音播放，請使用 Safari／Chrome／Edge。");return}
+  var token=++speechToken;try{speechSynthesis.cancel()}catch(e){}
+  var segs=splitAudio(text,locale,questionOnly),used={},roleVoices={};
+  var roles=[];segs.forEach(function(s){if(roles.indexOf(s.role)<0)roles.push(s.role)});
+  roles.forEach(function(role){roleVoices[role]=pickVoice(role==="__NARRATOR__"?"en-US":locale,used);if(roleVoices[role])used[roleVoices[role].voiceURI||roleVoices[role].name]=1});
+  if(button){button.setAttribute("aria-busy","true");button.dataset.old=button.dataset.old||button.textContent;button.textContent="🔊 播放中｜再按可重播"}
+  function next(i){
+    if(token!==speechToken||i>=segs.length){if(button){button.removeAttribute("aria-busy");button.textContent=button.dataset.old||"播放"}return}
+    var s=segs[i],v=roleVoices[s.role]||pickVoice(s.locale,{});
+    if(!v){next(i+1);return}
+    var u=new SpeechSynthesisUtterance(s.text);u.voice=v;u.lang=v.lang||s.locale;u.rate=.94;u.pitch=1;u.volume=1;
+    u.onend=function(){setTimeout(function(){next(i+1)},roles.length>1&&i+1<segs.length&&segs[i+1].role!==s.role?120:35)};
+    u.onerror=function(){setTimeout(function(){next(i+1)},80)};speechSynthesis.speak(u)
+  }
+  next(0)
+}
+function updateVoiceStatus(){
+  var v=voices();$("#voiceStatus").textContent=v.length?"可用正常英文聲線："+v.length+"。播放時優先 Natural／Neural／Enhanced／Premium／Google／Microsoft／Apple；指定口音沒有合適聲線時會退回最近的正常英文聲線。":"尚未偵測到正常英文聲線；請在系統／瀏覽器安裝英文語音。";
+}
+function wireListeningAudio(){
+  document.addEventListener("click",function(e){var b=e.target.closest(".playBtn");if(!b)return;var it=listening.find(function(x){return x.id===b.dataset.id});if(!it)return;speakAudio(b.dataset.mode==="question"?it.question:it.audio,it.lang,b,b.dataset.mode==="question")});
+  updateVoiceStatus();if("speechSynthesis"in window){speechSynthesis.onvoiceschanged=updateVoiceStatus;setTimeout(updateVoiceStatus,500)}
+}
+function transcriptScore(target,actual){var A=norm(target).split(" ").filter(Boolean),B=norm(actual).split(" ").filter(Boolean);if(!A.length||!B.length)return 0;var d=Array.from({length:A.length+1},function(){return Array(B.length+1).fill(0)});for(var i=1;i<=A.length;i++)for(var j=1;j<=B.length;j++)d[i][j]=A[i-1]===B[j-1]?d[i-1][j-1]+1:Math.max(d[i-1][j],d[i][j-1]);return d[A.length][B.length]/Math.max(A.length,B.length)}
+var SPEAK=DATA.speaking,media=null,recognition=null;
+function initSpeaking(){
+  SPEAK.repeat.forEach(function(q,i){var id="sr"+i;sState[id]={auto:0,final:0,transcript:"",audioUrl:""}});
+  SPEAK.interview.forEach(function(q,i){var id="si"+i;sState[id]={auto:0,final:0,transcript:"",audioUrl:""}});
+  var h="";
+  SPEAK.repeat.forEach(function(q,i){var id="sr"+i;h+='<div class="q" id="S-'+id+'"><div class="small">SPEAKING '+(i+1)+'/11</div><span class="tag">Listen and Repeat</span><span class="tag">'+esc(q[1])+'</span><div class="audio"><button class="speakPrompt" data-id="'+id+'">🔊 播放句子</button></div><div class="note">播放後完整重述。評分重點是 intelligibility、節奏與內容相似度；站內自動分只提供建議。</div>'+recordUI(id)+'</div>'});
+  SPEAK.interview.forEach(function(q,i){var id="si"+i;h+='<div class="q" id="S-'+id+'"><div class="small">SPEAKING '+(i+8)+'/11</div><span class="tag">Take an Interview</span><span class="tag">'+esc(q[3])+'</span><div class="audio"><button class="speakPrompt" data-id="'+id+'">🔊 播放題問</button></div><div class="note"><b>Prompt</b><br>'+esc(q[0])+'<br><span class="small">策略：'+esc(q[2])+'</span></div>'+recordUI(id)+'</div>'});
+  $("#speakingContent").innerHTML=h;wireSpeaking();
+}
+function recordUI(id){return'<div class="recordbox"><div class="barbtns"><button class="startRec" data-id="'+id+'">🎙️ 錄音</button><button class="stopRec ghost" data-id="'+id+'" disabled>⏹ 停止</button></div><div class="small recStatus" id="RS-'+id+'">尚未錄音</div><audio class="recAudio hidden" id="AU-'+id+'" controls></audio><textarea class="transcriptInput" id="TR-'+id+'" placeholder="自動英文逐字稿會寫入這裡；也可在辨識後手動修正。"></textarea><div class="actions"><button class="gradeS ghost" data-id="'+id+'">自動建議分數 0–5</button><select class="finalS" data-id="'+id+'">'+[0,1,2,3,4,5].map(function(n){return'<option value="'+n+'">'+n+'/5 最終修正</option>'}).join("")+'</select></div><div class="result hidden" id="SR-'+id+'"></div></div>'}
+function startRecognition(id){
+  var R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return null;try{var r=new R();r.lang="en-US";r.continuous=true;r.interimResults=true;r.onresult=function(e){var text="";for(var i=e.resultIndex;i<e.results.length;i++)text+=e.results[i][0].transcript+" ";text=text.trim();$("#TR-"+id).value=text;sState[id].transcript=text};r.onerror=function(){};r.start();return r}catch(e){return null}
+}
+function stopRecognition(){if(recognition){try{recognition.stop()}catch(e){}recognition=null}}
+function startRecord(id){
+  if(media){stopRecord(media.id)}
+  var st=sState[id],status=$("#RS-"+id);if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||typeof MediaRecorder==="undefined"){status.textContent="此瀏覽器無法錄音，請改用 Safari／Chrome／Edge 並允許麥克風。";return}
+  navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}}).then(function(stream){
+    var mime=["audio/mp4","audio/webm;codecs=opus","audio/webm"].find(function(m){return window.MediaRecorder&&MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(m)})||"";
+    var rec=new MediaRecorder(stream,mime?{mimeType:mime}:undefined),chunks=[];rec.ondataavailable=function(e){if(e.data.size)chunks.push(e.data)};rec.onstop=function(){var blob=new Blob(chunks,{type:mime||"audio/webm"});if(st.audioUrl)URL.revokeObjectURL(st.audioUrl);st.audioUrl=URL.createObjectURL(blob);var a=$("#AU-"+id);a.src=st.audioUrl;a.classList.remove("hidden");stream.getTracks().forEach(function(t){t.stop()});status.textContent="錄音完成，可回放；逐字稿可編輯後再評分。"};rec.start();media={id:id,rec:rec,stream:stream};recognition=startRecognition(id);$(".startRec[data-id='"+id+"']").disabled=true;$(".stopRec[data-id='"+id+"']").disabled=false;status.textContent="錄音中…";}).catch(function(err){status.textContent="無法取得麥克風權限："+String(err.message||err)})
+}
+function stopRecord(id){
+  if(!media||media.id!==id)return;try{media.rec.stop()}catch(e){}try{media.stream.getTracks().forEach(function(t){t.stop()})}catch(e){}media=null;stopRecognition();$(".startRec[data-id='"+id+"']").disabled=false;$(".stopRec[data-id='"+id+"']").disabled=true
+}
+function speakingScore(){
+  return Object.keys(sState).reduce(function(sum,id){return sum+(sState[id].final||0)},0)
+}
+function gradeSpeaking(id){
+  var idx=Number(id.replace("sr",""));if(id.indexOf("sr")===0){var q=SPEAK.repeat[idx],t=$("#TR-"+id).value||"",sim=transcriptScore(q[0],t),s=Math.round(sim*5),fb=sim>=.9?"逐字稿高度相似；仍需人工修正 pronunciation/intelligibility。":sim>=.7?"內容大致相似；請人工檢查漏字與節奏。":"逐字稿相似度偏低；請重新錄音或手動修正逐字稿。";sState[id].transcript=t;sState[id].auto=s;if(!$(".finalS[data-id=\""+id+"\"]").dataset.changed)sState[id].final=s;msg($("#SR-"+id),"自動建議："+s+"/5｜最終採計："+sState[id].final+"/5<br>"+esc(fb)+"<div class='small'>此分數主要依逐字稿相似度，不等同 ETS pronunciation／intelligibility 評分。</div>",s>=4?"ok":"warn")}
+  else{var i=Number(id.replace("si","")),q=SPEAK.interview[i],t=$("#TR-"+id).value||"",w=countWords(t),l=t.toLowerCase(),hits=q[1].filter(function(k){return l.indexOf(k)>=0}).length,conn=(l.match(/\b(because|for example|for instance|however|therefore|also|but|so)\b/g)||[]).length,s=(w>=45?2:w>=25?1:0)+(hits>=3?2:hits>=1?1:0)+((conn>=2||/[.!?]/.test(t))?1:0);s=Math.min(5,s);sState[id].transcript=t;sState[id].auto=s;if(!$("#FS-"+id).dataset.changed)sState[id].final=s;msg($("#SR-"+id),"自動建議："+s+"/5｜最終採計："+sState[id].final+"/5<br>切題／展開："+(hits>=3?"較完整":"可再補充")+"；速度、停頓、pronunciation、rhythm、intonation、intelligibility、grammar、vocabulary 請人工修正。",s>=4?"ok":"warn")};renderScores();autoSave()
+}
+function wireSpeaking(){
+  $(".speakPrompt").forEach(function(b){b.onclick=function(){var id=b.dataset.id,idx=Number(id.slice(2)),q=id.indexOf("sr")===0?SPEAK.repeat[idx]:SPEAK.interview[idx],text=id.indexOf("sr")===0?q[0]:q[0];speakAudio(text,q[id.indexOf("sr")===0?1:3],b,false)}});
+  $(".startRec").forEach(function(b){b.onclick=function(){startRecord(b.dataset.id)}});
+  $(".stopRec").forEach(function(b){b.onclick=function(){stopRecord(b.dataset.id)}});
+  $(".gradeS").forEach(function(b){b.onclick=function(){gradeSpeaking(b.dataset.id)}});
+  $(".finalS").forEach(function(s){s.onchange=function(){var id=s.dataset.id;sState[id].final=Number(s.value);$("#FS-"+id).dataset.changed="1";renderScores();autoSave()}});
+}
+function wireAudioDetails(){wireListeningAudio()}
+function timer(){
+  var left=10800,id=null;
+  function paint(){var h=Math.floor(left/3600),m=Math.floor(left%3600/60),s=left%60;$("#timer").textContent=String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");$("#timerBar").style.width=((1-left/10800)*100)+"%"}
+  $("#startTimer").onclick=function(){if(id)return;id=setInterval(function(){left=Math.max(0,left-1);paint();if(left===0){clearInterval(id);id=null;alert("180 分鐘完成，請進入最後訂正。")}},1000)};
+  $("#pauseTimer").onclick=function(){clearInterval(id);id=null};
+  $("#resetTimer").onclick=function(){clearInterval(id);id=null;left=10800;paint()};paint()
+}
+function autoSave(){
+  try{localStorage.setItem(STORE,JSON.stringify({r:rState,l:lState,w:wState,s:sState,email:$("#emailAnswer")?$("#emailAnswer").value:"",discussion:$("#discussionAnswer")?$("#discussionAnswer").value:"",notes:$("#reviewNotes").value,checks:$(".selfCheck:checked").map(function(x){return x.id},)}))}catch(e){}
+}
+function restore(){
+  try{var z=JSON.parse(localStorage.getItem(STORE)||"null");if(!z)return;
+    if(z.r)Object.keys(z.r).forEach(function(k){if(rState[k]){rState[k]=z.r[k];var it=reading.find(function(x){return x.id===k});if(it&&z.r[k].checked){it._checked=true;it._correct=z.r[k].selected===z.r[k].correct;it._sec="R"}}});
+    if(z.l)Object.keys(z.l).forEach(function(k){if(lState[k]){lState[k]=z.l[k];var it=listening.find(function(x){return x.id===k});if(it&&z.l[k].checked){it._checked=true;it._correct=z.l[k].selected===z.l[k].correct;it._sec="L"}}});
+    if(z.w){wState=Object.assign(wState,z.w);wState.bs=z.w.bs||wState.bs}
+    if($("#emailAnswer"))$("#emailAnswer").value=z.email||"";if($("#discussionAnswer"))$("#discussionAnswer").value=z.discussion||"";$("#reviewNotes").value=z.notes||"";(z.checks||[]).forEach(function(id){var c=$("#"+id);if(c)c.checked=true});
+    reading.forEach(function(it){var st=rState[it.id];if(st&&st.selected!==null){var b=$("#R-"+it.id+" .rOpt:nth-of-type("+(st.selected+1)+")");if(b)b.classList.add("selected")}});
+    listening.forEach(function(it){var st=lState[it.id];if(st&&st.selected!==null){var bs=$("#L-"+it.id+" .lOpt:nth-of-type("+(st.selected+1)+")");if(bs)bs.classList.add("selected")}});
+    DATA.writing.bs.forEach(function(_,i){bsRenderLine(i)});
+    if($("#emailAnswer"))$("#emailCount").textContent=countWords($("#emailAnswer").value)+" words";if($("#discussionAnswer"))$("#discussionCount").textContent=countWords($("#discussionAnswer").value)+" words";
+    Object.keys(sState).forEach(function(id){var st=sState[id],ta=$("#TR-"+id);if(ta)ta.value=st.transcript||"";var fs=$("#S-"+id+" .finalS");if(fs)fs.value=st.final||0});renderScores()
+  }catch(e){}
+}
+function finalRecord(){
+  $("#saveRecord").onclick=function(){autoSave();alert("已儲存 2026-09-26 今日模考紀錄。")};
+  $("#clearRecord").onclick=function(){if(confirm("清除今天所有作答與紀錄？")){localStorage.removeItem(STORE);location.reload()}};
+}
+renderReading();renderListening();renderWriting();initSpeaking();wireReadingListening();wireAudioDetails();timer();finalRecord();restore();renderScores();
+window.__TOEFL_MOCK_READY=true;
+})();
+</script>
 </body>
 </html>
