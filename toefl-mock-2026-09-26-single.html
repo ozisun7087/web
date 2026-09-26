@@ -77,7 +77,7 @@ select{padding:9px;border:1px solid #cfd8e6;border-radius:9px;background:#fff;mi
 <p>今天是固定週六 180 分鐘：<b>完整模擬考＋訂正</b>。只使用 2026/1/21 起新版題型，全部題目與互動直接內建於本頁。</p>
 <div class="grid">
 <div class="note"><b>學習目標</b><br>先穩定達到 4.5，再以 5.0 為進階目標。今天主要用途是找出 Reading、Listening、Writing、Speaking 四科的主要瓶頸。</div>
-<div class="instruction"><b>完成標準</b><br>完成 36 Reading、36 Listening、12 Writing、11 Speaking；完成自動計分；至少整理 3 個錯因與 1 個下週優先改善項目。</div>
+<div class="instruction"><b>完成標準</b><br>完成 50 Reading、47 Listening、12 Writing、11 Speaking；完成自動計分；至少整理 3 個錯因與 1 個下週優先改善項目。</div>
 </div>
 </section>
 
@@ -101,13 +101,13 @@ select{padding:9px;border:1px solid #cfd8e6;border-radius:9px;background:#fff;mi
 </section>
 
 <section class="card" id="readingSection">
-<h2>Part 1｜Reading｜36 題</h2>
+<h2>Part 1｜Reading｜50 題</h2>
 <div id="rKpi" class="kpi"></div>
 <div id="readingContent"></div>
 </section>
 
 <section class="card" id="listeningSection">
-<h2>Part 2｜Listening｜36 題</h2>
+<h2>Part 2｜Listening｜47 題</h2>
 <div class="note"><b>今日音域</b>：混合 North America、U.K.、Australia、New Zealand。指定口音若裝置沒有高品質正常聲線，會退回最近的正常英文聲線；不使用 novelty／機械／效果聲線。</div>
 <div id="voiceStatus"></div>
 <div id="lKpi" class="kpi" style="margin-top:10px"></div>
@@ -297,6 +297,54 @@ interview: [
 ]
 }
 };
+/* Full-mock extension: bring today's fixed mock to the current ETS base item counts. */
+window.TOEFL_MOCK_DATA.reading.daily.push(
+ ["d7","Student services notice","The student advising office will offer walk-in appointments from 2 to 4 p.m. on Friday. Students who need help with course planning should bring a copy of their current schedule.","What should students bring?",["A copy of their current schedule","A museum ticket","A bus pass","A building permit"],0],
+ ["d8","Community meeting message","A neighborhood association message says the Saturday meeting will begin in the library rather than the community hall because the hall is being used for a youth event.","Why was the meeting location changed?",["The library is closer to the station","The community hall is being used for a youth event","The association lost its meeting budget","The library has more parking"],1]
+);
+window.TOEFL_MOCK_DATA.reading.academic.push(
+ {title:"Community Land Trusts and Housing Stability",text:"A community land trust is a nonprofit organization that can hold land on behalf of a community while homes on that land are owned or used by individual households. One purpose of this arrangement is to keep housing costs more stable over time. Because the trust retains ownership of the land, resale conditions can limit the amount of market appreciation a homeowner receives. In exchange, the household may gain a more affordable path to homeownership. Supporters argue that the model can preserve affordability beyond a single transaction. Critics note that trusts require long-term administration, clear resale rules, and community participation. The model therefore depends not only on the legal structure but also on the capacity of the organization managing the land and the relationship it maintains with residents.",
+  qs:[
+   ["What is the main purpose of the passage?",["To explain how community land trusts can support longer-term housing affordability","To compare several private real-estate investment strategies","To show why nonprofit organizations avoid ownership","To describe the history of commercial land sales"],0,"Main idea"],
+   ["Who can own or use homes in the arrangement?",["Individual households","Only city governments","Only construction firms","Only transit agencies"],0,"Detail"],
+   ["Why can the model help preserve affordability?",["Resale conditions can limit market appreciation","The government guarantees free land","Homes cannot be occupied by families","The trust sells land after every transaction"],0,"Inference"],
+   ["What do critics say the model requires?",["Long-term administration and community participation","A new subway line","Large commercial offices","No legal agreements"],0,"Detail"],
+   ["The word appreciation is closest in meaning to",["increase in value","public recognition","physical damage","maintenance cost"],0,"Vocabulary"],
+   ["What does the final sentence emphasize?",["Organizational capacity and resident relationships matter to the model","Legal structures are never important","Residents should not participate","Housing affordability depends only on construction technology"],0,"Organization"]
+ ]},
+ {title:"Street Markets and Local Identity",text:"Street markets can function as more than places to buy food. In some neighborhoods, regular vendors, repeated routes, and informal encounters create a recognizable pattern of daily life. Urban researchers sometimes describe this pattern as part of local identity because residents associate the market with particular people, sounds, and routines. Redevelopment can change these conditions when market space is reduced or moved indoors. However, preservation does not necessarily mean keeping every stall exactly where it is. Some projects have tried to improve drainage, storage, and pedestrian circulation while maintaining the social role of the market. The important question is therefore not simply whether a physical market survives, but whether the relationships and everyday practices associated with it remain possible.",
+  qs:[
+   ["What central idea does the passage present?",["Street markets can contribute to local identity through everyday social practices","Markets are valuable only because they attract tourists","Redevelopment always eliminates local identity","Indoor markets cannot provide any social benefits"],0,"Main idea"],
+   ["What can create a recognizable pattern of daily life?",["Regular vendors and repeated encounters","New office towers","Higher property taxes","Long-distance commuting"],0,"Detail"],
+   ["Why might redevelopment affect local identity?",["It may reduce or relocate the conditions that support market routines","It always lowers the price of food","It prevents all pedestrian movement","It removes every nearby school"],0,"Inference"],
+   ["What have some projects tried to improve?",["Drainage, storage, and pedestrian circulation","Airport runways and rail tracks","Residential mortgage rates","Museum ticket prices"],0,"Detail"],
+   ["The word circulation is closest in meaning to",["movement through a space","ownership of a building","price of a product","history of a neighborhood"],0,"Vocabulary"],
+   ["What does the final sentence suggest should be evaluated?",["Whether associated relationships and everyday practices remain possible","Only whether stalls remain in exactly the same location","Only the number of tourists","Only the market's tax revenue"],0,"Purpose"]
+ ]}
+);
+window.TOEFL_MOCK_DATA.listening.responses.push(
+ ["What time does the urban design workshop begin?",["It starts at ten thirty.","The workshop has three speakers.","It was held in the old cinema.","The design uses recycled wood."],0],
+ ["Could you explain why the plaza entrance was moved?",["Because the original route was too narrow.","The plaza opened last spring.","There are two entrances now.","The trees were planted yesterday."],0],
+ ["Would you like me to reserve a seat for the heritage lecture?",["Yes, that would be helpful.","The lecture is about a nineteenth-century building.","It is next to the archive.","The seats are arranged in rows."],0],
+ ["Why are the housing survey interviews being repeated?",["Some responses need clarification.","The survey has ten pages.","The interviews are in the library.","Housing policy changed last year."],0],
+ ["When can residents submit comments on the draft plan?",["Until Sunday evening.","The draft has four chapters.","Comments are usually informal.","The plan was printed yesterday."],0]
+);
+window.TOEFL_MOCK_DATA.listening.conversations.push(
+ ["c7","Elena: The new neighborhood plan adds apartments, but I am not sure the public space will be large enough.\nMarcus: The revised plan increased the plaza and kept a route to the bus stop.\nElena: In that case, the public-space test might tell us whether the balance works.",
+  [["What is Elena concerned about?",["The amount of public space","The bus fare","The age of the buildings","The location of the library"],0],
+   ["What changed in the revised plan?",["The plaza was increased and a route to the bus stop was kept","The apartments were removed","The bus stop was replaced by parking","The library was expanded"],0]]]
+);
+window.TOEFL_MOCK_DATA.listening.announcements.push(
+ ["a4","Announcement: The cultural center will close its exhibition hall at 6 p.m. on Wednesday so staff can install a new local-history exhibit. Visitors with evening reservations should use the online reservation page to choose another time.",
+  [["Why will the exhibition hall close early?",["Staff will install a new exhibit","A transit project will begin","The building will be sold","A lecture has been cancelled"],0],
+   ["What should evening visitors do?",["Choose another time through the online reservation page","Wait in the lobby","Bring a printed map","Contact the bus operator"],0]]]
+);
+window.TOEFL_MOCK_DATA.listening.talks.push(
+ ["t4","Academic Talk: In studies of neighborhood change, researchers sometimes distinguish between physical displacement and cultural displacement. Physical displacement occurs when households can no longer remain in an area. Cultural displacement can happen when familiar institutions, activities, or social networks become harder to sustain. The two processes may occur together, but they are not identical.",
+  [["What distinction does the speaker introduce?",["Physical displacement versus cultural displacement","Private housing versus public housing","Transit access versus walking speed","Historic buildings versus modern buildings"],0],
+   ["What can cultural displacement involve?",["Loss of familiar institutions or social networks","Removal of all public transport","A fall in building height","An increase in museum tickets"],0]]]
+);
+
 </script>
 <script>
 (function(){
@@ -334,16 +382,16 @@ function prepared(item,index,section){
   return{options:out,correct:pos};
 }
 function renderReading(){
-  var box=$("#readingContent"),html='<div class="q"><div class="instruction"><b>Mock composition</b>：6 Complete the Words + 6 Read in Daily Life + 24 Read an Academic Passage = 36 items.</div></div>';
+  var box=$("#readingContent"),html='<div class="q"><div class="instruction"><b>Mock composition</b>：6 Complete the Words + 8 Read in Daily Life + 36 Read an Academic Passage = 50 items.</div></div>';
   var plan=positionPlan( reading.filter(function(x){return x.type!=="words"}).length,"R");
   var pi=0;
   reading.forEach(function(it,i){
     rState[it.id]={selected:null,checked:false,correct:false};
     if(it.type==="words"){
-      html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/36</div><span class="tag">Complete the Words</span><p>'+esc(it.text).replace("_","<span class=\"blank\">____</span>")+'</p><input class="wordInput" data-id="'+it.id+'" type="text" autocapitalize="none" autocomplete="off" spellcheck="false" placeholder="Type the missing word"><div class="actions"><button class="checkWord" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>字彙</option><option>拼字</option><option>詞性／word form</option></select></div><div class="result hidden" id="RF-'+it.id+'"></div></div>';
+      html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/50</div><span class="tag">Complete the Words</span><p>'+esc(it.text).replace("_","<span class=\"blank\">____</span>")+'</p><input class="wordInput" data-id="'+it.id+'" type="text" autocapitalize="none" autocomplete="off" spellcheck="false" placeholder="Type the missing word"><div class="actions"><button class="checkWord" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>字彙</option><option>拼字</option><option>詞性／word form</option></select></div><div class="result hidden" id="RF-'+it.id+'"></div></div>';
     }else{
       var p=prepared(it,pi++,"R"),o=p.options;rState[it.id].correct=p.correct;it._options=o;it._correctIndex=p.correct;
-      html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/36</div><span class="tag">'+esc(it.type==="daily"?"Read in Daily Life":"Read an Academic Passage")+'</span>'+ (it.title?'<span class="tag">'+esc(it.title)+'</span>':'') +
+      html+='<div class="q" id="R-'+it.id+'"><div class="small">READING '+(i+1)+'/50</div><span class="tag">'+esc(it.type==="daily"?"Read in Daily Life":"Read an Academic Passage")+'</span>'+ (it.title?'<span class="tag">'+esc(it.title)+'</span>':'') +
       (it.passage?'<div class="passage"><b>Text</b>'+it.passage.split("\\n").map(function(t){return"<p>"+esc(t)+"</p>"}).join("")+'</div>':'')+
       '<p><b>'+esc(it.question)+'</b></p>'+o.map(function(v,j){return'<button class="option rOpt" data-id="'+it.id+'" data-i="'+j+'">'+String.fromCharCode(65+j)+". "+esc(v)+"</button>"}).join("")+
       '<div class="actions"><button class="checkR" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>主旨／purpose</option><option>細節／detail</option><option>推論／inference</option><option>字彙／vocabulary</option><option>組織／organization</option><option>說話者意圖</option></select><button class="ghost showR" data-id="'+it.id+'">顯示答案</button></div><div class="result hidden" id="RF-'+it.id+'"></div></div>';
@@ -356,7 +404,7 @@ function renderListening(){
   var box=$("#listeningContent"),html="",plan=positionPlan(listening.length,"L");
   listening.forEach(function(it,i){
     var p=prepared(it,i,"L");it._options=p.options;it._correctIndex=p.correct;lState[it.id]={selected:null,checked:false,correct:p.correct};
-    html+='<div class="q" id="L-'+it.id+'"><div class="small">LISTENING '+(i+1)+'/36</div><span class="tag">'+esc(listeningAudioLabel(it.type))+'</span><span class="tag">'+esc(it.lang)+'</span>'+
+    html+='<div class="q" id="L-'+it.id+'"><div class="small">LISTENING '+(i+1)+'/47</div><span class="tag">'+esc(listeningAudioLabel(it.type))+'</span><span class="tag">'+esc(it.lang)+'</span>'+
       '<div class="audio"><button class="playBtn" data-id="'+it.id+'" data-mode="full">🔊 播放完整音檔</button>'+ (it.type==="response"?"":'<button class="playBtn" data-id="'+it.id+'" data-mode="question">🔊 只重播題問</button>')+'</div>'+
       '<p><b>題問</b> '+esc(it.question)+'</p>'+p.options.map(function(v,j){return'<button class="option lOpt" data-id="'+it.id+'" data-i="'+j+'">'+String.fromCharCode(65+j)+". "+esc(v)+"</button>"}).join("")+
       '<div class="actions"><button class="checkL" data-id="'+it.id+'">檢查</button><select class="errorTag"><option value="">錯題分類</option><option>主旨／main idea</option><option>細節／detail</option><option>推論／inference</option><option>說話者意圖／purpose</option><option>語氣／attitude</option><option>Response</option></select><button class="ghost showL" data-id="'+it.id+'">顯示答案</button></div><div class="result hidden" id="LF-'+it.id+'"></div><details class="transcript"><summary>訂正後看逐字稿</summary><div>'+esc(it.audio)+'</div></details></div>';
@@ -393,10 +441,10 @@ function renderScores(){
   var bs=wState.bs.filter(function(x){return x.checked&&x.correct}).length;
   var wr=bs+(wState.email?wState.email.score:0)+(wState.discussion?wState.discussion.score:0);
   var ss=speakingScore();
-  $("#rKpi").innerHTML="<div><b>"+rb+"</b><span>對題</span></div><div><b>"+rw+"/36</b><span>已評</span></div><div><b>"+(rw?Math.round(rb/rw*100):0)+"%</b><span>正確率</span></div><div><b>"+(rw-rb)+"</b><span>錯題</span></div>";
-  $("#lKpi").innerHTML="<div><b>"+lb+"</b><span>對題</span></div><div><b>"+lw+"/36</b><span>已評</span></div><div><b>"+(lw?Math.round(lb/lw*100):0)+"%</b><span>正確率</span></div><div><b>"+(lw-lb)+"</b><span>錯題</span></div>";
-  $("#overallRaw").textContent="Reading "+rb+"/36｜Listening "+lb+"/36｜Writing "+wr+"/20｜Speaking "+ss+"/55";
-  $("#stickyScore").textContent="R "+rb+"/36 · L "+lb+"/36 · W "+wr+"/20 · S "+ss+"/55";
+  $("#rKpi").innerHTML="<div><b>"+rb+"</b><span>對題</span></div><div><b>"+rw+"/50</b><span>已評</span></div><div><b>"+(rw?Math.round(rb/rw*100):0)+"%</b><span>正確率</span></div><div><b>"+(rw-rb)+"</b><span>錯題</span></div>";
+  $("#lKpi").innerHTML="<div><b>"+lb+"</b><span>對題</span></div><div><b>"+lw+"/47</b><span>已評</span></div><div><b>"+(lw?Math.round(lb/lw*100):0)+"%</b><span>正確率</span></div><div><b>"+(lw-lb)+"</b><span>錯題</span></div>";
+  $("#overallRaw").textContent="Reading "+rb+"/50｜Listening "+lb+"/47｜Writing "+wr+"/20｜Speaking "+ss+"/55";
+  $("#stickyScore").textContent="R "+rb+"/50 · L "+lb+"/47 · W "+wr+"/20 · S "+ss+"/55";
   var wrong=reading.concat(listening).filter(function(x){return x._checked&&!x._correct}),tags={};
   wrong.forEach(function(x){var sec=x._sec==="L"?"L-":"R-",sel=$("#"+sec+x.id);if(sel){var s=$(".errorTag",sel);if(s&&s.value)tags[s.value]=(tags[s.value]||0)+1}});
   $("#errorSummary").innerHTML=wrong.length?("目前客觀題錯 "+wrong.length+" 題。 "+Object.keys(tags).map(function(k){return esc(k)+" × "+tags[k]}).join("；")+"。"):("目前尚無已確認錯題。");
