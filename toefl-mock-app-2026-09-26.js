@@ -67,7 +67,7 @@ function renderWriting(){
   DATA.writing.bs.forEach(function(q,i){
     var toks=shuffle(q[0],hash(DAY+"|BS|"+i));
     if(toks.every(function(v,j){return v===q[0][j]}))toks.reverse();
-    h+='<div class="q" id="W-'+i+'"><div class="small">WRITING Build a Sentence '+(i+1)+'/10</div><div class="chips">'+toks.map(function(t){return'<button class="chip bsTok" data-i="'+i+'" data-t="'+esc(t)+'">'+esc(t)+'</button>"}).join("")+'</div><div class="small">Your sentence</div><div class="answerline" id="WL-'+i+'"><span class="small">點選字詞組開始。</span></div><div class="actions"><button class="ghost bsUndo" data-i="'+i+'">移除最後一組</button><button class="ghost bsReset" data-i="'+i+'">重設</button><button class="checkBS" data-i="'+i+'">檢查</button></div><div class="result hidden" id="WF-'+i+'"></div></div>';
+    h+='<div class="q" id="W-'+i+'"><div class="small">WRITING Build a Sentence '+(i+1)+'/10</div><div class="chips">'+toks.map(function(t){return '<button class="chip bsTok" data-i="'+i+'" data-t="'+esc(t)+'">'+esc(t)+'</button>'}).join('')+'</div><div class="small">Your sentence</div><div class="answerline" id="WL-'+i+'"><span class="small">點選字詞組開始。</span></div><div class="actions"><button class="ghost bsUndo" data-i="'+i+'">移除最後一組</button><button class="ghost bsReset" data-i="'+i+'">重設</button><button class="checkBS" data-i="'+i+'">檢查</button></div><div class="result hidden" id="WF-'+i+'"></div></div>';
   });
   h+='<div class="q"><h3>Write an Email｜1 題</h3><div class="note">'+esc(DATA.writing.email)+'</div><textarea id="emailAnswer" placeholder="Write your email here..."></textarea><div class="count"><span>Email</span><span id="emailCount">0 words</span></div><button id="gradeEmail">站內模擬評分 0–5</button><div class="result hidden" id="emailResult"></div></div>';
   h+='<div class="q"><h3>Write for an Academic Discussion｜1 題</h3><div class="note">'+esc(DATA.writing.discussion)+'</div><textarea id="discussionAnswer" placeholder="Write your response here..."></textarea><div class="count"><span>Academic Discussion</span><span id="discussionCount">0 words</span></div><button id="gradeDiscussion">站內模擬評分 0–5</button><div class="result hidden" id="discussionResult"></div></div>';
@@ -75,7 +75,7 @@ function renderWriting(){
 }
 function bsRenderLine(i){
   var box=$("#WL-"+i),a=wState.bs[i].picked;
-  box.innerHTML=a.length?a.map(function(t,k){return'<button class="answerchip bsPicked" data-i="'+i+'" data-k="'+k+'">'+esc(t)+'</button>"}).join(""):'<span class="small">點選字詞組開始。</span>';
+  box.innerHTML=a.length?a.map(function(t,k){return '<button class="answerchip bsPicked" data-i="'+i+'" data-k="'+k+'">'+esc(t)+'</button>'}).join(''):'<span class="small">點選字詞組開始。</span>';
   $$('.bsTok[data-i="'+i+'"]').forEach(function(b){b.classList.toggle("used",a.indexOf(b.dataset.t)>=0)})
 }
 function simpleWritingGrade(text,type){
