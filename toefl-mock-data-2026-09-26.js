@@ -147,3 +147,50 @@ interview: [
 ]
 }
 };
+/* Full-mock extension: bring today's fixed mock to the current ETS base item counts. */
+window.TOEFL_MOCK_DATA.reading.daily.push(
+ ["d7","Student services notice","The student advising office will offer walk-in appointments from 2 to 4 p.m. on Friday. Students who need help with course planning should bring a copy of their current schedule.","What should students bring?",["A copy of their current schedule","A museum ticket","A bus pass","A building permit"],0],
+ ["d8","Community meeting message","A neighborhood association message says the Saturday meeting will begin in the library rather than the community hall because the hall is being used for a youth event.","Why was the meeting location changed?",["The library is closer to the station","The community hall is being used for a youth event","The association lost its meeting budget","The library has more parking"],1]
+);
+window.TOEFL_MOCK_DATA.reading.academic.push(
+ {title:"Community Land Trusts and Housing Stability",text:"A community land trust is a nonprofit organization that can hold land on behalf of a community while homes on that land are owned or used by individual households. One purpose of this arrangement is to keep housing costs more stable over time. Because the trust retains ownership of the land, resale conditions can limit the amount of market appreciation a homeowner receives. In exchange, the household may gain a more affordable path to homeownership. Supporters argue that the model can preserve affordability beyond a single transaction. Critics note that trusts require long-term administration, clear resale rules, and community participation. The model therefore depends not only on the legal structure but also on the capacity of the organization managing the land and the relationship it maintains with residents.",
+  qs:[
+   ["What is the main purpose of the passage?",["To explain how community land trusts can support longer-term housing affordability","To compare several private real-estate investment strategies","To show why nonprofit organizations avoid ownership","To describe the history of commercial land sales"],0,"Main idea"],
+   ["Who can own or use homes in the arrangement?",["Individual households","Only city governments","Only construction firms","Only transit agencies"],0,"Detail"],
+   ["Why can the model help preserve affordability?",["Resale conditions can limit market appreciation","The government guarantees free land","Homes cannot be occupied by families","The trust sells land after every transaction"],0,"Inference"],
+   ["What do critics say the model requires?",["Long-term administration and community participation","A new subway line","Large commercial offices","No legal agreements"],0,"Detail"],
+   ["The word appreciation is closest in meaning to",["increase in value","public recognition","physical damage","maintenance cost"],0,"Vocabulary"],
+   ["What does the final sentence emphasize?",["Organizational capacity and resident relationships matter to the model","Legal structures are never important","Residents should not participate","Housing affordability depends only on construction technology"],0,"Organization"]
+ ]},
+ {title:"Street Markets and Local Identity",text:"Street markets can function as more than places to buy food. In some neighborhoods, regular vendors, repeated routes, and informal encounters create a recognizable pattern of daily life. Urban researchers sometimes describe this pattern as part of local identity because residents associate the market with particular people, sounds, and routines. Redevelopment can change these conditions when market space is reduced or moved indoors. However, preservation does not necessarily mean keeping every stall exactly where it is. Some projects have tried to improve drainage, storage, and pedestrian circulation while maintaining the social role of the market. The important question is therefore not simply whether a physical market survives, but whether the relationships and everyday practices associated with it remain possible.",
+  qs:[
+   ["What central idea does the passage present?",["Street markets can contribute to local identity through everyday social practices","Markets are valuable only because they attract tourists","Redevelopment always eliminates local identity","Indoor markets cannot provide any social benefits"],0,"Main idea"],
+   ["What can create a recognizable pattern of daily life?",["Regular vendors and repeated encounters","New office towers","Higher property taxes","Long-distance commuting"],0,"Detail"],
+   ["Why might redevelopment affect local identity?",["It may reduce or relocate the conditions that support market routines","It always lowers the price of food","It prevents all pedestrian movement","It removes every nearby school"],0,"Inference"],
+   ["What have some projects tried to improve?",["Drainage, storage, and pedestrian circulation","Airport runways and rail tracks","Residential mortgage rates","Museum ticket prices"],0,"Detail"],
+   ["The word circulation is closest in meaning to",["movement through a space","ownership of a building","price of a product","history of a neighborhood"],0,"Vocabulary"],
+   ["What does the final sentence suggest should be evaluated?",["Whether associated relationships and everyday practices remain possible","Only whether stalls remain in exactly the same location","Only the number of tourists","Only the market's tax revenue"],0,"Purpose"]
+ ]}
+);
+window.TOEFL_MOCK_DATA.listening.responses.push(
+ ["What time does the urban design workshop begin?",["It starts at ten thirty.","The workshop has three speakers.","It was held in the old cinema.","The design uses recycled wood."],0],
+ ["Could you explain why the plaza entrance was moved?",["Because the original route was too narrow.","The plaza opened last spring.","There are two entrances now.","The trees were planted yesterday."],0],
+ ["Would you like me to reserve a seat for the heritage lecture?",["Yes, that would be helpful.","The lecture is about a nineteenth-century building.","It is next to the archive.","The seats are arranged in rows."],0],
+ ["Why are the housing survey interviews being repeated?",["Some responses need clarification.","The survey has ten pages.","The interviews are in the library.","Housing policy changed last year."],0],
+ ["When can residents submit comments on the draft plan?",["Until Sunday evening.","The draft has four chapters.","Comments are usually informal.","The plan was printed yesterday."],0]
+);
+window.TOEFL_MOCK_DATA.listening.conversations.push(
+ ["c7","Elena: The new neighborhood plan adds apartments, but I am not sure the public space will be large enough.\nMarcus: The revised plan increased the plaza and kept a route to the bus stop.\nElena: In that case, the public-space test might tell us whether the balance works.",
+  [["What is Elena concerned about?",["The amount of public space","The bus fare","The age of the buildings","The location of the library"],0],
+   ["What changed in the revised plan?",["The plaza was increased and a route to the bus stop was kept","The apartments were removed","The bus stop was replaced by parking","The library was expanded"],0]]]
+);
+window.TOEFL_MOCK_DATA.listening.announcements.push(
+ ["a4","Announcement: The cultural center will close its exhibition hall at 6 p.m. on Wednesday so staff can install a new local-history exhibit. Visitors with evening reservations should use the online reservation page to choose another time.",
+  [["Why will the exhibition hall close early?",["Staff will install a new exhibit","A transit project will begin","The building will be sold","A lecture has been cancelled"],0],
+   ["What should evening visitors do?",["Choose another time through the online reservation page","Wait in the lobby","Bring a printed map","Contact the bus operator"],0]]]
+);
+window.TOEFL_MOCK_DATA.listening.talks.push(
+ ["t4","Academic Talk: In studies of neighborhood change, researchers sometimes distinguish between physical displacement and cultural displacement. Physical displacement occurs when households can no longer remain in an area. Cultural displacement can happen when familiar institutions, activities, or social networks become harder to sustain. The two processes may occur together, but they are not identical.",
+  [["What distinction does the speaker introduce?",["Physical displacement versus cultural displacement","Private housing versus public housing","Transit access versus walking speed","Historic buildings versus modern buildings"],0],
+   ["What can cultural displacement involve?",["Loss of familiar institutions or social networks","Removal of all public transport","A fall in building height","An increase in museum tickets"],0]]]
+);
